@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<script>
+		function fs() {
+			var input = document.getElementById('input');
+			//			alert(input.value);
+			console.log(input.value);
+		}
+
+		function showHint(str) {
+			var xmlhttp;
+			if (str.length == 0) {
+				document.getElementById("txtHint").innerHTML = "";
+				return;
+			}
+			if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp = new XMLHttpRequest();
+			} else { // code for IE6, IE5
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					//					console.log(xmlhttp.responseText);
+					var obj = xmlhttp.responseText;
+					console.log("字符串："+obj);
+					//json要把字符串转化成对象，才能读，eval就是把json字符串转化成对象
+					//console.log(obj.code);这样是不行的，要把json 用js的 eval();函数处理话，才能读取数据
+					var jsonobj = eval('(' + obj + ')'); //单个JSON对象时要加括号，JSON数组就不需要了
+					console.log(jsonobj.code);
+					console.log(jsonobj.text);
+					document.getElementById("txtHint").innerHTML = jsonobj.text;
+				}
+			}
+			xmlhttp.open("GET", "tuling.php?q=" + str, true);
+			xmlhttp.send();
+		}
+	</script>
+
+	<body>
+		<form action="">
+			<!--<input id="input" type="text" value="" />-->
+			<!--<button onclick="showHint(this.value)">发送</button>-->
+			输入：
+			<input type="text" id="txt1" onkeyup="showHint(this.value)" />
+			<p>结果：<span id="txtHint"></span></p>
+		</form>
+	</body>
+
+</html>

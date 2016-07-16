@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
+		<title></title>
+	</head>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		.article1 {
+			width: 600px;
+			float: left;
+		}
+		
+		.article1 section{
+			float: left;
+			height: 50px;
+		}
+		
+		.article1 section:nth-of-type(1){
+			background-color: #800080;
+			width: 33.3%;
+		}
+		
+		.article1 section:nth-of-type(2){
+			background-color: #008000;
+			width: 33.3%;
+		}
+		
+		.article1 section:nth-of-type(3){
+			background-color: #FFA500;
+			width: 33.3%;
+		}
+		
+		.article2{
+			width: 100%;
+			display: flex;
+		}
+		
+		.article2 section{
+			height: 50px;
+		}
+		/*每个section占用了1份 总共3份*/
+		/*第一个拿了2个 后面各拿一个 总共4份*/
+		.article2 section:nth-of-type(1){
+			background-color: #800080;
+			flex: 2;
+			/*占用了三分之一*/
+		}
+		
+		.article2 section:nth-of-type(2){
+			background-color: #008000;
+			flex: 2;
+		}
+		
+		.article2 section:nth-of-type(3){
+			background-color: #FFA500;
+			flex: 2;
+		}
+		
+		.article3{
+			/*width: 100%;*/
+			width: 600px;
+			display: flex;
+		}
+		
+		.article3 section{
+			height: 50px;
+		}
+		/*每个section占用了1份 总共3份*/
+		/*第一个拿了2个 后面各拿一个 总共4份*/
+		.article3 section:nth-of-type(1){
+			background-color: #800080;
+			flex: 2;
+			/*占用了三分之一*/
+		}
+		
+		.article3 section:nth-of-type(2){
+			background-color: #008000;
+			flex: 2;
+		}
+		
+		.article3 section:nth-of-type(3){
+			background-color: #FFA500;
+			flex: 2;
+		}
+		
+		.article4{
+			/*width: 100%;*/
+			width: 600px;
+			display: -webkit-box;
+			display: box;
+		}
+		
+		.article4 section{
+			height: 50px;
+		}
+		/*每个section占用了1份 总共3份*/
+		/*第一个拿了2个 后面各拿一个 总共4份*/
+		.article4 section:nth-of-type(1){
+			background-color: #800080;
+			-webkit-box-flex: 1;
+			/*占用了三分之一*/
+		}
+		
+		.article4 section:nth-of-type(2){
+			background-color: #008000;
+			-webkit-box-flex: 1;
+		}
+		
+		.article4 section:nth-of-type(3){
+			background-color: #FFA500;
+			-webkit-box-flex: 1;
+		}
+		
+		.article5{
+			/*width: 100%;*/
+			/*margin: ;*/
+			/*border: ;*/
+			/*padding: ;*/
+			/*content: ;*/
+			width: 600px;
+			/*display: -webkit-box;*/
+			display: flex;
+			flex-direction: row-reverse;
+		}
+		
+		.article5 section{
+			height: 50px;
+		}
+		/*每个section占用了1份 总共3份*/
+		/*第一个拿了2个 后面各拿一个 总共4份*/
+		.article5 section:nth-of-type(1){
+			background-color: #800080;
+			flex: 1;
+			/*占用了三分之一*/
+		}
+		
+		.article5 section:nth-of-type(2){
+			background-color: #008000;
+			flex: 1;
+		}
+		
+		.article5 section:nth-of-type(3){
+			background-color: #FFA500;
+			flex: 1;
+		}
+		
+		.article6{
+			/*width: 100%;*/
+			/*margin: ;*/
+			/*border: ;*/
+			/*padding: ;*/
+			/*content: ;*/
+			width: 600px;
+			height: 100px;
+			/*display: -webkit-box;*/
+			display: flex;
+			flex-direction: column;
+		}
+		
+		.article6 section{
+			height: 50px;
+		}
+		/*每个section占用了1份 总共3份*/
+		/*第一个拿了2个 后面各拿一个 总共4份*/
+		.article6 section:nth-of-type(1){
+			background-color: #800080;
+			flex: 2;
+			/*占用了三分之一*/
+		}
+		
+		.article6 section:nth-of-type(2){
+			background-color: #008000;
+			flex: 1;
+		}
+		
+		.article6 section:nth-of-type(3){
+			background-color: #FFA500;
+			flex: 1;
+		}
+		
+		.article7{
+			/*width: 100%;*/
+			/*margin: ;*/
+			/*border: ;*/
+			/*padding: ;*/
+			/*content: ;*/
+			width: 600px;
+			height: 100px;
+			/*display: -webkit-box;*/
+			display: flex;
+			/*flex-direction: column;*/
+		}
+		
+		.article7 section{
+			height: 50px;
+		}
+		/*每个section占用了1份 总共3份*/
+		/*第一个拿了2个 后面各拿一个 总共4份*/
+		.article7 section:nth-of-type(1){
+			background-color: #800080;
+			/*flex: 1;*/
+			/*width: 300px;*/
+			width: 50%;
+			/*占用了三分之一*/
+		}
+		
+		.article7 section:nth-of-type(2){
+			background-color: #008000;
+			/*flex: 1;*/
+			/*width: 200px;*/
+			width: 30%;
+		}
+		
+		.article7 section:nth-of-type(3){
+			background-color: #FFA500;
+			/*flex: 1;*/
+			/*width: 150px;*/
+			width: 30%;
+		}
+		
+		.article8{
+			width: 600px;
+			height: 100px;
+			display: flex;
+			flex-wrap: wrap-reverse;
+		}
+		
+		.article8 section{
+			height: 50px;
+		}
+		.article8 section:nth-of-type(1){
+			background-color: #800080;
+			width: 50%;
+		}
+		
+		.article8 section:nth-of-type(2){
+			background-color: #008000;
+			width: 30%;
+		}
+		
+		.article8 section:nth-of-type(3){
+			background-color: #FFA500;
+			width: 30%;
+		}
+		
+		.article9{
+			width: 600px;
+			height: 100px;
+			display: flex;
+			justify-content: space-around;
+		}
+		
+		.article9 section{
+			height: 50px;
+		}
+		.article9 section:nth-of-type(1){
+			background-color: #800080;
+			width: 20%;
+		}
+		
+		.article9 section:nth-of-type(2){
+			background-color: #008000;
+			width: 20%;
+		}
+		
+		.article9 section:nth-of-type(3){
+			background-color: #FFA500;
+			width: 20%;
+		}
+		
+		.article9 section:nth-of-type(4){
+			background-color: aqua;
+			width: 20%;
+		}
+		
+		.article10{
+			width: 600px;
+			height: 100px;
+			display: flex;
+			/*align-items: stretch;*/
+			flex-wrap: wrap;
+			align-content: center;
+		}
+		
+		.article10 section{
+			height: 50px;
+		}
+		.article10 section:nth-of-type(1){
+			background-color: #800080;
+			width: 20%;
+		}
+		
+		.article10 section:nth-of-type(2){
+			background-color: #008000;
+			width: 20%;
+		}
+		
+		.article10 section:nth-of-type(3){
+			background-color: #FFA500;
+			width: 20%;
+		}
+		
+		.article10 section:nth-of-type(4){
+			background-color: aqua;
+			width: 50%;
+		}
+		
+		.article11{
+			width: 600px;
+			height: 100px;
+			display: flex;
+			/*align-items: stretch;*/
+			/*flex-wrap: wrap;*/
+			/*align-content: center;*/
+		}
+		
+		.article11 section{
+			height: 50px;
+		}
+		.article11 section:nth-of-type(1){
+			background-color: #800080;
+			width: 20%;
+			align-self: flex-end;
+		}
+		
+		.article11 section:nth-of-type(2){
+			background-color: #008000;
+			width: 20%;
+			align-self: flex-start;
+		}
+		
+		.article11 section:nth-of-type(3){
+			background-color: #FFA500;
+			width: 20%;
+			align-self: center;
+		}
+		
+		.article11 section:nth-of-type(4){
+			background-color: aqua;
+			width: 50%;
+			align-self: baseline;
+		}
+		
+		/*
+		 * 300+200+150-(600) = 50(px)
+		 * 50*1/3 = 16.6(px)
+		 * 300-23.07px = 276.92
+		 * 200-15.38 = 184.61
+		 * 300+200+150- (16.6*3) = 600 -> 300-16.6, 200-16.6, 150-16.6 = 600
+		 * 283.4px
+		 * 
+		 * 
+		 * 110% 10%
+		 * 
+		 * 50%/110%*10% = 4.54%
+		 * 
+		 * 600*4.54%
+		 * */
+	</style>
+
+	<body>
+		<!--百分比的方法 0.01%-->
+		<p>百分比的方法</p>
+		<article class="article1">
+			<section>1</section>
+			<section>2</section>
+			<section>3</section>
+		</article>
+		
+		<!--flex的方法-->
+		<!--100不可能完全等分成成三分的-->
+		<p>flex 固定宽度</p>
+		<article class="article3">
+			<section>1</section>
+			<section>2</section>
+			<section>3</section>
+		</article>
+		
+		<!--flex的方法 -->
+		<p>flex 100%宽度</p>
+		<article class="article2">
+			<section>1</section>
+			<section>2</section>
+			<section>3</section>
+		</article>
+		
+		<!--flex的方法 -->
+		<p>flex-box 旧兼容</p>
+		<article class="article4">
+			<section>1</section>
+			<section>2</section>
+			<section>3</section>
+		</article>
+
+		<!--flex的方法 -->
+		<p>flex-box 改变成左到右的顺序</p>
+		<article class="article5">
+			<section>1</section>
+			<section>2</section>
+			<section>3</section>
+		</article>
+		
+		<!--flex的方法 -->
+		<p>flex-box 改变成上往下的顺序</p>
+		<article class="article6">
+			<section>1</section>
+			<section>2</section>
+			<section>3</section>
+		</article>
+		
+		<!--flex的方法 -->
+		<p>flex-box 溢出了盒子的情况</p>
+		<article class="article7">
+			<section>1</section>
+			<section>2</section>
+			<section>3</section>
+		</article>
+		
+		<!--flex的方法 -->
+		<p>flex-box 溢出了盒子的情况 设置了no-wrap</p>
+		<article class="article8">
+			<section>1</section>
+			<section>2</section>
+			<section>3</section>
+		</article>
+		
+		<!--flex的方法 -->
+		<p>flex-box 溢出了盒子的情况 设置了flex justify-contnt</p>
+		<article class="article9">
+			<section>1</section>
+			<section>2</section>
+			<section>3</section>
+			<section>4</section>
+		</article>
+		
+		<!--flex的方法 -->
+		<p>flex-box 溢出了盒子的情况 设置了flex justify-contnt</p>
+		<article style="height: 200px;" class="article10">
+			<section>1</section>
+			<section>2</section>
+			<section>3</section>
+			<section>4</section>
+		</article>
+		
+		<!--flex的方法 -->
+		<p>flex-box 子元素的摆放</p>
+		<article style="height: 200px;" class="article11">
+			<section>1</section>
+			<section>2</section>
+			<section>3</section>
+			<section>4</section>
+		</article>
+		
+	</body>
+</html>

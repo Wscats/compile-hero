@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+	textarea{
+		width: 300px;
+		height: 300px;
+	}
+	</style>
+	<body>
+		<textarea id="textarea"></textarea>
+		<label>输入</label>
+		<input type="text" id="getData" />
+		<button>session存储数据</button>
+		<button>session读取数据</button>
+		<button>session清除数据</button>
+		<button>local存储数据</button>
+		<button>local读取数据</button>
+		<button>local清除数据</button>
+		<a href="index2.html">123</a>
+	</body>
+	<script>
+	window.location.href;
+	window.sessionStorage.loginBack = window.location.href;
+		window.onload = function(){
+			function $(str) {
+				var type = str.substr(0,1);
+				var select = str.substr(1,str.length);
+				if(type=='#'){
+					return document.getElementById(select);
+				}
+				//console.log(document.getElementById(id));
+			}
+			$('#textarea');
+			console.log($('#textarea'));
+			var textArea = document.getElementById("textarea");
+			var getData = document.getElementById("getData");
+			var buttonArr = document.getElementsByTagName("button");
+			//session存储数据
+			buttonArr[0].onclick = function(){
+				window.sessionStorage[getData.value] = getData.value;
+				var obj = {};
+				obj[getData.value] = getData.value;
+				obj['Number'] = 1;
+				window.sessionStorage[getData.value] = JSON.stringify(obj);
+				//window.sessionStorage.setItem(getData.value, JSON.stringify(obj))
+				textArea.value+=("sessionStorage保存"+getData.value+":"+getData.value+"\n");
+			}
+			
+			//session读取数据
+			buttonArr[1].onclick = function(){
+				var info = window.sessionStorage[getData.value]?window.sessionStorage[getData.value]:"不存在";
+				textArea.value+=("sessionStorage读取"+getData.value+":"+info+"\n");
+			}
+			
+			//session清除数据
+			buttonArr[2].onclick = function(){
+				var info = window.sessionStorage[getData.value]?
+				window.sessionStorage[getData.value]:"不存在";
+				window.sessionStorage[getData.value]?
+				window.sessionStorage.removeItem(getData.value):"不存在";
+				textArea.value+=("sessionStorage清楚"+getData.value+":"+info+"\n");
+			}
+			
+			//local存储数据
+			buttonArr[3].onclick = function(){
+				window.localStorage[getData.value] = getData.value;
+				textArea.value+=("localStorage保存"+getData.value+":"+getData.value+"\n");
+			}
+			
+			//local读取数据
+			buttonArr[4].onclick = function(){
+				var info = window.localStorage[getData.value]?window.localStorage[getData.value]:"不存在";
+				textArea.value+=("localStorage读取"+getData.value+":"+info+"\n");
+			}
+			
+			//local清除数据
+			buttonArr[5].onclick = function(){
+				var info = window.localStorage[getData.value]?
+				window.localStorage[getData.value]:"不存在";
+				window.localStorage[getData.value]?
+				window.localStorage.removeItem(getData.value):"不存在";
+				textArea.value+=("sessionStorage清楚"+getData.value+":"+info+"\n");
+			}
+		}
+	</script>
+</html>
