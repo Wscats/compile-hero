@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<form action="">
+			<input type="text" id="txt1" onkeyup="showHint(this.value)" value="" />
+		</form>
+		<p><span id="txtHint"></span></p>
+		
+		<!--<form>
+			<input type="text" id="txt1" onkeyup="showHint(this.value)" />
+		</form>
+		innerHtml
+		<p>suggest:<span id="txtHint"></span></p>-->
+	</body>
+	<script>
+		function showHint(str) {
+			var xmlhttp;
+			if(window.XMLHttpRequest){
+				xmlhttp = new XMLHttpRequest();
+			}else{
+				//ie7以下的版本
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function(){
+				if(xmlhttp.readyState == 4&&xmlhttp.status == 200){
+					console.log(xmlhttp.responseText);
+					document.getElementById('txtHint').innerHTML = xmlhttp.responseText;
+				}
+			}
+			//
+			xmlhttp.open("GET", "gethint.php?input="+str, true);
+			xmlhttp.send();
+		}
+	</script>
+</html>

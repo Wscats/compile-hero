@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset='UTF-8'>
+		<title></title>
+	</head>
+	<style>
+		.container {
+			padding: 50px;
+		}
+		
+		.wrap {
+			position: relative;
+			transform-style: preserve-3d;
+			-webkit-animation: getNumber5 5s ease infinite;
+			height: 350px;
+		}
+		
+		.box {
+			margin: 0;
+			padding: 0;
+			position: absolute;
+			width: 200px;
+			height: 200px;
+			top: 50%;
+			left: 50%;
+			margin-left: -100px;
+			margin-top: -100px;
+			line-height: 200px;
+			text-align: center;
+			font-size: 40px;
+			color: white;
+		}
+		
+		.box:nth-of-type(1) {
+			background-color: rgba(127, 0, 0, 0.5);
+			transform: rotatey(90deg) translatez(-100px);
+		}
+		
+		.box:nth-of-type(2) {
+			background-color: rgba(0, 127, 0, 0.5);
+			transform: rotatey(90deg) translatez(100px);
+		}
+		
+		.box:nth-of-type(3) {
+			background-color: rgba(0, 0, 127, 0.5);
+			transform: rotatex(90deg) translatez(100px);
+		}
+		
+		.box:nth-of-type(4) {
+			background-color: rgba(0, 0, 255, 0.5);
+			transform: rotatex(90deg) translatez(-100px);
+		}
+		
+		.box:nth-of-type(5) {
+			background-color: rgba(0, 255, 0, 0.5);
+			transform: translatez(-100px) rotateX(180deg);
+		}
+		
+		.box:nth-of-type(6) {
+			background-color: rgba(255, 0, 0, 0.5);
+			transform: translatez(100px);
+		}
+		
+		@-webkit-keyframes getNumber6 {
+			0% {
+				-webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+				-webkit-transform-origin: center center;
+			}
+			100% {
+				-webkit-transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg);
+				-webkit-transform-origin: center center;
+			}
+		}
+		
+		@-webkit-keyframes getNumber5 {
+			0% {
+				-webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+				-webkit-transform-origin: center center;
+			}
+			100% {
+				-webkit-transform: rotateX(180deg) rotateY(0deg) rotateZ(0deg);
+				-webkit-transform-origin: center center;
+			}
+		}
+		
+		.nav {
+			width: 560px;
+			height: 50px;
+			font: bold 13px/50px Arial;
+			text-align: center;
+			margin: 40px auto 0;
+			border-radius: 8px;
+			background: #2c2c2c;
+			box-shadow: 0 7px 0 #0b0b0b;
+		}
+		
+		.nav li {
+			position: relative;
+			display: inline-block;
+			padding: 0 16px;
+			text-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+			list-style: none outside none;
+			/*font-size: 13px;*/
+		}
+		
+		.nav a {
+			color: #FFFFFF;
+			text-decoration: none;
+		}
+		
+		.nav li:before {
+			left: 0;
+			background: -webkit-linear-gradient(top, #FFFFFF, #000 50%, #FFFFFF);
+			background: linear-gradient(top, #2c2c2c, #000 50%, #2c2c2c);
+		}
+		
+		.nav li::before,
+		.nav li::after {
+			content: '';
+			position: absolute;
+			top: 14px;
+			height: 25px;
+			width: 1px;
+		}
+		
+		.nav a:hover {
+			-webkit-transform: rotate(10deg);
+			-moz-transform: rotate(10deg);
+			-o-transform: rotate(10deg);
+			-ms-transform: rotate(10deg);
+			transform: rotate(10deg);
+		}
+		
+		.nav a:hover {
+				color: #fff;
+				text-decoration: none;
+			}
+		
+		.nav a {
+				display: inline-block;
+				-webkit-transition: all 0.2s ease-in;
+				-moz-transition: all 0.2s ease-in;
+				-o-transition: all 0.2s ease-in;
+				-ms-transition: all 0.2s ease-in;
+				transition: all 0.2s ease-in;
+			}
+	</style>
+
+	<body>
+		<header></header>
+		<nav>
+			<ul class='nav black'>
+				<li><a>开始</a></li>
+				<li><a href=''>停止</a></li>
+				<li><a href=''>1</a></li>
+				<li><a href=''>2</a></li>
+				<li><a href=''>3</a></li>
+				<li><a href=''>4</a></li>
+			</ul>
+		</nav>
+		<section class='container'>
+			<aside class='wrap'>
+				<figure class='box box1'>1</figure>
+				<figure class='box box1'>2</figure>
+				<figure class='box box1'>3</figure>
+				<figure class='box box1'>4</figure>
+				<figure class='box box1'>5</figure>
+				<figure class='box box1'>6</figure>
+			</aside>
+		</section>
+	</body>
+
+</html>
