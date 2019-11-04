@@ -1,5 +1,0 @@
-查看自己电脑的IP
-打开cmd（打开左下角开始，搜索cmd）
-ipconfig
-ping www.baidu.com
-捕捉一些来自百度的包

@@ -1,8 +1,0 @@
-打开代码提示 Alt+/
-注释         Ctrl+/
-定位到某一行 Ctrl+g
-查找关键词   Ctrl+f
-查找项目的关键词 Ctrl+h
-查找一个文件 Ctrl+t
-打八个div  div*8 再按Tab键
-emmet:http://www.w3cplus.com/tools/emmet-cheat-sheet.html

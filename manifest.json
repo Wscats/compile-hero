@@ -1,0 +1,27 @@
+{
+	"name": "千锋自动测评",
+	"manifest_version": 2,
+	"version": "6.69",
+	"description": "千锋H5(@mobiletrain.org&&1000phone.com)，值得拥有！姚帅，老谢，勇哥，婧婧，琳姐，粤玲，老蓝，Lemon...在广州等你来！",
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+	"icons": {
+		"16": "static/icons/16.png",
+		"48": "static/icons/48.png",
+		"128": "static/icons/128.png"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"http://stu.1000phone.net/*"
+			],
+			"js": [
+				"static/js/myscript.js"
+			]
+		}
+	],
+	"browser_action": {
+		"default_title": "",
+		"default_icon": "static/icons/48.png",
+		"default_popup": "static/template/popup.html"
+	}
+}
