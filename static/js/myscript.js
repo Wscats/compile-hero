@@ -110,3 +110,6 @@ function GetRequest() {
 	}
 	return theRequest;
 }
+
+// http://stu.1000phone.net/student.php/inquiry/index
+// http://stu.1000phone.net/student.php/inquiry/set_res/line_id/242/line_node_id/305/paper_id/12
