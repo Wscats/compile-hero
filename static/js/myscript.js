@@ -76,26 +76,31 @@ switch (href) {
 		score();
 		break;
 	default:
-		// 知识点测评
-		let singleSelect = document.querySelectorAll('[data-score="5.00"]');
-		for (let i = 0; i < singleSelect.length; i++) {
-			singleSelect[i].click();
+
+}
+// 知识点测评
+// http://stu.1000phone.net/student.php/inquiry/index
+// http://stu.1000phone.net/student.php/inquiry/set_res/line_id/242/line_node_id/305/paper_id/12
+if (location.href.indexOf("inquiry/index") >= 0) {
+	let singleSelect = document.querySelectorAll('[data-score="5.00"]');
+	for (let i = 0; i < singleSelect.length; i++) {
+		singleSelect[i].click();
+	}
+	let multiSelect = document.querySelectorAll('[type="checkbox"]');
+	for (let j = 0; j < multiSelect.length; j++) {
+		multiSelect[j].click();
+	}
+	let xhr = new XMLHttpRequest();
+	xhr.open("GET", "https://wscats.github.io/angular-tutorial/control/core.json", true);
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState == 4) {
+			console.log(JSON.parse(xhr.responseText));
+			stu.commit = stu.commit.concat(JSON.parse(xhr.responseText).commit);
+			document.querySelector('textarea').value = stu.commit[Math.floor(Math.random() * stu.commit.length)];
+			document.querySelector('#submit_btn').click();
 		}
-		let multiSelect = document.querySelectorAll('[type="checkbox"]');
-		for (let j = 0; j < multiSelect.length; j++) {
-			multiSelect[j].click();
-		}
-		let xhr = new XMLHttpRequest();
-		xhr.open("GET", "https://wscats.github.io/angular-tutorial/control/core.json", true);
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState == 4) {
-				console.log(JSON.parse(xhr.responseText));
-				stu.commit = stu.commit.concat(JSON.parse(xhr.responseText).commit);
-				document.querySelector('textarea').value = stu.commit[Math.floor(Math.random() * stu.commit.length)];
-				document.querySelector('#submit_btn').click()
-			}
-		}
-		xhr.send();
+	}
+	xhr.send();
 }
 
 function GetRequest() {
@@ -110,6 +115,3 @@ function GetRequest() {
 	}
 	return theRequest;
 }
-
-// http://stu.1000phone.net/student.php/inquiry/index
-// http://stu.1000phone.net/student.php/inquiry/set_res/line_id/242/line_node_id/305/paper_id/12
