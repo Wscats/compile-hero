@@ -44,6 +44,7 @@ switch (href) {
 		location.href = `${host}/student.php/Index/evaluate?autocommit=1`;
 		break;
 	case `${host}/student.php/Index/evaluate`:
+	case `${host}/student.php/index/Evaluate`:
 		let autocommit = Request["autocommit"];
 		if (autocommit) {
 			setTimeout(() => {

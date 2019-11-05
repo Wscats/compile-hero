@@ -6,7 +6,9 @@
 
 <img src="./screenshot/1.png" />
 
-将下载好的`crx`插件文件拖到`Chrome`插件管理界面中，松开鼠标。
+将下载好的`hi.Zip`压缩文件解压。
+
+文件拖到`Chrome`插件管理界面中，松开鼠标。
 
 <img src="./screenshot/2.png" />
 
