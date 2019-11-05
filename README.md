@@ -1,19 +1,32 @@
+# 下载
+
+下载地址： [https://github.com/Wscats/hi/releases/download/1.0/hi.zip](https://github.com/Wscats/hi/releases/download/1.0/hi.zip)
+
 # 安装
 
-- [点击此处下载Zip压缩后安装包](https://github.com/Wscats/hi/releases/download/1.0/hi.zip)
+将下载好的`hi.zip`压缩文件解压，得到以下文件。
 
-打开 Chrome 浏览器，点击右上角三个点，点击`更多工具`，选择`扩展程序`进入插件管理界面。
+- dist
+- manifest.json
+- public
+
+<img src="./screenshot/3.png" />
+
+然后打开 Chrome 浏览器，点击右上角三个点，点击`更多工具`，选择`扩展程序`进入插件管理界面。
 
 <img src="./screenshot/1.png" />
 
-将下载好的`hi.Zip`压缩文件解压。
+打开右上角的`开发者模式`，会在左边出现点击`加载已解压的扩展程序`，选取解压后的文件夹，并点击`选择`。
 
-文件拖到`Chrome`插件管理界面中，松开鼠标。
+<img src="./screenshot/4.png" />
 
-<img src="./screenshot/2.png" />
-
-Chrome 会弹出安装插件的提示，点击`添加扩展程序`，完成上面这一步就能在 Chrome 插件管界面看到安装好的插件了。
 
 # 运行
 
-安装成功后
+通过以上步骤安装插件成功后，会在左上角出现以上图标。
+
+<img src="./screenshot/5.png" />
+
+点击图标后，会出现以下面板，输入你的用户名和密码，并点击`进入学员后台`，程序会帮你自动完成测评😁
+
+<img src="./screenshot/6.png" />
