@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/Wscats/hi/issues"
   },
-  "homepage": "https://github.com/Wscats/hi#readme"
+  "homepage": "https://github.com/Wscats/hi#readme",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "babel-loader": "^8.0.0-beta.0"
+  }
 }

@@ -1,1 +1,100 @@
-!function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t,n){"use strict";function r(e,t,n,r,o,c,u){try{var a=e[c](u),i=a.value}catch(e){return void n(e)}a.done?t(i):Promise.resolve(i).then(r,o)}function o(e){return function(){var t=this,n=arguments;return new Promise(function(o,c){var u=e.apply(t,n);function a(e){r(u,o,c,a,i,"next",e)}function i(e){r(u,o,c,a,i,"throw",e)}a(void 0)})}}var c=n(1),u=c.GetRequest,a=c.ajax,i={commit:["666"]},l="http://stu.1000phone.net",s=location.href.indexOf("?")?location.href.split("?")[0]:location.href,d=new Object;d=u();var f=function(){var e=o(regeneratorRuntime.mark(function e(){var t,n,r;return regeneratorRuntime.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:for(t=0,n=document.querySelectorAll("input");t<n.length;)document.querySelectorAll("input")[t].click(),t+=4;return e.next=5,a("GET","https://wscats.github.io/angular-tutorial/control/core.json");case 5:r=e.sent,console.log(r),i.commit=i.commit.concat(r.commit),document.querySelectorAll("textarea")[0].value=i.commit[Math.floor(Math.random()*i.commit.length)],document.querySelectorAll("textarea")[1].value=i.commit[Math.floor(Math.random()*i.commit.length)],document.getElementById("addstudent").click();case 11:case"end":return e.stop()}},e)}));return function(){return e.apply(this,arguments)}}();switch(s){case"".concat(l,"/student.php/Public/login"):var m=d.u,p=d.p;console.log(m,p),document.querySelector("[name='Account']").value=m,document.querySelector("[name='PassWord']").value=p,setTimeout(function(){document.querySelector("[type='submit']").click()},500);break;case"".concat(l,"/student.php/index/index"):location.href="".concat(l,"/student.php/Index/evaluate?autocommit=1");case"".concat(l,"/student.php/Index/index"):location.href="".concat(l,"/student.php/Index/evaluate?autocommit=1");case"".concat(l,"/student.php/Index/evaluate"):d.autocommit&&setTimeout(function(){document.querySelector("[class='btn btn-xs btn-success']").click()});break;case"".concat(l,"/student.php/Index/start_evaluate"):case"".concat(l,"/student.php/index/start_evaluate"):f()}if(location.href.indexOf("inquiry/index")>=0){for(var h=document.querySelectorAll('[data-score="5.00"]'),v=0;v<h.length;v++)h[v].click();for(var y=document.querySelectorAll('[type="checkbox"]'),b=0;b<y.length;b++)y[b].click();o(regeneratorRuntime.mark(function e(){var t;return regeneratorRuntime.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,a("GET","https://wscats.github.io/angular-tutorial/control/core.json");case 2:t=e.sent,console.log(t),i.commit=i.commit.concat(t.commit),document.querySelector("textarea").value=i.commit[Math.floor(Math.random()*i.commit.length)],document.querySelector("#submit_btn").click();case 7:case"end":return e.stop()}},e)}))()}},function(e,t,n){"use strict";(function(e){e.export={GetRequest:function(){var e=location.search,t=new Object;if(-1!=e.indexOf("?")){var n=e.substr(1);strs=n.split("&");for(var r=0;r<strs.length;r++)t[strs[r].split("=")[0]]=unescape(strs[r].split("=")[1])}return t}}}).call(this,n(2)(e))},function(e,t){e.exports=function(e){return e.webpackPolyfill||(e.deprecate=function(){},e.paths=[],e.children||(e.children=[]),Object.defineProperty(e,"loaded",{enumerable:!0,get:function(){return e.l}}),Object.defineProperty(e,"id",{enumerable:!0,get:function(){return e.i}}),e.webpackPolyfill=1),e}}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("//http://stu.1000phone.net/student.php/Public/login\r\n\r\nconst GetRequest = () => {\r\n    //获取url中\"?\"符后的字串\r\n    var url = location.search;\r\n    var theRequest = new Object();\r\n    if (url.indexOf(\"?\") != -1) {\r\n        var str = url.substr(1);\r\n        strs = str.split(\"&\");\r\n        for (var i = 0; i < strs.length; i++) {\r\n            theRequest[strs[i].split(\"=\")[0]] = unescape(strs[i].split(\"=\")[1]);\r\n        }\r\n    }\r\n    return theRequest;\r\n}\r\n\r\nconst ajax = (type, url) => {\r\n    new Promise((resolve, reject) => {\r\n        let xhr = new XMLHttpRequest();\r\n        xhr.open(type, url, true);\r\n        xhr.onreadystatechange = function () {\r\n            if (xhr.readyState == 4) {\r\n                resolve(JSON.parse(xhr.responseText))\r\n            } else {\r\n                reject(xhr.responseText)\r\n            }\r\n        }\r\n        xhr.send();\r\n    })\r\n}\r\n\r\nlet stu = {\r\n\tcommit: [\"666\"]\r\n}\r\nlet host = \"http://stu.1000phone.net\";\r\nlet href = location.href.indexOf(\"?\") ? location.href.split(\"?\")[0] : location.href;\r\nlet Request = new Object();\r\nRequest = GetRequest();\r\n\r\nconst score = async () => {\r\n\tlet i = 0;\r\n\tlet inputs = document.querySelectorAll(\"input\");\r\n\tfor (; i < inputs.length;) {\r\n\t\tdocument.querySelectorAll(\"input\")[i].click();\r\n\t\ti += 4;\r\n\t}\r\n\tlet data = await ajax(\"GET\", \"https://wscats.github.io/angular-tutorial/control/core.json\");\r\n\tconsole.log(data);\r\n\tstu.commit = stu.commit.concat(data.commit);\r\n\tdocument.querySelectorAll(\"textarea\")[0].value = stu.commit[Math.floor(Math.random() * stu.commit.length)];\r\n\tdocument.querySelectorAll(\"textarea\")[1].value = stu.commit[Math.floor(Math.random() * stu.commit.length)];\r\n\tdocument.getElementById(\"addstudent\").click();\r\n}\r\n\r\nswitch (href) {\r\n\tcase `${host}/student.php/Public/login`:\r\n\t\tlet u = Request[\"u\"];\r\n\t\tlet p = Request[\"p\"];\r\n\t\tconsole.log(u, p);\r\n\t\tdocument.querySelector(\"[name='Account']\").value = u;\r\n\t\tdocument.querySelector(\"[name='PassWord']\").value = p;\r\n\t\tsetTimeout(() => {\r\n\t\t\tdocument.querySelector(\"[type='submit']\").click();\r\n\t\t}, 500);\r\n\t\tbreak;\r\n\tcase `${host}/student.php/index/index`:\r\n\t\tlocation.href = `${host}/student.php/Index/evaluate?autocommit=1`;\r\n\tcase `${host}/student.php/Index/index`:\r\n\t\tlocation.href = `${host}/student.php/Index/evaluate?autocommit=1`;\r\n\tcase `${host}/student.php/Index/evaluate`:\r\n\t\tlet autocommit = Request[\"autocommit\"];\r\n\t\tif (autocommit) {\r\n\t\t\tsetTimeout(() => {\r\n\t\t\t\tdocument.querySelector(\"[class='btn btn-xs btn-success']\").click();\r\n\t\t\t})\r\n\t\t}\r\n\t\tbreak;\r\n\tcase `${host}/student.php/Index/start_evaluate`:\r\n\t\tscore();\r\n\t\tbreak;\r\n\tcase `${host}/student.php/index/start_evaluate`:\r\n\t\tscore();\r\n\t\tbreak;\r\n\tdefault:\r\n\r\n}\r\n// 知识点测评\r\n// http://stu.1000phone.net/student.php/inquiry/index\r\n// http://stu.1000phone.net/student.php/inquiry/set_res/line_id/242/line_node_id/305/paper_id/12\r\nif (location.href.indexOf(\"inquiry/index\") >= 0) {\r\n\tlet singleSelect = document.querySelectorAll('[data-score=\"5.00\"]');\r\n\tfor (let i = 0; i < singleSelect.length; i++) {\r\n\t\tsingleSelect[i].click();\r\n\t}\r\n\tlet multiSelect = document.querySelectorAll('[type=\"checkbox\"]');\r\n\tfor (let j = 0; j < multiSelect.length; j++) {\r\n\t\tmultiSelect[j].click();\r\n\t}\r\n\t(async () => {\r\n\t\tlet data = await ajax(\"GET\", \"https://wscats.github.io/angular-tutorial/control/core.json\");\r\n\t\tconsole.log(data);\r\n\t\tstu.commit = stu.commit.concat(data.commit);\r\n\t\tdocument.querySelector('textarea').value = stu.commit[Math.floor(Math.random() * stu.commit.length)];\r\n\t\tdocument.querySelector('#submit_btn').click();\r\n\t})();\r\n}\n\n//# sourceURL=webpack:///./src/index.js?");
+
+/***/ })
+
+/******/ });
