@@ -35,6 +35,7 @@
 		"前锋"
 	],
 	"activationEvents": [
+		"*",
 		"onCommand:extension.helloWorld"
 	],
 	"main": "./out/extension.js",

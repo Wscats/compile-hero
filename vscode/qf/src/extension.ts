@@ -1,27 +1,68 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import * as fs from 'fs';
+const {
+	compileSass,
+	sass
+} = require('./sass/index');
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+const readFileContext = (path: string) => {
+	return fs.readFileSync(path).toString();
+}
+const fileType = (filename: string) => {
+	const index1 = filename.lastIndexOf(".");
+	const index2 = filename.length;
+	const type = filename.substring(index1, index2);
+	return type;
+}
+const handleFilePath = (path: string, length: number) => {
+	return path = path.substring(0, path.length - length);
+}
+const writeScssFileContext = (path: string, data: string) => {
+	path = handleFilePath(path, 5);
+	// console.log(`${path}.css`,)
+	fs.writeFile(`${path}.css`, data, () => {
+		vscode.window.showInformationMessage(`编译SCSS成功!`);
+	});
+}
+const readFileName = async (path: string, fileContext: string) => {
+	let fileSuffix = fileType(path);
+	console.log(fileSuffix, fileContext)
+	switch (fileSuffix) {
+		case '.scss':
+			try {
+				let { text } = await compileSass(fileContext, {
+					style: sass.style.expanded,
+				});
+				writeScssFileContext(path, text);
+			} catch (error) {
+				vscode.window.showErrorMessage(`编译SCSS失败: ${error}`);
+			}
+			try {
+				let { text } = await compileSass(fileContext, {
+					style: sass.style.compressed,
+				});
+				writeScssFileContext(`${path}.min`, text);
+			} catch (error) {
+				vscode.window.showErrorMessage(`编译SCSS失败: ${error}`);
+			}
+			break;
+		default:
+			console.log('没找到对应的文件');
+			break;
+	}
+}
 export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-		console.log('Congratulations, your extension "qf" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
+	console.log('Congratulations, your extension "qf" is now active!');
 	let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World!');
 	});
-
 	context.subscriptions.push(disposable);
+	vscode.workspace.onDidSaveTextDocument((document) => {
+		const {
+			fileName
+		} = document
+		const fileContext: string = readFileContext(fileName);
+		readFileName(fileName, fileContext);
+	});
 }
-
-// this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }

@@ -1,8 +1,8 @@
 {
-	"name": "千锋自动测评",
+	"name": "1000phone",
 	"manifest_version": 2,
-	"version": "6.71",
-	"description": "千锋H5(@mobiletrain.org&&1000phone.com)，值得拥有！姚帅，老谢，勇哥，婧婧，琳姐，粤玲，老蓝，Lemon...在广州等你来！",
+	"version": "6.72",
+	"description": "这是千锋一个自动测评的插件😁",
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 	"icons": {
 		"16": "public/icons/16.png",
