@@ -1,0 +1,19 @@
+{
+  "name": "1000phone",
+  "version": "1.0.1",
+  "description": "千锋H5(@mobiletrain.org&&1000phone.com)，值得拥有！姚帅，老谢，勇哥，婧婧，琳姐，粤玲，老蓝，Lemon...在广州等你来！",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wscats/hi.git"
+  },
+  "author": "Eno",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wscats/hi/issues"
+  },
+  "homepage": "https://github.com/Wscats/hi#readme"
+}
