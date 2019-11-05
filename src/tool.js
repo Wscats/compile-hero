@@ -27,7 +27,7 @@ const ajax = (type, url) => {
     })
 }
 
-module.export = {
+module.exports = {
     GetRequest,
     ajax
 }
