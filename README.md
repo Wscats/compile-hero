@@ -1,6 +1,6 @@
 # 安装
 
-- [点击此处下载crx安装包](https://github.com/Wscats/hi/releases/download/1.0/hi.crx)
+- [点击此处下载Zip压缩后安装包](https://github.com/Wscats/hi/releases/download/1.0/hi.zip)
 
 打开 Chrome 浏览器，点击右上角三个点，点击`更多工具`，选择`扩展程序`进入插件管理界面。
 
