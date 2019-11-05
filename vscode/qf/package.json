@@ -1,0 +1,60 @@
+{
+	"name": "qf",
+	"displayName": "1000phone",
+	"description": "千锋H5值得拥有！姚帅，老谢，勇哥，婧婧，琳姐，粤玲，老蓝，Lemon...在广州等你来！",
+	"author": "Eno Yao",
+	"publisher": "Wscats",
+	"version": "0.0.1",
+	"icon": "logos/128.png",
+	"homepage": "https://github.com/Wscats/hi",
+	"engines": {
+		"vscode": "^1.39.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Wscats/hi"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"1000phone",
+		"千锋",
+		"千锋互联",
+		"千锋教育",
+		"mobiletrain",
+		"老谢",
+		"老姚",
+		"琳姐",
+		"文婧",
+		"测评",
+		"自动测评"
+	],
+	"activationEvents": [
+		"onCommand:extension.helloWorld"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.helloWorld",
+				"title": "Hello World"
+			}
+		]
+	},
+	"scripts": {
+		"build": "vsce package",
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "yarn run compile && node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28",
+		"tslint": "^5.12.1",
+		"@types/node": "^10.12.21",
+		"@types/mocha": "^2.2.42"
+	}
+}
