@@ -4,7 +4,7 @@
 	"description": "千锋H5值得拥有！姚帅，老谢，勇哥，婧婧，琳姐，粤玲，老蓝，Lemon...在广州等你来！",
 	"author": "Eno Yao",
 	"publisher": "Wscats",
-	"version": "0.0.1",
+	"version": "1.0.2",
 	"icon": "logos/128.png",
 	"homepage": "https://github.com/Wscats/hi",
 	"engines": {
@@ -28,7 +28,11 @@
 		"琳姐",
 		"文婧",
 		"测评",
-		"自动测评"
+		"自动测评",
+		"qf",
+		"qianfeng",
+		"千峰",
+		"前锋"
 	],
 	"activationEvents": [
 		"onCommand:extension.helloWorld"

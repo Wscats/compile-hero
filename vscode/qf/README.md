@@ -6,7 +6,7 @@
 <a href="https://github.com/Wscats"><img src="https://img.shields.io/badge/Author-Eno Yao-blueviolet" alt="Eno Yao" /></a>
 <a href="https://github.com/Wscats"><img src="https://api.netlify.com/api/v1/badges/b652768b-1673-42cd-98dd-3fd807b2ebca/deploy-status" alt="Status" /></a>
 
-> 千锋自动测评✌️😜
+> 千锋学生后台自动测评✌️😜
 
 下载地址： [https://github.com/Wscats/hi/releases/download/1.0/hi.zip](https://github.com/Wscats/hi/releases/download/1.0/hi.zip)
 
@@ -14,9 +14,10 @@
 
 将下载好的`hi.zip`压缩文件解压，得到以下文件。
 
-- dist
-- manifest.json
-- public
+- hi文件夹目录
+    - dist
+    - manifest.json
+    - public
 
 <img src="https://wscats.github.io/hi/screenshot/3.png" />
 
@@ -29,7 +30,7 @@
 <img src="https://wscats.github.io/hi/screenshot/4.png" />
 
 
-# Quick Start
+# Usage
 
 通过以上步骤安装插件成功后，会在左上角出现以上图标。
 
@@ -39,12 +40,14 @@
 
 <img src="https://wscats.github.io/hi/screenshot/6.png" />
 
-# Contributors
+# Thanks
 
 | [<img src="https://avatars1.githubusercontent.com/u/17243165?s=460&v=4" width="60px;"/><br /><sub>Eno Yao</sub>](https://github.com/Wscats)| [<img src="https://avatars2.githubusercontent.com/u/5805270?s=460&v=4" width="60px;"/><br /><sub>Aaron Xie</sub>](https://github.com/aaron-xie)| [<img src="https://avatars3.githubusercontent.com/u/12515367?s=460&v=4" width="60px;"/><br /><sub>DK Lan</sub>](https://github.com/dk-lan)| [<img src="https://avatars1.githubusercontent.com/u/30917929?s=460&v=4" width="60px;"/><br /><sub>Yong</sub>](https://github.com/flowerField)| [<img src="https://avatars3.githubusercontent.com/u/33544236?s=460&v=4" width="60px;"/><br /><sub>Li Ting</sub>](https://github.com/Liting1)| <img src="https://wscats.github.io/omi-snippets/images/xin.jpg" width="60px;"/><br /><sub>Xin</sub>| [<img src="https://wscats.github.io/omi-snippets/images/lemon.jpg" width="60px;"/><br /><sub>Lemon</sub>](https://github.com/lemonyyye)  |  [<img src="https://wscats.github.io/omi-snippets/images/jing.jpg" width="60px;"/><br /><sub>Jing</sub>](https://github.com/vickySC)  |  [<img src="https://wscats.github.io/omi-snippets/images/lin.jpg" width="60px;"/><br /><sub>Lin</sub>](https://github.com/shirley3790)  | [<img src="https://avatars2.githubusercontent.com/u/23230108?s=460&v=4" width="60px;"/><br /><sub>Tian Fly</sub>](https://github.com/tiantengfly)| 
 | - | - | - | - | - | - | - | - | - | - |
 
-- 寂寂空郊暮，非复少年时
+<!-- - 寂寂空郊暮，非复少年时 -->
+
+如果你觉得有用，你可以给我们[留言和点赞](https://marketplace.visualstudio.com/items?itemName=Wscats.qf&ssr=false#review-details)，你的支持是我们前进的动力😀
 
 # License
 
