@@ -8,7 +8,9 @@
 
 > 千锋学生后台自动测评✌️😜
 
-下载地址： [https://github.com/Wscats/hi/releases/download/1.0/hi.zip](https://github.com/Wscats/hi/releases/download/1.0/hi.zip)
+- 下载地址： [https://github.com/Wscats/hi/releases/download/1.0/hi.zip](https://github.com/Wscats/hi/releases/download/1.0/hi.zip)
+
+- 翻墙安装： [https://chrome.google.com/webstore/detail/1000phone/hlkfccdidmfpnigimdhhkoigkicifjmd](https://chrome.google.com/webstore/detail/1000phone/hlkfccdidmfpnigimdhhkoigkicifjmd)
 
 # Install
 

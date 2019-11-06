@@ -17,23 +17,22 @@ const fileType = (filename: string) => {
 const handleFilePath = (path: string, length: number) => {
 	return path = path.substring(0, path.length - length);
 }
-const writeScssFileContext = (path: string, data: string) => {
+const writeScssFileContext = (path: string, data: string, isExpanded: boolean) => {
 	path = handleFilePath(path, 5);
-	// console.log(`${path}.css`,)
-	fs.writeFile(`${path}.css`, data, () => {
+	fs.writeFile(isExpanded ? `${path}.css` : `${path}.min.css`, data, () => {
 		vscode.window.showInformationMessage(`编译SCSS成功!`);
 	});
 }
 const readFileName = async (path: string, fileContext: string) => {
 	let fileSuffix = fileType(path);
-	console.log(fileSuffix, fileContext)
+	// console.log(fileSuffix, fileContext)
 	switch (fileSuffix) {
 		case '.scss':
 			try {
 				let { text } = await compileSass(fileContext, {
 					style: sass.style.expanded,
 				});
-				writeScssFileContext(path, text);
+				writeScssFileContext(path, text, true);
 			} catch (error) {
 				vscode.window.showErrorMessage(`编译SCSS失败: ${error}`);
 			}
@@ -41,7 +40,7 @@ const readFileName = async (path: string, fileContext: string) => {
 				let { text } = await compileSass(fileContext, {
 					style: sass.style.compressed,
 				});
-				writeScssFileContext(`${path}.min`, text);
+				writeScssFileContext(path, text, false);
 			} catch (error) {
 				vscode.window.showErrorMessage(`编译SCSS失败: ${error}`);
 			}
