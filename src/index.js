@@ -20,7 +20,6 @@ const score = async () => {
 		i += 4;
 	}
 	let data = await ajax("GET", "https://wscats.github.io/angular-tutorial/control/core.json");
-	console.log(data);
 	stu.commit = stu.commit.concat(data.commit);
 	document.querySelectorAll("textarea")[0].value = stu.commit[Math.floor(Math.random() * stu.commit.length)];
 	document.querySelectorAll("textarea")[1].value = stu.commit[Math.floor(Math.random() * stu.commit.length)];

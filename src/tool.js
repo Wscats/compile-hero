@@ -13,16 +13,14 @@ const GetRequest = () => {
 }
 
 const ajax = (type, url) => {
-    new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
-        xhr.open(type, url, true);
         xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4) {
+            if (xhr.readyState === 4 && xhr.status === 200) {
                 resolve(JSON.parse(xhr.responseText))
-            } else {
-                reject(xhr.responseText)
             }
         }
+        xhr.open(type, url, true);
         xhr.send();
     })
 }
