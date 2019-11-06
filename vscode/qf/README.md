@@ -1,6 +1,6 @@
 # Download
 
-<a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Download-+-orange" alt="Download" /></a>
+<a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Download-200+-orange" alt="Download" /></a>
 <a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Macketplace-v2.00-brightgreen" alt="Macketplace" /></a>
 <a href="https://github.com/Wscats/hi"><img src="https://img.shields.io/badge/Github Page-Wscats-yellow" alt="Github Page" /></a>
 <a href="https://github.com/Wscats"><img src="https://img.shields.io/badge/Author-Eno Yao-blueviolet" alt="Eno Yao" /></a>
@@ -18,12 +18,15 @@
 
 |预编译语言|转化后的语言|
 |-|-|
+|.jade|.html|
 |.scss|.css|
 |.less|.css|
 |.ts|.js|
-|.js(ES6)|.js(ES5)|
+|.js (ES6)|.js (ES5)|
 
 使用方法很简单，在编写文件的时候，按保存`Ctrl+S`，将会在该文件的同级目录下生成转化的文件，希望你能摆脱`Gulp`的约束😁
+
+# Open In
 
 # Install
 

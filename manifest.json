@@ -1,7 +1,7 @@
 {
 	"name": "1000phone",
 	"manifest_version": 2,
-	"version": "6.72",
+	"version": "6.73",
 	"description": "这是千锋一个自动测评的插件😁",
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 	"icons": {

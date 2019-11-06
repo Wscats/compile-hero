@@ -21,6 +21,7 @@ const babelEnv = require('@babel/preset-env');
 const less = require('gulp-less');
 const cssmin = require('gulp-minify-css');
 const ts = require('gulp-typescript');
+const jade = require('gulp-jade');
 const open = require('open');
 const readFileContext = (path) => {
     return fs.readFileSync(path).toString();
@@ -105,6 +106,11 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
         case '.ts':
             src(path)
                 .pipe(ts())
+                .pipe(dest(outputPath));
+            break;
+        case '.jade':
+            src(path)
+                .pipe(jade())
                 .pipe(dest(outputPath));
             break;
         default:

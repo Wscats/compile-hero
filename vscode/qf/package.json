@@ -1,11 +1,11 @@
 {
   "name": "qf",
   "displayName": "Qian Feng Hero",
-  "description": "要玩转H5这个插件你值得拥有！姚帅，老谢，勇哥，婧婧，琳姐，粤玲，老蓝，Lemon...在广州等你来！",
+  "description": "要玩转H5这个插件你值得拥有！姚帅，老谢，勇哥，挺哥，婧婧，琳姐，粤玲，老蓝，柠檬~在广州等你来！",
   "author": "Eno Yao",
   "publisher": "Wscats",
   "version": "6.6.6",
-  "icon": "logos/eno.png",
+  "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/hi",
   "engines": {
     "vscode": "^1.39.0"
