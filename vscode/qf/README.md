@@ -28,6 +28,8 @@
 
 # Open In
 
+<img src="https://wscats.github.io/hi/screenshot/7.png" />
+
 # Install
 
 将下载好的`hi.zip`压缩文件解压，得到以下文件。
