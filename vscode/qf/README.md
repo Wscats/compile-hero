@@ -26,9 +26,11 @@
 
 使用方法很简单，在编写文件的时候，按保存`Ctrl+S`，将会在该文件的同级目录下生成转化的文件，希望你能摆脱`Gulp`的约束😁
 
-# Open In
+# Open In Browser
 
-<img src="https://wscats.github.io/hi/screenshot/7.png" />
+在目录菜单对着`xxx.html`文件点击右键，会出现`在谷歌浏览器中打开`选项，可以在浏览器中预览该页面。
+
+<img width="200" src="https://wscats.github.io/hi/screenshot/7.jpg" />
 
 # Install
 

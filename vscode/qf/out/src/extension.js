@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -20,6 +21,7 @@ const babelEnv = require('@babel/preset-env');
 const less = require('gulp-less');
 const cssmin = require('gulp-minify-css');
 const ts = require('gulp-typescript');
+const jade = require('gulp-jade');
 const open = require('open');
 const readFileContext = (path) => {
     return fs.readFileSync(path).toString();
@@ -39,7 +41,7 @@ const writeScssFileContext = (path, data, isExpanded) => {
         vscode.window.showInformationMessage(`编译SCSS成功!`);
     });
 };
-const readFileName = (path, fileContext) => __awaiter(this, void 0, void 0, function* () {
+const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, function* () {
     let fileSuffix = fileType(path);
     let outputPath = p.resolve(path, '../');
     console.log(path, fileSuffix, fileContext);
@@ -104,6 +106,11 @@ const readFileName = (path, fileContext) => __awaiter(this, void 0, void 0, func
         case '.ts':
             src(path)
                 .pipe(ts())
+                .pipe(dest(outputPath));
+            break;
+        case '.jade':
+            src(path)
+                .pipe(jade())
                 .pipe(dest(outputPath));
             break;
         default:
