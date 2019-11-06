@@ -12,6 +12,19 @@
 
 - 翻墙安装： [https://chrome.google.com/webstore/detail/1000phone/hlkfccdidmfpnigimdhhkoigkicifjmd](https://chrome.google.com/webstore/detail/1000phone/hlkfccdidmfpnigimdhhkoigkicifjmd)
 
+# Feature
+
+该插件除了支持自动测评以外，还支持各种预编译语言：
+
+|预编译语言|转化后的语言|
+|-|-|
+|.scss|.css|
+|.less|.css|
+|.ts|.js|
+|.js(ES6)|.js(ES5)|
+
+使用方法很简单，在编写文件的时候，按保存`Ctrl+S`，将会在该文件的同级目录下生成转化的文件，希望你能摆脱`Gulp`的约束😁
+
 # Install
 
 将下载好的`hi.zip`压缩文件解压，得到以下文件。

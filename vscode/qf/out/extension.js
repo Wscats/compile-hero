@@ -11,7 +11,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = require("vscode");
 const fs = require("fs");
+const p = require("path");
 const { compileSass, sass } = require('./sass/index');
+const { src, dest } = require('gulp');
+const uglify = require('gulp-uglify');
+const rename = require('gulp-rename');
+const babel = require('gulp-babel');
+const babelEnv = require('@babel/preset-env');
+const less = require('gulp-less');
+const cssmin = require('gulp-minify-css');
+const ts = require('gulp-typescript');
+const open = require('open');
 const readFileContext = (path) => {
     return fs.readFileSync(path).toString();
 };
@@ -32,7 +42,8 @@ const writeScssFileContext = (path, data, isExpanded) => {
 };
 const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, function* () {
     let fileSuffix = fileType(path);
-    // console.log(fileSuffix, fileContext)
+    let outputPath = p.resolve(path, '../');
+    console.log(path, fileSuffix, fileContext);
     switch (fileSuffix) {
         case '.scss':
             try {
@@ -54,6 +65,48 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
                 vscode.window.showErrorMessage(`编译SCSS失败: ${error}`);
             }
             break;
+        case '.js':
+            try {
+                src(path)
+                    .pipe(babel({
+                    presets: [babelEnv]
+                }))
+                    .pipe(rename({ suffix: '.es5' }))
+                    .pipe(dest(outputPath));
+                vscode.window.showInformationMessage(`编译JS成功!`);
+            }
+            catch (error) {
+                vscode.window.showErrorMessage(`编译JS失败: ${error}`);
+            }
+            try {
+                src(path)
+                    .pipe(babel({
+                    presets: [babelEnv]
+                }))
+                    .pipe(uglify())
+                    .pipe(rename({ suffix: '.min' }))
+                    .pipe(dest(outputPath));
+                vscode.window.showInformationMessage(`编译JS成功!`);
+            }
+            catch (error) {
+                vscode.window.showErrorMessage(`编译JS失败: ${error}`);
+            }
+            break;
+        case '.less':
+            src(path)
+                .pipe(less())
+                .pipe(dest(outputPath));
+            src(path)
+                .pipe(less())
+                .pipe(cssmin({ compatibility: 'ie7' }))
+                .pipe(rename({ suffix: '.min' }))
+                .pipe(dest(outputPath));
+            break;
+        case '.ts':
+            src(path)
+                .pipe(ts())
+                .pipe(dest(outputPath));
+            break;
         default:
             console.log('没找到对应的文件');
             break;
@@ -64,7 +117,12 @@ function activate(context) {
     let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
         vscode.window.showInformationMessage('Hello World!');
     });
+    let openInBrowser = vscode.commands.registerCommand('extension.openInBrowser', (path) => {
+        let uri = path.fsPath;
+        open(uri, { app: ['google chrome'] });
+    });
     context.subscriptions.push(disposable);
+    context.subscriptions.push(openInBrowser);
     vscode.workspace.onDidSaveTextDocument((document) => {
         const { fileName } = document;
         const fileContext = readFileContext(fileName);
