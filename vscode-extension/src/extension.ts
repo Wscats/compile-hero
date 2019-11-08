@@ -13,6 +13,7 @@ const ts = require('gulp-typescript');
 const jade = require('gulp-jade');
 const open = require('open');
 
+
 const readFileContext = (path: string) => {
 	return fs.readFileSync(path).toString();
 }
