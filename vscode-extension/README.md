@@ -16,6 +16,8 @@
 
 该插件除了支持自动测评以外，还支持各种预编译语言：
 
+<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/1.gif" />
+
 |预编译语言|转化后的语言|
 |-|-|
 |.jade|.html|

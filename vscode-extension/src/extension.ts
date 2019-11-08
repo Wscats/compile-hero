@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import * as http from 'http';
 import * as p from 'path';
 const { compileSass, sass } = require('./sass/index');
 const { src, dest } = require('gulp');
@@ -118,8 +119,14 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage('Hello World!');
 	});
 	let openInBrowser = vscode.commands.registerCommand('extension.openInBrowser', (path) => {
+		vscode.window.showInformationMessage('服务器已经启动');
 		let uri = path.fsPath;
-		open(uri, { app: ['google chrome'] })
+		console.log(http)
+		http.createServer((req,res)=>{
+			// vscode.window.showInformationMessage('服务器已经启动');
+			res.end('hello world');
+		}).listen(6666);
+		// open(uri, { app: ['google chrome'] });
 	});
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(openInBrowser);
