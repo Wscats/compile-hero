@@ -6,16 +6,21 @@
   "publisher": "Wscats",
   "version": "6.7.2",
   "icon": "logos/hero2.png",
-  "homepage": "https://github.com/Wscats/hi",
+  "homepage": "https://github.com/Wscats/compile-hero",
   "engines": {
     "vscode": "^1.39.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Wscats/hi"
+    "url": "https://github.com/Wscats/compile-hero"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Programming Languages",
+    "Snippets",
+    "Linters",
+    "Debuggers",
+    "Formatters"
   ],
   "keywords": [
     "1000phone",

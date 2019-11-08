@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wscats/hi.git"
+    "url": "git+https://github.com/Wscats/compile-hero.git"
   },
   "author": "Eno",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Wscats/hi/issues"
+    "url": "https://github.com/Wscats/compile-hero/issues"
   },
-  "homepage": "https://github.com/Wscats/hi#readme",
+  "homepage": "https://github.com/Wscats/compile-hero#readme",
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
