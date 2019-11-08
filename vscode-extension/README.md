@@ -6,12 +6,6 @@
 <a href="https://github.com/Wscats"><img src="https://img.shields.io/badge/Author-Eno Yao-blueviolet" alt="Eno Yao" /></a>
 <a href="https://github.com/Wscats"><img src="https://api.netlify.com/api/v1/badges/b652768b-1673-42cd-98dd-3fd807b2ebca/deploy-status" alt="Status" /></a>
 
-> 千锋学生后台自动测评✌️😜
-
-- 下载地址： [https://github.com/Wscats/compile-hero/releases/download/1.0/compile-hero.zip](https://github.com/Wscats/compile-hero/releases/download/1.0/compile-hero.zip)
-
-- 翻墙安装： [https://chrome.google.com/webstore/detail/1000phone/hlkfccdidmfpnigimdhhkoigkicifjmd](https://chrome.google.com/webstore/detail/1000phone/hlkfccdidmfpnigimdhhkoigkicifjmd)
-
 # Feature
 
 该插件除了支持自动测评以外，还支持各种预编译语言：
@@ -34,6 +28,14 @@
 在目录菜单对着`xxx.html`文件点击右键，会出现`在谷歌浏览器中打开`选项，可以在浏览器中预览该页面。
 
 <img width="200" src="https://wscats.github.io/compile-hero/chrome-extension/screenshot/7.jpg" />
+
+# Auto Commit
+
+> 学生后台自动测评✌️😜
+
+- 下载地址： [https://github.com/Wscats/compile-hero/releases/download/1.0/compile-hero.zip](https://github.com/Wscats/compile-hero/releases/download/1.0/compile-hero.zip)
+
+- 翻墙安装： [https://chrome.google.com/webstore/detail/1000phone/hlkfccdidmfpnigimdhhkoigkicifjmd](https://chrome.google.com/webstore/detail/1000phone/hlkfccdidmfpnigimdhhkoigkicifjmd)
 
 # Install
 

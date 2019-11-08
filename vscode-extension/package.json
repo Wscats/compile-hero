@@ -4,7 +4,7 @@
   "description": "支持 ts, tsx, scss, less, jade 和 es6 等各种预编译语言的处理，只需对文件 ctrl+s 即可生效",
   "author": "Eno Yao",
   "publisher": "Wscats",
-  "version": "6.7.5",
+  "version": "6.7.6",
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/compile-hero",
   "engines": {
