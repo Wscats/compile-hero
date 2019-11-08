@@ -82,9 +82,10 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                     case '.js': return [3 /*break*/, 8];
                     case '.less': return [3 /*break*/, 9];
                     case '.ts': return [3 /*break*/, 10];
-                    case '.jade': return [3 /*break*/, 11];
+                    case '.tsx': return [3 /*break*/, 11];
+                    case '.jade': return [3 /*break*/, 12];
                 }
-                return [3 /*break*/, 12];
+                return [3 /*break*/, 13];
             case 1:
                 _b.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, compileSass(fileContext, {
@@ -111,7 +112,7 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                 error_2 = _b.sent();
                 vscode.window.showErrorMessage("\u7F16\u8BD1SCSS\u5931\u8D25: " + error_2);
                 return [3 /*break*/, 7];
-            case 7: return [3 /*break*/, 13];
+            case 7: return [3 /*break*/, 14];
             case 8:
                 try {
                     src(path)
@@ -138,7 +139,7 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                 catch (error) {
                     vscode.window.showErrorMessage("\u7F16\u8BD1JS\u5931\u8D25: " + error);
                 }
-                return [3 /*break*/, 13];
+                return [3 /*break*/, 14];
             case 9:
                 src(path)
                     .pipe(less())
@@ -148,21 +149,28 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                     .pipe(cssmin({ compatibility: 'ie7' }))
                     .pipe(rename({ suffix: '.min' }))
                     .pipe(dest(outputPath));
-                return [3 /*break*/, 13];
+                return [3 /*break*/, 14];
             case 10:
                 src(path)
                     .pipe(ts())
                     .pipe(dest(outputPath));
-                return [3 /*break*/, 13];
+                return [3 /*break*/, 14];
             case 11:
+                src(path)
+                    .pipe(ts({
+                    jsx: 'react'
+                }))
+                    .pipe(dest(outputPath));
+                return [3 /*break*/, 14];
+            case 12:
                 src(path)
                     .pipe(jade())
                     .pipe(dest(outputPath));
-                return [3 /*break*/, 13];
-            case 12:
+                return [3 /*break*/, 14];
+            case 13:
                 console.log('没找到对应的文件');
-                return [3 /*break*/, 13];
-            case 13: return [2 /*return*/];
+                return [3 /*break*/, 14];
+            case 14: return [2 /*return*/];
         }
     });
 }); };

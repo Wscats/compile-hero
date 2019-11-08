@@ -1,9 +1,12 @@
 # Change Log
 
-All notable changes to the "qf" extension will be documented in this file.
+- 2019-11-03 自动测评文档，生成下载链接
+- 2019-11-04 支持编译`SCSS`文件
+- 2019-11-05 支持编译`Jade,Typescript,ES5`和`less`文件
+- 2019-11-06 支持`html`文件在浏览器中打开
+- 2019-11-08 支持编译`TSX`文件
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+# Unreleased
 
-## [Unreleased]
-
-- Initial release
+- 支持在浏览器打开，并启动非安全模式解决跨域
+- 支持启动自定义服务器，并自动刷新页面

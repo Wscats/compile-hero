@@ -108,6 +108,13 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
                 .pipe(ts())
                 .pipe(dest(outputPath));
             break;
+        case '.tsx':
+            src(path)
+                .pipe(ts({
+                jsx: 'react'
+            }))
+                .pipe(dest(outputPath));
+            break;
         case '.jade':
             src(path)
                 .pipe(jade())

@@ -22,6 +22,7 @@
 |.scss|.css|
 |.less|.css|
 |.ts|.js|
+|.tsx|.jsx|
 |.js (ES6)|.js (ES5)|
 
 使用方法很简单，在编写文件的时候，按保存`Ctrl+S`，将会在该文件的同级目录下生成转化的文件，希望你能摆脱`Gulp`的约束😁
@@ -69,8 +70,11 @@
 
 <!-- - 寂寂空郊暮，非复少年时 -->
 
+要玩转H5这个插件你值得拥有！老谢，姚帅，勇哥，挺哥，婧婧，琳姐，田田，阿信，粤玲，老蓝，柠檬~在广州等你哦！
+
 如果你觉得有用，你可以给我们[留言和点赞](https://marketplace.visualstudio.com/items?itemName=Wscats.qf&ssr=false#review-details)，你的支持是我们前进的动力😀
+
 
 # License
 
-1000phone is released under the [MIT](http://opensource.org/licenses/MIT)
+Qian Feng Hero is released under the [MIT](http://opensource.org/licenses/MIT)

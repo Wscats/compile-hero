@@ -94,6 +94,13 @@ const readFileName = async (path: string, fileContext: string) => {
 				.pipe(ts())
 				.pipe(dest(outputPath));
 			break;
+		case '.tsx':
+			src(path)
+				.pipe(ts({
+					jsx: 'react'
+				}))
+				.pipe(dest(outputPath));
+			break;
 		case '.jade':
 			src(path)
 				.pipe(jade())

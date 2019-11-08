@@ -1,10 +1,10 @@
 {
   "name": "qf",
-  "displayName": "Qian Feng Hero",
-  "description": "要玩转H5这个插件你值得拥有！姚帅，老谢，勇哥，挺哥，婧婧，琳姐，粤玲，老蓝，柠檬~在广州等你来！",
+  "displayName": "Compile Hero",
+  "description": "支持ts,tsx,scss,less,jade和es6等各种预编译语言的处理，只需对文件ctrl+s即可生效",
   "author": "Eno Yao",
   "publisher": "Wscats",
-  "version": "6.7.0",
+  "version": "6.6.6",
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/hi",
   "engines": {
@@ -42,7 +42,10 @@
     "ES6",
     "ES5",
     "JS",
-    "javascript"
+    "javascript",
+    "compile",
+    "translate",
+    "tsx"
   ],
   "activationEvents": [
     "*",
