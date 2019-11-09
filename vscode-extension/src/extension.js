@@ -79,6 +79,7 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                 _a = fileSuffix;
                 switch (_a) {
                     case '.scss': return [3 /*break*/, 1];
+                    case '.sass': return [3 /*break*/, 1];
                     case '.js': return [3 /*break*/, 8];
                     case '.less': return [3 /*break*/, 9];
                     case '.ts': return [3 /*break*/, 10];
@@ -168,7 +169,7 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                     .pipe(dest(outputPath));
                 return [3 /*break*/, 14];
             case 13:
-                console.log('没找到对应的文件');
+                console.log('Not Found!');
                 return [3 /*break*/, 14];
             case 14: return [2 /*return*/];
         }
@@ -181,7 +182,12 @@ function activate(context) {
     });
     var openInBrowser = vscode.commands.registerCommand('extension.openInBrowser', function (path) {
         var uri = path.fsPath;
-        open(uri, { app: ['google chrome'] });
+        var platform = process.platform;
+        open(uri, {
+            app: [platform === 'win32' ? 'chrome' : (platform === 'darwin'
+                    ? 'google chrome'
+                    : 'google-chrome')]
+        });
     });
     context.subscriptions.push(disposable);
     context.subscriptions.push(openInBrowser);

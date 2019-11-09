@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import * as http from 'http';
 import * as p from 'path';
 const { compileSass, sass } = require('./sass/index');
 const { src, dest } = require('gulp');
@@ -13,7 +12,6 @@ const cssmin = require('gulp-minify-css');
 const ts = require('gulp-typescript');
 const jade = require('gulp-jade');
 const open = require('open');
-
 
 const readFileContext = (path: string) => {
 	return fs.readFileSync(path).toString();
@@ -39,6 +37,7 @@ const readFileName = async (path: string, fileContext: string) => {
 	console.log(path, fileSuffix, fileContext)
 	switch (fileSuffix) {
 		case '.scss':
+		case '.sass':
 			try {
 				let { text } = await compileSass(fileContext, {
 					style: sass.style.expanded,
@@ -109,7 +108,7 @@ const readFileName = async (path: string, fileContext: string) => {
 				.pipe(dest(outputPath));
 			break;
 		default:
-			console.log('没找到对应的文件');
+			console.log('Not Found!');
 			break;
 	}
 }
@@ -119,14 +118,15 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage('Hello World!');
 	});
 	let openInBrowser = vscode.commands.registerCommand('extension.openInBrowser', (path) => {
-		vscode.window.showInformationMessage('服务器已经启动');
 		let uri = path.fsPath;
-		console.log(http)
-		http.createServer((req,res)=>{
-			// vscode.window.showInformationMessage('服务器已经启动');
-			res.end('hello world');
-		}).listen(6666);
-		// open(uri, { app: ['google chrome'] });
+		let platform = process.platform;
+		open(uri, {
+			app: [platform === 'win32' ? 'chrome' : (
+				platform === 'darwin'
+					? 'google chrome'
+					: 'google-chrome'
+			)]
+		});
 	});
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(openInBrowser);

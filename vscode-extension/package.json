@@ -1,10 +1,10 @@
 {
   "name": "qf",
   "displayName": "Compile Hero",
-  "description": "支持 ts, tsx, scss, less, jade 和 es6 等各种预编译语言的处理，只需对文件 ctrl+s 即可生效",
+  "description": "Easy to compile ts, tsx, scss, less, jade and es6 on save without using a build task.",
   "author": "Eno Yao",
   "publisher": "Wscats",
-  "version": "6.7.6",
+  "version": "6.7.9",
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/compile-hero",
   "engines": {
@@ -52,7 +52,8 @@
     "translate",
     "tsx",
     "jade",
-    "hero"
+    "hero",
+    "编译"
   ],
   "activationEvents": [
     "*",
@@ -68,7 +69,7 @@
       },
       {
         "command": "extension.openInBrowser",
-        "title": "在谷歌浏览器中打开"
+        "title": "Open In Browser"
       }
     ],
     "menus": {
