@@ -28,7 +28,7 @@ const handleFilePath = (path: string, length: number) => {
 const writeScssFileContext = (path: string, data: string, isExpanded: boolean) => {
 	path = handleFilePath(path, 5);
 	fs.writeFile(isExpanded ? `${path}.css` : `${path}.min.css`, data, () => {
-		vscode.window.showInformationMessage(`编译SCSS成功!`);
+		vscode.window.showInformationMessage(`Compile failed`);
 	});
 }
 const readFileName = async (path: string, fileContext: string) => {
@@ -44,7 +44,7 @@ const readFileName = async (path: string, fileContext: string) => {
 				});
 				writeScssFileContext(path, text, true);
 			} catch (error) {
-				vscode.window.showErrorMessage(`编译SCSS失败: ${error}`);
+				vscode.window.showErrorMessage(`Compile failed: ${error}`);
 			}
 			try {
 				let { text } = await compileSass(fileContext, {
@@ -52,20 +52,24 @@ const readFileName = async (path: string, fileContext: string) => {
 				});
 				writeScssFileContext(path, text, false);
 			} catch (error) {
-				vscode.window.showErrorMessage(`编译SCSS失败: ${error}`);
+				vscode.window.showErrorMessage(`Compile failed: ${error}`);
 			}
 			break;
 		case '.js':
+			if (/.dev.js|.prod.js$/g.test(path)) {
+				vscode.window.showInformationMessage(`The prod or dev file has been processed and will not be compiled`);
+				break;
+			}
 			try {
 				src(path)
 					.pipe(babel({
 						presets: [babelEnv]
 					}))
-					.pipe(rename({ suffix: '.es5' }))
+					.pipe(rename({ suffix: '.dev' }))
 					.pipe(dest(outputPath));
-				vscode.window.showInformationMessage(`编译JS成功!`);
+				vscode.window.showInformationMessage(`Compile successfully!`);
 			} catch (error) {
-				vscode.window.showErrorMessage(`编译JS失败: ${error}`);
+				vscode.window.showErrorMessage(`Compile failed: ${error}`);
 			}
 			try {
 				src(path)
@@ -73,11 +77,11 @@ const readFileName = async (path: string, fileContext: string) => {
 						presets: [babelEnv]
 					}))
 					.pipe(uglify())
-					.pipe(rename({ suffix: '.min' }))
+					.pipe(rename({ suffix: '.prod' }))
 					.pipe(dest(outputPath));
-				vscode.window.showInformationMessage(`编译JS成功!`);
+				vscode.window.showInformationMessage(`Compile successfully!`);
 			} catch (error) {
-				vscode.window.showErrorMessage(`编译JS失败: ${error}`);
+				vscode.window.showErrorMessage(`Compile failed: ${error}`);
 			}
 			break;
 		case '.less':
@@ -89,11 +93,13 @@ const readFileName = async (path: string, fileContext: string) => {
 				.pipe(cssmin({ compatibility: 'ie7' }))
 				.pipe(rename({ suffix: '.min' }))
 				.pipe(dest(outputPath));
+			vscode.window.showInformationMessage(`Compile successfully!`);
 			break;
 		case '.ts':
 			src(path)
 				.pipe(ts())
 				.pipe(dest(outputPath));
+			vscode.window.showInformationMessage(`Compile successfully!`);
 			break;
 		case '.tsx':
 			src(path)
@@ -101,11 +107,13 @@ const readFileName = async (path: string, fileContext: string) => {
 					jsx: 'react'
 				}))
 				.pipe(dest(outputPath));
+			vscode.window.showInformationMessage(`Compile successfully!`);
 			break;
 		case '.jade':
 			src(path)
 				.pipe(jade())
 				.pipe(dest(outputPath));
+			vscode.window.showInformationMessage(`Compile successfully!`);
 			break;
 		default:
 			console.log('Not Found!');

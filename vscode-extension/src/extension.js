@@ -65,7 +65,7 @@ var handleFilePath = function (path, length) {
 var writeScssFileContext = function (path, data, isExpanded) {
     path = handleFilePath(path, 5);
     fs.writeFile(isExpanded ? path + ".css" : path + ".min.css", data, function () {
-        vscode.window.showInformationMessage("\u7F16\u8BD1SCSS\u6210\u529F!");
+        vscode.window.showInformationMessage("Compile failed");
     });
 };
 var readFileName = function (path, fileContext) { return __awaiter(void 0, void 0, void 0, function () {
@@ -98,7 +98,7 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                 return [3 /*break*/, 4];
             case 3:
                 error_1 = _b.sent();
-                vscode.window.showErrorMessage("\u7F16\u8BD1SCSS\u5931\u8D25: " + error_1);
+                vscode.window.showErrorMessage("Compile failed: " + error_1);
                 return [3 /*break*/, 4];
             case 4:
                 _b.trys.push([4, 6, , 7]);
@@ -111,21 +111,25 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                 return [3 /*break*/, 7];
             case 6:
                 error_2 = _b.sent();
-                vscode.window.showErrorMessage("\u7F16\u8BD1SCSS\u5931\u8D25: " + error_2);
+                vscode.window.showErrorMessage("Compile failed: " + error_2);
                 return [3 /*break*/, 7];
             case 7: return [3 /*break*/, 14];
             case 8:
+                if (/.dev.js|.prod.js$/g.test(path)) {
+                    vscode.window.showInformationMessage("The prod or dev file has been processed and will not be compiled");
+                    return [3 /*break*/, 14];
+                }
                 try {
                     src(path)
                         .pipe(babel({
                         presets: [babelEnv]
                     }))
-                        .pipe(rename({ suffix: '.es5' }))
+                        .pipe(rename({ suffix: '.dev' }))
                         .pipe(dest(outputPath));
-                    vscode.window.showInformationMessage("\u7F16\u8BD1JS\u6210\u529F!");
+                    vscode.window.showInformationMessage("Compile successfully!");
                 }
                 catch (error) {
-                    vscode.window.showErrorMessage("\u7F16\u8BD1JS\u5931\u8D25: " + error);
+                    vscode.window.showErrorMessage("Compile failed: " + error);
                 }
                 try {
                     src(path)
@@ -133,12 +137,12 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                         presets: [babelEnv]
                     }))
                         .pipe(uglify())
-                        .pipe(rename({ suffix: '.min' }))
+                        .pipe(rename({ suffix: '.prod' }))
                         .pipe(dest(outputPath));
-                    vscode.window.showInformationMessage("\u7F16\u8BD1JS\u6210\u529F!");
+                    vscode.window.showInformationMessage("Compile successfully!");
                 }
                 catch (error) {
-                    vscode.window.showErrorMessage("\u7F16\u8BD1JS\u5931\u8D25: " + error);
+                    vscode.window.showErrorMessage("Compile failed: " + error);
                 }
                 return [3 /*break*/, 14];
             case 9:
@@ -150,11 +154,13 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                     .pipe(cssmin({ compatibility: 'ie7' }))
                     .pipe(rename({ suffix: '.min' }))
                     .pipe(dest(outputPath));
+                vscode.window.showInformationMessage("Compile successfully!");
                 return [3 /*break*/, 14];
             case 10:
                 src(path)
                     .pipe(ts())
                     .pipe(dest(outputPath));
+                vscode.window.showInformationMessage("Compile successfully!");
                 return [3 /*break*/, 14];
             case 11:
                 src(path)
@@ -162,11 +168,13 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                     jsx: 'react'
                 }))
                     .pipe(dest(outputPath));
+                vscode.window.showInformationMessage("Compile successfully!");
                 return [3 /*break*/, 14];
             case 12:
                 src(path)
                     .pipe(jade())
                     .pipe(dest(outputPath));
+                vscode.window.showInformationMessage("Compile successfully!");
                 return [3 /*break*/, 14];
             case 13:
                 console.log('Not Found!');

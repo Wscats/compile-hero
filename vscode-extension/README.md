@@ -14,6 +14,8 @@ Compile on save `(ctrl+s)` for `less, sass, scss, typescript, jade and jsx` file
 
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/1.gif" />
 
+<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/3.gif" />
+
 - Compile `less, sass, scss, typescript, jade and jsx` on save
 - Support autoprefixer for `less, scss, scss`
 - Support to open `html` files to preview in browser
@@ -33,7 +35,7 @@ Easy to use. When you writing a file, press save `ctrl+s` to generate the compil
 
 Right click the `xxx. html` file in the directory menu, and the `open in browser` option will appear. You can preview the page in the browser.
 
-<img width="200" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/2.gif" />
+<img width="200" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/3.gif" />
 
 
 # Thanks

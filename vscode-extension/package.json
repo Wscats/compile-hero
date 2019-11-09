@@ -4,7 +4,7 @@
   "description": "Easy to compile ts, tsx, scss, less, jade and es6 on save without using a build task.",
   "author": "Eno Yao",
   "publisher": "Wscats",
-  "version": "6.7.9",
+  "version": "6.8.0",
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/compile-hero",
   "engines": {
