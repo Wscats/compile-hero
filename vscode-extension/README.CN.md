@@ -4,6 +4,8 @@
 <a href="https://github.com/Wscats"><img src="https://img.shields.io/badge/Author-Eno Yao-blueviolet" alt="Eno Yao" /></a>
 <a href="https://github.com/Wscats"><img src="https://api.netlify.com/api/v1/badges/b652768b-1673-42cd-98dd-3fd807b2ebca/deploy-status" alt="Status" /></a>
 
+[English](https://github.com/Wscats/compile-hero/blob/master/vscode-extension/README.md) | [中文](https://github.com/Wscats/compile-hero/blob/master/vscode-extension/README.CN.md)
+
 # Features
 
 该插件除了支持自动测评以外，还支持各种预编译语言：

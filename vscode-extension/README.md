@@ -4,7 +4,7 @@
 <a href="https://github.com/Wscats"><img src="https://img.shields.io/badge/Author-Eno Yao-blueviolet" alt="Eno Yao" /></a>
 <a href="https://github.com/Wscats"><img src="https://api.netlify.com/api/v1/badges/b652768b-1673-42cd-98dd-3fd807b2ebca/deploy-status" alt="Status" /></a>
 
-[English](README.md) | [中文](README.CN.md)
+[English](https://github.com/Wscats/compile-hero/blob/master/vscode-extension/README.md) | [中文](https://github.com/Wscats/compile-hero/blob/master/vscode-extension/README.CN.md)
 
 # Features
 
@@ -35,7 +35,7 @@ Easy to use. When you writing a file, press save `ctrl+s` to generate the compil
 
 Right click the `xxx. html` file in the directory menu, and the `open in browser` option will appear. You can preview the page in the browser.
 
-<img width="200" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/3.gif" />
+<img width="200" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/2.gif" />
 
 
 # Thanks
