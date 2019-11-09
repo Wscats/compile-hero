@@ -33,7 +33,7 @@ Easy to use. When you writing a file, press save `ctrl+s` to generate the compil
 
 Right click the `xxx. html` file in the directory menu, and the `open in browser` option will appear. You can preview the page in the browser.
 
-<img width="200" src="https://wscats.github.io/compile-hero/chrome-extension/screenshot/7.jpg" />
+<img width="200" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/2.gif" />
 
 
 # Thanks
