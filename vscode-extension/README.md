@@ -42,7 +42,7 @@ Right click the `xxx. html` file in the directory menu, and the `open in browser
 | - | - | - | - | - | - | - | - | - | - |
 
 
-To enjoy front end, you should have it! xie, yao, yong, ting, jing, lin, tian, xin, xia, dk, lemon ~ Waiting for you in my heart！
+If you enjoy front end, you should have it! xie, yao, yong, ting, jing, lin, tian, xin, xia, dk and lemon ~ Waiting for you in our heart！
 
 If you think it's useful, you can leave us a [message and like it](https://marketplace.visualstudio.com/items?itemName=Wscats.qf&ssr=false#review-details), Your support is our driving force😀
 
