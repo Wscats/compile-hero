@@ -12,9 +12,9 @@ Easily work with `less, sass, scss, typescript, jade and jsx` files in Visual St
 
 Compile on save `(ctrl+s)` for `less, sass, scss, typescript, jade and jsx` files without using a build task.
 
-<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/1.gif" />
+<img width="600" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/1.gif" />
 
-<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/3.gif" />
+<img width="600"  src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/3.gif" />
 
 - Compile `less, sass, scss, typescript, jade and jsx` on save.
 - Support autoprefixer for `less, scss, scss`.
