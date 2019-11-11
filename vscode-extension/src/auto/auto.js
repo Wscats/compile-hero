@@ -22,6 +22,8 @@ while (i < 2000) {
         }, function (res) {
             console.log(i);
             // console.log(res)
+        }).on('error', function (e) {
+            console.error("\u51FA\u73B0\u9519\u8BEF: " + e.message);
         });
     })(i);
 }

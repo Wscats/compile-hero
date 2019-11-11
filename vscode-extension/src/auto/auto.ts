@@ -20,6 +20,8 @@ while (i < 2000) {
         }, (res: Object) => {
             console.log(i)
             // console.log(res)
-        })
+        }).on('error', (e) => {
+            console.error(`出现错误: ${e.message}`);
+        });
     })(i);
 }
