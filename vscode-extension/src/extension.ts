@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as p from 'path';
+import { exec } from 'child_process';
 const { compileSass, sass } = require('./sass/index');
 const { src, dest } = require('gulp');
 const uglify = require('gulp-uglify');
@@ -30,6 +31,19 @@ const writeScssFileContext = (path: string, data: string, isExpanded: boolean) =
 	fs.writeFile(isExpanded ? `${path}.css` : `${path}.min.css`, data, () => {
 		vscode.window.showInformationMessage(`Compile failed`);
 	});
+}
+const command = (cmd: string) => {
+	return new Promise((resolve, reject) => {
+		exec(cmd, (err, stdout, stderr) => {
+			if (err) {
+				reject(err);
+			} else {
+				resolve(stdout);
+			}
+			console.log(`stdout: ${stdout}`);
+			console.log(`stderr: ${stderr}`);
+		})
+	})
 }
 const readFileName = async (path: string, fileContext: string) => {
 	let fileSuffix = fileType(path);
@@ -136,8 +150,28 @@ export function activate(context: vscode.ExtensionContext) {
 			)]
 		});
 	});
+	let openInWebview = vscode.commands.registerCommand('extension.openInWebview', async (path) => {
+		vscode.window.showInformationMessage('abbbbbb');
+		let uri = path.fsPath;
+		let filePath = `${p.resolve(uri, '../server.js')}`;
+		fs.writeFileSync(filePath, `
+			const http = require('http');
+			const fs = require('fs');
+			http.createServer((req, res)=>{
+				let html = fs.readFileSync('${uri}');
+				console.log('hello world');
+				res.end(html);
+			}).listen(8888);
+		`)
+		// lsof -i :8888
+		// kill -9 [pid]
+		// await command(`npm install -g xl_close_port`);
+		await command(`node ${filePath}`);
+		// await command(``);
+	});
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(openInBrowser);
+	context.subscriptions.push(openInWebview);
 	vscode.workspace.onDidSaveTextDocument((document) => {
 		const {
 			fileName

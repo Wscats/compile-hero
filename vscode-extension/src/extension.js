@@ -39,6 +39,7 @@ exports.__esModule = true;
 var vscode = require("vscode");
 var fs = require("fs");
 var p = require("path");
+var child_process_1 = require("child_process");
 var _a = require('./sass/index'), compileSass = _a.compileSass, sass = _a.sass;
 var _b = require('gulp'), src = _b.src, dest = _b.dest;
 var uglify = require('gulp-uglify');
@@ -66,6 +67,20 @@ var writeScssFileContext = function (path, data, isExpanded) {
     path = handleFilePath(path, 5);
     fs.writeFile(isExpanded ? path + ".css" : path + ".min.css", data, function () {
         vscode.window.showInformationMessage("Compile failed");
+    });
+};
+var command = function (cmd) {
+    return new Promise(function (resolve, reject) {
+        child_process_1.exec(cmd, function (err, stdout, stderr) {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(stdout);
+            }
+            console.log("stdout: " + stdout);
+            console.log("stderr: " + stderr);
+        });
     });
 };
 var readFileName = function (path, fileContext) { return __awaiter(void 0, void 0, void 0, function () {
@@ -184,6 +199,7 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
     });
 }); };
 function activate(context) {
+    var _this = this;
     console.log('Congratulations, your extension "qf" is now active!');
     var disposable = vscode.commands.registerCommand('extension.helloWorld', function () {
         vscode.window.showInformationMessage('Hello World!');
@@ -197,8 +213,27 @@ function activate(context) {
                     : 'google-chrome')]
         });
     });
+    var openInWebview = vscode.commands.registerCommand('extension.openInWebview', function (path) { return __awaiter(_this, void 0, void 0, function () {
+        var uri, filePath;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    vscode.window.showInformationMessage('abbbbbb');
+                    uri = path.fsPath;
+                    filePath = "" + p.resolve(uri, '../server.js');
+                    fs.writeFileSync(filePath, "\n\t\t\tconst http = require('http');\n\t\t\tconst fs = require('fs');\n\t\t\thttp.createServer((req, res)=>{\n\t\t\t\tlet html = fs.readFileSync('" + uri + "');\n\t\t\t\tconsole.log('hello world');\n\t\t\t\tres.end(html);\n\t\t\t}).listen(6666);\n\t\t");
+                    // await command(`npm install -g xl_close_port`);
+                    return [4 /*yield*/, command("node " + filePath)];
+                case 1:
+                    // await command(`npm install -g xl_close_port`);
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
     context.subscriptions.push(disposable);
     context.subscriptions.push(openInBrowser);
+    context.subscriptions.push(openInWebview);
     vscode.workspace.onDidSaveTextDocument(function (document) {
         var fileName = document.fileName;
         var fileContext = readFileContext(fileName);

@@ -58,7 +58,8 @@
   "activationEvents": [
     "*",
     "onCommand:extension.helloWorld",
-    "onCommand:extension.openInBrowser"
+    "onCommand:extension.openInBrowser",
+    "onCommand:extension.openInWebview"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -70,6 +71,10 @@
       {
         "command": "extension.openInBrowser",
         "title": "Open In Browser"
+      },
+      {
+        "command": "extension.openInWebview",
+        "title": "Open In Webview"
       }
     ],
     "menus": {
@@ -78,6 +83,11 @@
           "when": "resourceLangId == html",
           "command": "extension.openInBrowser",
           "group": "open-in-browser"
+        },
+        {
+          "when": "resourceLangId == html",
+          "command": "extension.openInWebview",
+          "group": "open-in-webview"
         }
       ],
       "editor/context": [
