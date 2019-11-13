@@ -33,17 +33,23 @@ const writeScssFileContext = (path: string, data: string, isExpanded: boolean) =
 	});
 }
 const command = (cmd: string) => {
-	return new Promise((resolve, reject) => {
+	return new Promise<string>((resolve, reject) => {
 		exec(cmd, (err, stdout, stderr) => {
-			if (err) {
-				reject(err);
-			} else {
-				resolve(stdout);
-			}
-			console.log(`stdout: ${stdout}`);
-			console.log(`stderr: ${stderr}`);
+			resolve(stdout);
 		})
 	})
+}
+const transformPort = (data: string): string => {
+	let port: string = '';
+	data.split(/[\n|\r]/).forEach(item => {
+		if (item.indexOf('LISTEN') !== -1 && !port) {
+			let reg = item.split(/\s+/)
+			if (/\d+/.test(reg[1])) {
+				port = reg[1]
+			}
+		}
+	})
+	return port
 }
 const readFileName = async (path: string, fileContext: string) => {
 	let fileSuffix = fileType(path);
@@ -150,28 +156,32 @@ export function activate(context: vscode.ExtensionContext) {
 			)]
 		});
 	});
-	let openInWebview = vscode.commands.registerCommand('extension.openInWebview', async (path) => {
-		vscode.window.showInformationMessage('abbbbbb');
-		let uri = path.fsPath;
-		let filePath = `${p.resolve(uri, '../server.js')}`;
-		fs.writeFileSync(filePath, `
-			const http = require('http');
-			const fs = require('fs');
-			http.createServer((req, res)=>{
-				let html = fs.readFileSync('${uri}');
-				console.log('hello world');
-				res.end(html);
-			}).listen(8888);
-		`)
-		// lsof -i :8888
-		// kill -9 [pid]
-		// await command(`npm install -g xl_close_port`);
-		await command(`node ${filePath}`);
-		// await command(``);
+	let closePort = vscode.commands.registerCommand('extension.closePort', async (path) => {
+		// const panel = vscode.window.createWebviewPanel(
+		// 	'testWelcome', // viewType
+		// 	"Welcome to Eno Snippets", // 视图标题
+		// 	vscode.ViewColumn.One, // 显示在编辑器的哪个部位
+		// 	{
+		// 		enableScripts: true, // 启用JS，默认禁用
+		// 		retainContextWhenHidden: true, // webview被隐藏时保持状态，避免被重置
+		// 	}
+		// );
+		// panel.webview.html = `
+		// 	<p>hello world</p>
+		// 	<style>p{color:red}</style>
+		// `
+		let inputPort = await vscode.window.showInputBox({ placeHolder: 'Enter the port you need to close?' });
+		console.log(inputPort);
+		let info = await command(`lsof -i :${inputPort}`);
+		let port = transformPort(info);
+		if (port) {
+			await command(`kill -9 ${port}`);
+			vscode.window.showInformationMessage('Port closed successfully!');
+		}
 	});
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(openInBrowser);
-	context.subscriptions.push(openInWebview);
+	context.subscriptions.push(closePort);
 	vscode.workspace.onDidSaveTextDocument((document) => {
 		const {
 			fileName

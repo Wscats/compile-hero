@@ -37,6 +37,9 @@ Right click the `html` file in the directory menu, and the `open in browser` opt
 
 <img width="200" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/2.gif" />
 
+# Close Port
+
+At some point, you may be using ports for some services. You can use the `close port` command to close.
 
 # Thanks
 

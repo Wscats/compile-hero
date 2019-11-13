@@ -4,7 +4,7 @@
   "description": "Easy to compile ts, tsx, scss, less, jade and es6 on save without using a build task.",
   "author": "Eno Yao",
   "publisher": "Wscats",
-  "version": "6.8.2",
+  "version": "6.8.3",
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/compile-hero",
   "engines": {
@@ -53,13 +53,15 @@
     "tsx",
     "jade",
     "hero",
-    "编译"
+    "编译",
+    "close",
+    "port"
   ],
   "activationEvents": [
     "*",
     "onCommand:extension.helloWorld",
     "onCommand:extension.openInBrowser",
-    "onCommand:extension.openInWebview"
+    "onCommand:extension.closePort"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -73,8 +75,8 @@
         "title": "Open In Browser"
       },
       {
-        "command": "extension.openInWebview",
-        "title": "Open In Webview"
+        "command": "extension.closePort",
+        "title": "Close Port"
       }
     ],
     "menus": {
@@ -86,8 +88,8 @@
         },
         {
           "when": "resourceLangId == html",
-          "command": "extension.openInWebview",
-          "group": "open-in-webview"
+          "command": "extension.closePort",
+          "group": "close-port"
         }
       ],
       "editor/context": [
@@ -95,6 +97,11 @@
           "when": "resourceLangId == html",
           "command": "extension.openInBrowser",
           "group": "open-in-browser"
+        },
+        {
+          "when": "resourceLangId == html",
+          "command": "extension.closePort",
+          "group": "close-port"
         }
       ],
       "editor/title/context": [
@@ -102,6 +109,11 @@
           "when": "resourceLangId == html",
           "command": "extension.openInBrowser",
           "group": "open-in-browser"
+        },
+        {
+          "when": "resourceLangId == html",
+          "command": "extension.closePort",
+          "group": "close-port"
         }
       ]
     }
