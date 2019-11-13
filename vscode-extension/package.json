@@ -4,12 +4,16 @@
   "description": "Easy to compile ts, tsx, scss, less, jade and es6 on save without using a build task.",
   "author": "Eno Yao",
   "publisher": "Wscats",
-  "version": "6.8.3",
+  "version": "6.8.33",
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/compile-hero",
   "engines": {
     "vscode": "^1.39.0"
   },
+  "bugs": {
+    "url": "https://github.com/Wscats/compile-hero/issues/new"
+  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Wscats/compile-hero"
@@ -85,11 +89,6 @@
           "when": "resourceLangId == html",
           "command": "extension.openInBrowser",
           "group": "open-in-browser"
-        },
-        {
-          "when": "resourceLangId == html",
-          "command": "extension.closePort",
-          "group": "close-port"
         }
       ],
       "editor/context": [
@@ -97,11 +96,6 @@
           "when": "resourceLangId == html",
           "command": "extension.openInBrowser",
           "group": "open-in-browser"
-        },
-        {
-          "when": "resourceLangId == html",
-          "command": "extension.closePort",
-          "group": "close-port"
         }
       ],
       "editor/title/context": [
@@ -109,11 +103,6 @@
           "when": "resourceLangId == html",
           "command": "extension.openInBrowser",
           "group": "open-in-browser"
-        },
-        {
-          "when": "resourceLangId == html",
-          "command": "extension.closePort",
-          "group": "close-port"
         }
       ]
     }

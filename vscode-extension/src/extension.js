@@ -72,16 +72,21 @@ var writeScssFileContext = function (path, data, isExpanded) {
 var command = function (cmd) {
     return new Promise(function (resolve, reject) {
         child_process_1.exec(cmd, function (err, stdout, stderr) {
-            if (err) {
-                reject(err);
-            }
-            else {
-                resolve(stdout);
-            }
-            console.log("stdout: " + stdout);
-            console.log("stderr: " + stderr);
+            resolve(stdout);
         });
     });
+};
+var transformPort = function (data) {
+    var port = '';
+    data.split(/[\n|\r]/).forEach(function (item) {
+        if (item.indexOf('LISTEN') !== -1 && !port) {
+            var reg = item.split(/\s+/);
+            if (/\d+/.test(reg[1])) {
+                port = reg[1];
+            }
+        }
+    });
+    return port;
 };
 var readFileName = function (path, fileContext) { return __awaiter(void 0, void 0, void 0, function () {
     var fileSuffix, outputPath, _a, text, error_1, text, error_2;
@@ -213,27 +218,30 @@ function activate(context) {
                     : 'google-chrome')]
         });
     });
-    var openInWebview = vscode.commands.registerCommand('extension.openInWebview', function (path) { return __awaiter(_this, void 0, void 0, function () {
-        var uri, filePath;
+    var closePort = vscode.commands.registerCommand('extension.closePort', function (path) { return __awaiter(_this, void 0, void 0, function () {
+        var inputPort, info, port;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    vscode.window.showInformationMessage('abbbbbb');
-                    uri = path.fsPath;
-                    filePath = "" + p.resolve(uri, '../server.js');
-                    fs.writeFileSync(filePath, "\n\t\t\tconst http = require('http');\n\t\t\tconst fs = require('fs');\n\t\t\thttp.createServer((req, res)=>{\n\t\t\t\tlet html = fs.readFileSync('" + uri + "');\n\t\t\t\tconsole.log('hello world');\n\t\t\t\tres.end(html);\n\t\t\t}).listen(6666);\n\t\t");
-                    // await command(`npm install -g xl_close_port`);
-                    return [4 /*yield*/, command("node " + filePath)];
+                case 0: return [4 /*yield*/, vscode.window.showInputBox({ placeHolder: 'Enter the port you need to close?' })];
                 case 1:
-                    // await command(`npm install -g xl_close_port`);
+                    inputPort = _a.sent();
+                    return [4 /*yield*/, command("lsof -i :" + inputPort)];
+                case 2:
+                    info = _a.sent();
+                    port = transformPort(info);
+                    if (!port) return [3 /*break*/, 4];
+                    return [4 /*yield*/, command("kill -9 " + port)];
+                case 3:
                     _a.sent();
-                    return [2 /*return*/];
+                    vscode.window.showInformationMessage('Port closed successfully!');
+                    _a.label = 4;
+                case 4: return [2 /*return*/];
             }
         });
     }); });
     context.subscriptions.push(disposable);
     context.subscriptions.push(openInBrowser);
-    context.subscriptions.push(openInWebview);
+    context.subscriptions.push(closePort);
     vscode.workspace.onDidSaveTextDocument(function (document) {
         var fileName = document.fileName;
         var fileContext = readFileContext(fileName);

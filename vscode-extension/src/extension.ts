@@ -171,7 +171,6 @@ export function activate(context: vscode.ExtensionContext) {
 		// 	<style>p{color:red}</style>
 		// `
 		let inputPort = await vscode.window.showInputBox({ placeHolder: 'Enter the port you need to close?' });
-		console.log(inputPort);
 		let info = await command(`lsof -i :${inputPort}`);
 		let port = transformPort(info);
 		if (port) {
