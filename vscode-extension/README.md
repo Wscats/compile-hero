@@ -41,7 +41,7 @@ Right click the `html` file in the directory menu, and the `open in browser` opt
 
 At some point, you may be using ports for some services. You can use the `close port` command to close.
 
-<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/4.gif" />
+<img width="400"  src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/4.gif" />
 
 # Thanks
 
