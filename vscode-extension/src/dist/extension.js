@@ -51,6 +51,7 @@ var cssmin = require('gulp-minify-css');
 var ts = require('gulp-typescript');
 var jade = require('gulp-jade');
 var open = require('open');
+var through = require('through2');
 var readFileContext = function (path) {
     return fs.readFileSync(path).toString();
 };
@@ -59,13 +60,6 @@ var fileType = function (filename) {
     var index2 = filename.length;
     var type = filename.substring(index1, index2);
     return type;
-};
-var handleFilePath = function (path, length) {
-    return path = path.substring(0, path.length - length);
-};
-var writeScssFileContext = function (path, data, isExpanded) {
-    path = handleFilePath(path, 5);
-    fs.writeFileSync(isExpanded ? path + ".css" : path + ".min.css", data);
 };
 var command = function (cmd) {
     return new Promise(function (resolve, reject) {
@@ -86,101 +80,81 @@ var transformPort = function (data) {
     });
     return port;
 };
+var empty = function (code) {
+    var stream = through.obj(function (file, encoding, callback) {
+        if (!file.isBuffer()) {
+            return callback();
+        }
+        file.contents = Buffer.from(code || '');
+        stream.push(file);
+        callback();
+    });
+    return stream;
+};
 var readFileName = function (path, fileContext) { return __awaiter(void 0, void 0, void 0, function () {
-    var fileSuffix, config, outputDirectoryPath, outputPath, _a, index1, index2, type, text, error_1, text, error_2;
+    var fileSuffix, config, outputDirectoryPath, outputPath, _a, text;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 fileSuffix = fileType(path);
                 config = vscode.workspace.getConfiguration("compile-hero");
-                console.log(config);
-                console.log(config.get('javascript-output-directory'));
                 outputDirectoryPath = {
                     '.js': config.get('javascript-output-directory') || '',
                     '.scss': config.get('sass-output-directory') || '',
-                    '.sass': config.get('sass-output-directory') || ''
+                    '.sass': config.get('sass-output-directory') || '',
+                    '.less': config.get('less-output-directory') || '',
+                    '.jade': config.get('jade-output-directory') || '',
+                    '.ts': config.get('typescript-output-directory') || '',
+                    '.tsx': config.get('typescriptx-output-directory') || ''
                 };
                 outputPath = p.resolve(path, '../', outputDirectoryPath[fileSuffix]);
-                console.log(outputPath);
-                console.log({ path: path, outputPath: outputPath, fileSuffix: fileSuffix, fileContext: fileContext });
                 _a = fileSuffix;
                 switch (_a) {
                     case '.scss': return [3 /*break*/, 1];
                     case '.sass': return [3 /*break*/, 1];
-                    case '.js': return [3 /*break*/, 9];
-                    case '.less': return [3 /*break*/, 10];
-                    case '.ts': return [3 /*break*/, 11];
-                    case '.tsx': return [3 /*break*/, 12];
-                    case '.jade': return [3 /*break*/, 13];
+                    case '.js': return [3 /*break*/, 3];
+                    case '.less': return [3 /*break*/, 4];
+                    case '.ts': return [3 /*break*/, 5];
+                    case '.tsx': return [3 /*break*/, 6];
+                    case '.jade': return [3 /*break*/, 7];
                 }
-                return [3 /*break*/, 14];
-            case 1:
-                index1 = path.lastIndexOf("/");
-                index2 = path.length;
-                type = path.substring(index1, index2);
-                outputPath = p.resolve(outputPath, "" + type.replace(/\/([\s\S]+.scss)/g, '$1'));
-                console.log(outputPath);
-                _b.label = 2;
+                return [3 /*break*/, 8];
+            case 1: return [4 /*yield*/, compileSass(fileContext, {
+                    style: sass.style.expanded || sass.style.compressed
+                })];
             case 2:
-                _b.trys.push([2, 4, , 5]);
-                return [4 /*yield*/, compileSass(fileContext, {
-                        style: sass.style.expanded
-                    })];
-            case 3:
                 text = (_b.sent()).text;
-                // fs.createReadStream("").pipe(dest(outputPath));
-                src(text)
+                src(path)
+                    .pipe(empty(text))
+                    .pipe(rename({
+                    extname: ".css"
+                }))
+                    .pipe(dest(outputPath))
+                    .pipe(cssmin({ compatibility: 'ie7' }))
+                    .pipe(rename({
+                    extname: ".css",
+                    suffix: '.min'
+                }))
                     .pipe(dest(outputPath));
-                return [3 /*break*/, 5];
-            case 4:
-                error_1 = _b.sent();
-                vscode.window.showErrorMessage("Compile failed: " + error_1);
-                return [3 /*break*/, 5];
-            case 5:
-                _b.trys.push([5, 7, , 8]);
-                return [4 /*yield*/, compileSass(fileContext, {
-                        style: sass.style.compressed
-                    })];
-            case 6:
-                text = (_b.sent()).text;
-                return [3 /*break*/, 8];
-            case 7:
-                error_2 = _b.sent();
-                vscode.window.showErrorMessage("Compile failed: " + error_2);
-                return [3 /*break*/, 8];
-            case 8: return [3 /*break*/, 15];
-            case 9:
+                vscode.window.showInformationMessage("Compile successfully!");
+                return [3 /*break*/, 9];
+            case 3:
                 if (/.dev.js|.prod.js$/g.test(path)) {
                     vscode.window.showInformationMessage("The prod or dev file has been processed and will not be compiled");
-                    return [3 /*break*/, 15];
+                    return [3 /*break*/, 9];
                 }
-                try {
-                    src(path)
-                        .pipe(babel({
-                        presets: [babelEnv]
-                    }))
-                        .pipe(rename({ suffix: '.dev' }))
-                        .pipe(dest(outputPath));
-                    vscode.window.showInformationMessage("Compile successfully!");
-                }
-                catch (error) {
-                    vscode.window.showErrorMessage("Compile failed: " + error);
-                }
-                try {
-                    src(path)
-                        .pipe(babel({
-                        presets: [babelEnv]
-                    }))
-                        .pipe(uglify())
-                        .pipe(rename({ suffix: '.prod' }))
-                        .pipe(dest(outputPath));
-                    vscode.window.showInformationMessage("Compile successfully!");
-                }
-                catch (error) {
-                    vscode.window.showErrorMessage("Compile failed: " + error);
-                }
-                return [3 /*break*/, 15];
-            case 10:
+                src(path)
+                    .pipe(babel({
+                    presets: [babelEnv]
+                }))
+                    .pipe(rename({ suffix: '.dev' }))
+                    .pipe(dest(outputPath))
+                    .pipe(uglify())
+                    .pipe(rename({ suffix: '.prod' }))
+                    .pipe(dest(outputPath));
+                vscode.window.showInformationMessage("Compile successfully!");
+                return [3 /*break*/, 9];
+            case 4:
                 src(path)
                     .pipe(less())
                     .pipe(dest(outputPath));
@@ -190,40 +164,37 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                     .pipe(rename({ suffix: '.min' }))
                     .pipe(dest(outputPath));
                 vscode.window.showInformationMessage("Compile successfully!");
-                return [3 /*break*/, 15];
-            case 11:
+                return [3 /*break*/, 9];
+            case 5:
                 src(path)
                     .pipe(ts())
                     .pipe(dest(outputPath));
                 vscode.window.showInformationMessage("Compile successfully!");
-                return [3 /*break*/, 15];
-            case 12:
+                return [3 /*break*/, 9];
+            case 6:
                 src(path)
                     .pipe(ts({
                     jsx: 'react'
                 }))
                     .pipe(dest(outputPath));
                 vscode.window.showInformationMessage("Compile successfully!");
-                return [3 /*break*/, 15];
-            case 13:
+                return [3 /*break*/, 9];
+            case 7:
                 src(path)
                     .pipe(jade())
                     .pipe(dest(outputPath));
                 vscode.window.showInformationMessage("Compile successfully!");
-                return [3 /*break*/, 15];
-            case 14:
+                return [3 /*break*/, 9];
+            case 8:
                 console.log('Not Found!');
-                return [3 /*break*/, 15];
-            case 15: return [2 /*return*/];
+                return [3 /*break*/, 9];
+            case 9: return [2 /*return*/];
         }
     });
 }); };
 function activate(context) {
     var _this = this;
     console.log('Congratulations, your extension "qf" is now active!');
-    var disposable = vscode.commands.registerCommand('extension.helloWorld', function () {
-        vscode.window.showInformationMessage('Hello World!');
-    });
     var openInBrowser = vscode.commands.registerCommand('extension.openInBrowser', function (path) {
         var uri = path.fsPath;
         var platform = process.platform;

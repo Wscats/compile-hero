@@ -13,6 +13,7 @@ const cssmin = require('gulp-minify-css');
 const ts = require('gulp-typescript');
 const jade = require('gulp-jade');
 const open = require('open');
+const through = require('through2');
 
 const readFileContext = (path: string) => {
 	return fs.readFileSync(path).toString();
@@ -22,15 +23,6 @@ const fileType = (filename: string) => {
 	const index2 = filename.length;
 	const type = filename.substring(index1, index2);
 	return type;
-}
-const handleFilePath = (path: string, length: number) => {
-	return path = path.substring(0, path.length - length);
-}
-const writeScssFileContext = (path: string, data: string, isExpanded: boolean) => {
-	path = handleFilePath(path, 5);
-	fs.writeFile(isExpanded ? `${path}.css` : `${path}.min.css`, data, () => {
-		vscode.window.showInformationMessage(`Compile failed`);
-	});
 }
 const command = (cmd: string) => {
 	return new Promise<string>((resolve, reject) => {
@@ -51,58 +43,66 @@ const transformPort = (data: string): string => {
 	})
 	return port
 }
+
+const empty = function (code: string) {
+	let stream = through.obj((file: any, encoding: any, callback: any) => {
+		if (!file.isBuffer()) {
+			return callback();
+		}
+		file.contents = Buffer.from(code || '');
+		stream.push(file);
+		callback();
+	});
+	return stream;
+}
 const readFileName = async (path: string, fileContext: string) => {
 	let fileSuffix = fileType(path);
-	let outputPath = p.resolve(path, '../');
-	console.log(path, fileSuffix, fileContext)
+	let config = vscode.workspace.getConfiguration("compile-hero");
+	let outputDirectoryPath: any = {
+		'.js': config.get<string>('javascript-output-directory') || '',
+		'.scss': config.get<string>('sass-output-directory') || '',
+		'.sass': config.get<string>('sass-output-directory') || '',
+		'.less': config.get<string>('less-output-directory') || '',
+		'.jade': config.get<string>('jade-output-directory') || '',
+		'.ts': config.get<string>('typescript-output-directory') || '',
+		'.tsx': config.get<string>('typescriptx-output-directory') || ''
+	}
+	let outputPath = p.resolve(path, '../', outputDirectoryPath[fileSuffix]);
 	switch (fileSuffix) {
 		case '.scss':
 		case '.sass':
-			try {
-				let { text } = await compileSass(fileContext, {
-					style: sass.style.expanded,
-				});
-				writeScssFileContext(path, text, true);
-			} catch (error) {
-				vscode.window.showErrorMessage(`Compile failed: ${error}`);
-			}
-			try {
-				let { text } = await compileSass(fileContext, {
-					style: sass.style.compressed,
-				});
-				writeScssFileContext(path, text, false);
-			} catch (error) {
-				vscode.window.showErrorMessage(`Compile failed: ${error}`);
-			}
+			let { text } = await compileSass(fileContext, {
+				style: sass.style.expanded || sass.style.compressed,
+			});
+			src(path)
+				.pipe(empty(text))
+				.pipe(rename({
+					extname: ".css",
+				}))
+				.pipe(dest(outputPath))
+				.pipe(cssmin({ compatibility: 'ie7' }))
+				.pipe(rename({
+					extname: ".css",
+					suffix: '.min'
+				}))
+				.pipe(dest(outputPath))
+			vscode.window.showInformationMessage(`Compile successfully!`);
 			break;
 		case '.js':
 			if (/.dev.js|.prod.js$/g.test(path)) {
 				vscode.window.showInformationMessage(`The prod or dev file has been processed and will not be compiled`);
 				break;
 			}
-			try {
-				src(path)
-					.pipe(babel({
-						presets: [babelEnv]
-					}))
-					.pipe(rename({ suffix: '.dev' }))
-					.pipe(dest(outputPath));
-				vscode.window.showInformationMessage(`Compile successfully!`);
-			} catch (error) {
-				vscode.window.showErrorMessage(`Compile failed: ${error}`);
-			}
-			try {
-				src(path)
-					.pipe(babel({
-						presets: [babelEnv]
-					}))
-					.pipe(uglify())
-					.pipe(rename({ suffix: '.prod' }))
-					.pipe(dest(outputPath));
-				vscode.window.showInformationMessage(`Compile successfully!`);
-			} catch (error) {
-				vscode.window.showErrorMessage(`Compile failed: ${error}`);
-			}
+			src(path)
+				.pipe(babel({
+					presets: [babelEnv]
+				}))
+				.pipe(rename({ suffix: '.dev' }))
+				.pipe(dest(outputPath))
+				.pipe(uglify())
+				.pipe(rename({ suffix: '.prod' }))
+				.pipe(dest(outputPath));
+			vscode.window.showInformationMessage(`Compile successfully!`);
 			break;
 		case '.less':
 			src(path)
@@ -142,9 +142,6 @@ const readFileName = async (path: string, fileContext: string) => {
 }
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "qf" is now active!');
-	let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
-		vscode.window.showInformationMessage('Hello World!');
-	});
 	let openInBrowser = vscode.commands.registerCommand('extension.openInBrowser', (path) => {
 		let uri = path.fsPath;
 		let platform = process.platform;
