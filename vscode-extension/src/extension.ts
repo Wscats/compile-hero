@@ -175,7 +175,6 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.showInformationMessage('Port closed successfully!');
 		}
 	});
-	context.subscriptions.push(disposable);
 	context.subscriptions.push(openInBrowser);
 	context.subscriptions.push(closePort);
 	vscode.workspace.onDidSaveTextDocument((document) => {

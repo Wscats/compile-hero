@@ -8,6 +8,7 @@
 - 2019-11-08 Support compiling `tsx` files.
 - 2019-11-09 Add a variety of dynamic diagram demonstration.
 - 2019-11-13 Add the function of closing the port.
+- 2019-11-14 Add configure extension settings.
 
 # Unreleased
 
