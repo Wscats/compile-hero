@@ -7,8 +7,11 @@
 - 2019-11-07 Supports generation of `js` files in two modes of ` development` and `production`.
 - 2019-11-08 Support compiling `tsx` files.
 - 2019-11-09 Add a variety of dynamic diagram demonstration.
+- 2019-11-10 Change the style of the pop-up prompt.
+- 2019-11-11 Add switch to control compilation.
 - 2019-11-13 Add the function of closing the port.
 - 2019-11-14 Add configure extension settings.
+- 2019-11-15 Delete unused material files.
 
 # Unreleased
 

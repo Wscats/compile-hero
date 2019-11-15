@@ -10,3 +10,7 @@ vsc-extension-quickstart.md
 **/*.ts
 tests
 screenshots
+logos/others/**
+README.CN.md
+yarn.lock
+**.vsix

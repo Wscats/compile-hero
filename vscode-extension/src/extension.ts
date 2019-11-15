@@ -14,7 +14,6 @@ const ts = require('gulp-typescript');
 const jade = require('gulp-jade');
 const open = require('open');
 const through = require('through2');
-
 const readFileContext = (path: string) => {
 	return fs.readFileSync(path).toString();
 }
@@ -43,7 +42,6 @@ const transformPort = (data: string): string => {
 	})
 	return port
 }
-
 const empty = function (code: string) {
 	let stream = through.obj((file: any, encoding: any, callback: any) => {
 		if (!file.isBuffer()) {
@@ -68,6 +66,16 @@ const readFileName = async (path: string, fileContext: string) => {
 		'.ts': config.get<string>('typescript-output-directory') || '',
 		'.tsx': config.get<string>('typescriptx-output-directory') || ''
 	}
+	let compileStatus: any = {
+		'.js': config.get<boolean>('javascript-output-toggle'),
+		'.scss': config.get<boolean>('sass-output-toggle'),
+		'.sass': config.get<boolean>('sass-output-toggle'),
+		'.less': config.get<boolean>('less-output-toggle'),
+		'.jade': config.get<boolean>('jade-output-toggle'),
+		'.ts': config.get<boolean>('typescript-output-toggle'),
+		'.tsx': config.get<boolean>('typescriptx-output-toggle')
+	}
+	if (!compileStatus[fileSuffix]) return
 	let outputPath = p.resolve(path, '../', outputDirectoryPath[fileSuffix]);
 	switch (fileSuffix) {
 		case '.scss':
@@ -87,11 +95,11 @@ const readFileName = async (path: string, fileContext: string) => {
 					suffix: '.min'
 				}))
 				.pipe(dest(outputPath))
-			vscode.window.showInformationMessage(`Compile successfully!`);
+			vscode.window.setStatusBarMessage(`Compile successfully!`);
 			break;
 		case '.js':
 			if (/.dev.js|.prod.js$/g.test(path)) {
-				vscode.window.showInformationMessage(`The prod or dev file has been processed and will not be compiled`);
+				vscode.window.setStatusBarMessage(`The prod or dev file has been processed and will not be compiled`);
 				break;
 			}
 			src(path)
@@ -99,28 +107,30 @@ const readFileName = async (path: string, fileContext: string) => {
 					presets: [babelEnv]
 				}))
 				.pipe(rename({ suffix: '.dev' }))
-				.pipe(dest(outputPath))
+				.pipe(dest(outputPath));
+			src(path)
+				.pipe(babel({
+					presets: [babelEnv]
+				}))
 				.pipe(uglify())
 				.pipe(rename({ suffix: '.prod' }))
 				.pipe(dest(outputPath));
-			vscode.window.showInformationMessage(`Compile successfully!`);
+			vscode.window.setStatusBarMessage(`Compile successfully!`);
 			break;
 		case '.less':
 			src(path)
 				.pipe(less())
-				.pipe(dest(outputPath));
-			src(path)
-				.pipe(less())
+				.pipe(dest(outputPath))
 				.pipe(cssmin({ compatibility: 'ie7' }))
 				.pipe(rename({ suffix: '.min' }))
 				.pipe(dest(outputPath));
-			vscode.window.showInformationMessage(`Compile successfully!`);
+			vscode.window.setStatusBarMessage(`Compile successfully!`);
 			break;
 		case '.ts':
 			src(path)
 				.pipe(ts())
 				.pipe(dest(outputPath));
-			vscode.window.showInformationMessage(`Compile successfully!`);
+			vscode.window.setStatusBarMessage(`Compile successfully!`);
 			break;
 		case '.tsx':
 			src(path)
@@ -128,13 +138,19 @@ const readFileName = async (path: string, fileContext: string) => {
 					jsx: 'react'
 				}))
 				.pipe(dest(outputPath));
-			vscode.window.showInformationMessage(`Compile successfully!`);
+			vscode.window.setStatusBarMessage(`Compile successfully!`);
 			break;
 		case '.jade':
 			src(path)
-				.pipe(jade())
+				.pipe(jade({
+					pretty: true
+				}))
 				.pipe(dest(outputPath));
-			vscode.window.showInformationMessage(`Compile successfully!`);
+			src(path)
+				.pipe(jade())
+				.pipe(rename({ suffix: '.min' }))
+				.pipe(dest(outputPath));
+			vscode.window.setStatusBarMessage(`Compile successfully!`);
 			break;
 		default:
 			console.log('Not Found!');
@@ -155,25 +171,12 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 	});
 	let closePort = vscode.commands.registerCommand('extension.closePort', async (path) => {
-		// const panel = vscode.window.createWebviewPanel(
-		// 	'testWelcome', // viewType
-		// 	"Welcome to Eno Snippets", // 视图标题
-		// 	vscode.ViewColumn.One, // 显示在编辑器的哪个部位
-		// 	{
-		// 		enableScripts: true, // 启用JS，默认禁用
-		// 		retainContextWhenHidden: true, // webview被隐藏时保持状态，避免被重置
-		// 	}
-		// );
-		// panel.webview.html = `
-		// 	<p>hello world</p>
-		// 	<style>p{color:red}</style>
-		// `
 		let inputPort = await vscode.window.showInputBox({ placeHolder: 'Enter the port you need to close?' });
 		let info = await command(`lsof -i :${inputPort}`);
 		let port = transformPort(info);
 		if (port) {
 			await command(`kill -9 ${port}`);
-			vscode.window.showInformationMessage('Port closed successfully!');
+			vscode.window.setStatusBarMessage('Port closed successfully!');
 		}
 	});
 	context.subscriptions.push(openInBrowser);

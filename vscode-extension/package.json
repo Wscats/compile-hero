@@ -2,9 +2,14 @@
   "name": "qf",
   "displayName": "Compile Hero",
   "description": "Easy to compile ts, tsx, scss, less, jade and es6 on save without using a build task.",
-  "author": "Eno Yao",
+  "author": {
+    "name": "Eno Yao",
+    "email": "kalone.cool@gmail.com",
+    "url": "https://github.com/Wscats"
+  },
   "publisher": "Wscats",
-  "version": "6.8.37",
+  "version": "6.8.39",
+  "preview": true,
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/compile-hero",
   "engines": {
@@ -110,6 +115,36 @@
           "type": "string",
           "default": "./dist",
           "description": "Set the directory to output after compiling typescriptx."
+        },
+        "compile-hero.javascript-output-toggle": {
+          "type": "boolean",
+          "default": true,
+          "description": "Switch to control the compilation of javascript."
+        },
+        "compile-hero.sass-output-toggle": {
+          "type": "boolean",
+          "default": true,
+          "description": "Switch to control the compilation of sass."
+        },
+        "compile-hero.less-output-toggle": {
+          "type": "boolean",
+          "default": true,
+          "description": "Switch to control the compilation of less."
+        },
+        "compile-hero.jade-output-toggle": {
+          "type": "boolean",
+          "default": true,
+          "description": "Switch to control the compilation of jade."
+        },
+        "compile-hero.typescript-output-toggle": {
+          "type": "boolean",
+          "default": true,
+          "description": "Switch to control the compilation of typescript."
+        },
+        "compile-hero.typescriptx-output-toggle": {
+          "type": "boolean",
+          "default": true,
+          "description": "Switch to control the compilation of typescriptx."
         }
       }
     },
