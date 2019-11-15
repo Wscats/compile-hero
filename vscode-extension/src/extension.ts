@@ -55,6 +55,7 @@ const empty = function (code: string) {
 	});
 	return stream;
 }
+
 const readFileName = async (path: string, fileContext: string) => {
 	let fileSuffix = fileType(path);
 	let config = vscode.workspace.getConfiguration("compile-hero");
