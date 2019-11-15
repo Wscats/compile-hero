@@ -1,24 +1,59 @@
-# 下载
+<a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Download-2k+-orange" alt="Download" /></a>
+<a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Macketplace-v2.00-brightgreen" alt="Macketplace" /></a>
+<a href="https://github.com/Wscats/compile-hero"><img src="https://img.shields.io/badge/Github Page-Wscats-yellow" alt="Github Page" /></a>
+<a href="https://github.com/Wscats"><img src="https://img.shields.io/badge/Author-Eno Yao-blueviolet" alt="Eno Yao" /></a>
+<a href="https://github.com/Wscats"><img src="https://api.netlify.com/api/v1/badges/b652768b-1673-42cd-98dd-3fd807b2ebca/deploy-status" alt="Status" /></a>
 
-详细文档：[https://marketplace.visualstudio.com/items?itemName=Wscats.qf](https://marketplace.visualstudio.com/items?itemName=Wscats.qf)
+[English](https://github.com/Wscats/compile-hero/blob/master/vscode-extension/README.md) | [中文](https://github.com/Wscats/compile-hero/blob/master/vscode-extension/README.CN.md)
 
-下载地址： [https://github.com/Wscats/compile-hero/releases/download/1.0/compile-hero.zip](https://github.com/Wscats/compile-hero/releases/download/1.0/compile-hero.zip)
+# Features
 
-# 安装
+Easily work with `less, sass, scss, typescript, jade and jsx` files in Visual Studio Code.
 
-将下载好的`compile-hero.zip`压缩文件解压，得到以下文件。
+Compile on save `(ctrl+s)` for `less, sass, scss, typescript, jade and jsx` files without using a build task.
 
-- dist
-- manifest.json
-- public
+<img width="600" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/1.gif" />
 
-然后打开 Chrome 浏览器，点击右上角三个点，点击`更多工具`，选择`扩展程序`进入插件管理界面。
+<img width="600"  src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/3.gif" />
 
-打开右上角的`开发者模式`，会在左边出现点击`加载已解压的扩展程序`，选取解压后的文件夹，并点击`选择`。
+- Compile `less, sass, scss, typescript, jade and jsx` on save.
+- Support autoprefixer for `less, scss, scss`.
+- Support to open `html` files to preview in browser.
+- minify `.js` and `.css` files.
+
+|Before Compile|After Compile|
+|-|-|
+|.jade|.html|
+|.scss(sass)|.css|
+|.less|.css|
+|.ts/.tsx|.js(JSX)|
+|.js(ES6)|.js(ES5)|
+
+Easy to use. When you writing a file, press save `ctrl+s` to generate the compiled file in the same directory. I hope you can get rid of the constraint of `gulp` or `webpack`😁
+
+# Open In Browser
+
+Right click the `html` file in the directory menu, and the `open in browser` option will appear. You can preview the page in the browser.
+
+<img width="200" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/2.gif" />
+
+# Close Port
+
+At some point, you may be using ports for some services. You can use the `close port` command to close.
+
+<img width="400"  src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/4.gif" />
+
+# Thanks
+
+| [<img src="https://avatars1.githubusercontent.com/u/17243165?s=460&v=4" width="60px;"/><br /><sub>Eno Yao</sub>](https://github.com/Wscats)| [<img src="https://avatars2.githubusercontent.com/u/5805270?s=460&v=4" width="60px;"/><br /><sub>Aaron Xie</sub>](https://github.com/aaron-xie)| [<img src="https://avatars3.githubusercontent.com/u/12515367?s=460&v=4" width="60px;"/><br /><sub>DK Lan</sub>](https://github.com/dk-lan)| [<img src="https://avatars1.githubusercontent.com/u/30917929?s=460&v=4" width="60px;"/><br /><sub>Yong</sub>](https://github.com/flowerField)| [<img src="https://avatars3.githubusercontent.com/u/33544236?s=460&v=4" width="60px;"/><br /><sub>Li Ting</sub>](https://github.com/Liting1)| <img src="https://wscats.github.io/omi-snippets/images/xin.jpg" width="60px;"/><br /><sub>Xin</sub>| [<img src="https://wscats.github.io/omi-snippets/images/lemon.jpg" width="60px;"/><br /><sub>Lemon</sub>](https://github.com/lemonyyye)  |  [<img src="https://wscats.github.io/omi-snippets/images/jing.jpg" width="60px;"/><br /><sub>Jing</sub>](https://github.com/vickySC)  |  [<img src="https://wscats.github.io/omi-snippets/images/lin.jpg" width="60px;"/><br /><sub>Lin</sub>](https://github.com/shirley3790)  | [<img src="https://avatars2.githubusercontent.com/u/23230108?s=460&v=4" width="60px;"/><br /><sub>Tian Fly</sub>](https://github.com/tiantengfly)| 
+| - | - | - | - | - | - | - | - | - | - |
 
 
-# 运行
+If you enjoy front end, you should have it! xie, yao, yong, ting, jing, lin, tian, xin, xia, dk and lemon ~ Waiting for you in our heart！
 
-通过以上步骤安装插件成功后，会在左上角出现以上图标。
+If you think it's useful, you can leave us a [message and like it](https://marketplace.visualstudio.com/items?itemName=Wscats.qf&ssr=false#review-details), Your support is our driving force😀
 
-点击图标后，会出现以下面板，输入你的用户名和密码，并点击`进入学员后台`，程序会帮你自动完成测评😁
+
+# License
+
+Compile Hero is released under the [MIT](http://opensource.org/licenses/MIT).
