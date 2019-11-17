@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as p from 'path';
+import * as http from 'http';
 import { exec } from 'child_process';
 const { compileSass, sass } = require('./sass/index');
 const { src, dest } = require('gulp');
@@ -34,13 +35,13 @@ const transformPort = (data: string): string => {
 	let port: string = '';
 	data.split(/[\n|\r]/).forEach(item => {
 		if (item.indexOf('LISTEN') !== -1 && !port) {
-			let reg = item.split(/\s+/)
+			let reg = item.split(/\s+/);
 			if (/\d+/.test(reg[1])) {
-				port = reg[1]
+				port = reg[1];
 			}
 		}
 	})
-	return port
+	return port;
 }
 const empty = function (code: string) {
 	let stream = through.obj((file: any, encoding: any, callback: any) => {
@@ -74,7 +75,7 @@ const readFileName = async (path: string, fileContext: string) => {
 		'.ts': config.get<boolean>('typescript-output-toggle'),
 		'.tsx': config.get<boolean>('typescriptx-output-toggle')
 	}
-	if (!compileStatus[fileSuffix]) return
+	if (!compileStatus[fileSuffix]) return;
 	let outputPath = p.resolve(path, '../', outputDirectoryPath[fileSuffix]);
 	switch (fileSuffix) {
 		case '.scss':
@@ -157,6 +158,7 @@ const readFileName = async (path: string, fileContext: string) => {
 	}
 }
 export function activate(context: vscode.ExtensionContext) {
+
 	console.log('Congratulations, your extension "qf" is now active!');
 	let openInBrowser = vscode.commands.registerCommand('extension.openInBrowser', (path) => {
 		let uri = path.fsPath;
@@ -169,7 +171,7 @@ export function activate(context: vscode.ExtensionContext) {
 			)]
 		});
 	});
-	let closePort = vscode.commands.registerCommand('extension.closePort', async (path) => {
+	let closePort = vscode.commands.registerCommand('extension.closePort', async () => {
 		let inputPort = await vscode.window.showInputBox({ placeHolder: 'Enter the port you need to close?' });
 		let info = await command(`lsof -i :${inputPort}`);
 		let port = transformPort(info);
@@ -178,8 +180,21 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.setStatusBarMessage('Port closed successfully!');
 		}
 	});
+	let makeRequest = vscode.commands.registerCommand('extension.makeRequest', async () => {
+		// let url = await vscode.window.showInputBox({ placeHolder: 'Enter the url you need to request?' });
+		require('http').get('http://www.umei.cc/p/gaoqing/cn/', (res: any) => {
+			let rawData = '';
+			res.setEncoding('utf8');
+			res.on('data', (chunk: any) => { rawData += chunk; });
+			res.on('end', () => {
+				// fs.writeFileSync(`${path}.html`,rawData)
+				console.log(rawData);
+			});
+		})
+	});
 	context.subscriptions.push(openInBrowser);
 	context.subscriptions.push(closePort);
+	context.subscriptions.push(makeRequest);
 	vscode.workspace.onDidSaveTextDocument((document) => {
 		const {
 			fileName

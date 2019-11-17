@@ -69,7 +69,8 @@
   "activationEvents": [
     "*",
     "onCommand:extension.openInBrowser",
-    "onCommand:extension.closePort"
+    "onCommand:extension.closePort",
+    "onCommand:extension.makeRequest"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -81,6 +82,10 @@
       {
         "command": "extension.closePort",
         "title": "Close Port"
+      },
+      {
+        "command": "extension.makeRequest",
+        "title": "Make Request"
       }
     ],
     "configuration": {

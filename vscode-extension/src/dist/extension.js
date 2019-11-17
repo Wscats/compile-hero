@@ -223,7 +223,7 @@ function activate(context) {
                     : 'google-chrome')]
         });
     });
-    var closePort = vscode.commands.registerCommand('extension.closePort', function (path) { return __awaiter(_this, void 0, void 0, function () {
+    var closePort = vscode.commands.registerCommand('extension.closePort', function () { return __awaiter(_this, void 0, void 0, function () {
         var inputPort, info, port;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -244,8 +244,24 @@ function activate(context) {
             }
         });
     }); });
+    var makeRequest = vscode.commands.registerCommand('extension.makeRequest', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            // let url = await vscode.window.showInputBox({ placeHolder: 'Enter the url you need to request?' });
+            require('http').get('http://www.umei.cc/p/gaoqing/cn/', function (res) {
+                var rawData = '';
+                res.setEncoding('utf8');
+                res.on('data', function (chunk) { rawData += chunk; });
+                res.on('end', function () {
+                    // fs.writeFileSync(`${path}.html`,rawData)
+                    console.log(rawData);
+                });
+            });
+            return [2 /*return*/];
+        });
+    }); });
     context.subscriptions.push(openInBrowser);
     context.subscriptions.push(closePort);
+    context.subscriptions.push(makeRequest);
     vscode.workspace.onDidSaveTextDocument(function (document) {
         var fileName = document.fileName;
         var fileContext = readFileContext(fileName);
