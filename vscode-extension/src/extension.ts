@@ -13,9 +13,10 @@ const less = require('gulp-less');
 const cssmin = require('gulp-minify-css');
 const ts = require('gulp-typescript');
 const jade = require('gulp-jade');
+const pug = require('pug');
 const open = require('open');
 const through = require('through2');
-const readFileContext = (path: string) => {
+const readFileContext = (path: string): string => {
 	return fs.readFileSync(path).toString();
 }
 const fileType = (filename: string) => {
@@ -64,7 +65,8 @@ const readFileName = async (path: string, fileContext: string) => {
 		'.less': config.get<string>('less-output-directory') || '',
 		'.jade': config.get<string>('jade-output-directory') || '',
 		'.ts': config.get<string>('typescript-output-directory') || '',
-		'.tsx': config.get<string>('typescriptx-output-directory') || ''
+		'.tsx': config.get<string>('typescriptx-output-directory') || '',
+		'.pug': config.get<string>('pug-output-directory') || ''
 	}
 	let compileStatus: any = {
 		'.js': config.get<boolean>('javascript-output-toggle'),
@@ -73,7 +75,8 @@ const readFileName = async (path: string, fileContext: string) => {
 		'.less': config.get<boolean>('less-output-toggle'),
 		'.jade': config.get<boolean>('jade-output-toggle'),
 		'.ts': config.get<boolean>('typescript-output-toggle'),
-		'.tsx': config.get<boolean>('typescriptx-output-toggle')
+		'.tsx': config.get<boolean>('typescriptx-output-toggle'),
+		'.pug': config.get<boolean>('pug-output-toggle'),
 	}
 	if (!compileStatus[fileSuffix]) return;
 	let outputPath = p.resolve(path, '../', outputDirectoryPath[fileSuffix]);
@@ -152,13 +155,29 @@ const readFileName = async (path: string, fileContext: string) => {
 				.pipe(dest(outputPath));
 			vscode.window.setStatusBarMessage(`Compile successfully!`);
 			break;
+		case '.pug':
+			src(path)
+				.pipe(empty(pug.render(readFileContext(path), {
+					pretty: true
+				})))
+				.pipe(rename({
+					extname: ".html",
+				}))
+				.pipe(dest(outputPath))
+				.pipe(empty(pug.render(readFileContext(path))))
+				.pipe(rename({
+					suffix: '.min',
+					extname: ".html",
+				}))
+				.pipe(dest(outputPath))
+			vscode.window.setStatusBarMessage(`Compile successfully!`);
+			break;
 		default:
 			console.log('Not Found!');
 			break;
 	}
 }
 export function activate(context: vscode.ExtensionContext) {
-
 	console.log('Congratulations, your extension "qf" is now active!');
 	let openInBrowser = vscode.commands.registerCommand('extension.openInBrowser', (path) => {
 		let uri = path.fsPath;
@@ -181,13 +200,11 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 	let makeRequest = vscode.commands.registerCommand('extension.makeRequest', async () => {
-		// let url = await vscode.window.showInputBox({ placeHolder: 'Enter the url you need to request?' });
-		require('http').get('http://www.umei.cc/p/gaoqing/cn/', (res: any) => {
+		http.get('http://www.umei.cc/p/gaoqing/cn/', (res: any) => {
 			let rawData = '';
 			res.setEncoding('utf8');
 			res.on('data', (chunk: any) => { rawData += chunk; });
 			res.on('end', () => {
-				// fs.writeFileSync(`${path}.html`,rawData)
 				console.log(rawData);
 			});
 		})

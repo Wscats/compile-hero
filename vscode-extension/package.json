@@ -1,14 +1,14 @@
 {
   "name": "qf",
   "displayName": "Compile Hero",
-  "description": "Easy to compile ts, tsx, scss, less, jade and es6 on save without using a build task.",
+  "description": "Easy to compile ts, tsx, scss, less, jade, pug and es6+ on save without using a build task.",
   "author": {
     "name": "Eno Yao",
     "email": "kalone.cool@gmail.com",
     "url": "https://github.com/Wscats"
   },
   "publisher": "Wscats",
-  "version": "6.8.39",
+  "version": "6.8.40",
   "preview": true,
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/compile-hero",
@@ -64,7 +64,8 @@
     "hero",
     "编译",
     "close",
-    "port"
+    "port",
+    "pug"
   ],
   "activationEvents": [
     "*",
@@ -121,6 +122,11 @@
           "default": "./dist",
           "description": "Set the directory to output after compiling typescriptx."
         },
+        "compile-hero.pug-output-directory": {
+          "type": "string",
+          "default": "./dist",
+          "description": "Set the directory to output after compiling pug."
+        },
         "compile-hero.javascript-output-toggle": {
           "type": "boolean",
           "default": true,
@@ -150,6 +156,11 @@
           "type": "boolean",
           "default": true,
           "description": "Switch to control the compilation of typescriptx."
+        },
+        "compile-hero.pug-output-toggle": {
+          "type": "boolean",
+          "default": true,
+          "description": "Switch to control the compilation of pug."
         }
       }
     },
@@ -199,6 +210,7 @@
     "gulp-typescript": "^5.0.1",
     "gulp-uglify": "^3.0.2",
     "open": "^6.4.0",
+    "pug": "^2.0.4",
     "typescript": "^3.3.1"
   },
   "devDependencies": {

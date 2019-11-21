@@ -12,6 +12,7 @@
 - 2019-11-13 Add the function of closing the port.
 - 2019-11-14 Add configure extension settings.
 - 2019-11-15 Delete unused material files.
+- 2019-11-21 Support compiling `jade` files.
 
 # Unreleased
 

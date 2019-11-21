@@ -8,21 +8,22 @@
 
 # Features
 
-Easily work with `less, sass, scss, typescript, jade and jsx` files in Visual Studio Code.
+Easily work with `less, sass, scss, typescript, jade, pug and jsx` files in Visual Studio Code.
 
-Compile on save `(ctrl+s)` for `less, sass, scss, typescript, jade and jsx` files without using a build task.
+Compile on save `(ctrl+s)` for `less, sass, scss, typescript, jade, pug and jsx` files without using a build task.
 
 <img width="600" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/1.gif" />
 
 <img width="600"  src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/3.gif" />
 
-- Compile `less, sass, scss, typescript, jade and jsx` on save.
+- Compile `less, sass, scss, typescript, jade, pug and jsx` on save.
 - Support autoprefixer for `less, scss, scss`.
 - Support to open `html` files to preview in browser.
 - minify `.js` and `.css` files.
 
 |Before Compile|After Compile|
 |-|-|
+|.pug|.html|
 |.jade|.html|
 |.scss(sass)|.css|
 |.less|.css|
