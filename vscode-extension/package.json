@@ -8,7 +8,7 @@
     "url": "https://github.com/Wscats"
   },
   "publisher": "Wscats",
-  "version": "6.8.40",
+  "version": "6.8.41",
   "preview": true,
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/compile-hero",
@@ -65,7 +65,9 @@
     "编译",
     "close",
     "port",
-    "pug"
+    "pug",
+    "easy sass",
+    "easy"
   ],
   "activationEvents": [
     "*",
