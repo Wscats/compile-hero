@@ -14,6 +14,8 @@ Compile on save `(ctrl+s)` for `less, sass, scss, typescript, jade, pug and jsx`
 
 <img width="600" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/1.gif" />
 
+<br/>
+
 <img width="600"  src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/3.gif" />
 
 - Compile `less, sass, scss, typescript, jade, pug and jsx` on save.
