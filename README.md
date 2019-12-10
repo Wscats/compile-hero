@@ -32,6 +32,12 @@ Compile on save `(ctrl+s)` for `less, sass, scss, typescript, jade, pug and jsx`
 
 Easy to use. When you writing a file, press save `ctrl+s` to generate the compiled file in the same directory. I hope you can get rid of the constraint of `gulp` or `webpack`😁
 
+# Configuration
+
+Click to open the extension management interface `Configure Extension Settings`, You can change the path of the project compilation directory, or toggle the switch of language.
+
+<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/5.gif" />
+
 # Open In Browser
 
 Right click the `html` file in the directory menu, and the `open in browser` option will appear. You can preview the page in the browser.

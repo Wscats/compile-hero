@@ -34,6 +34,8 @@ Easy to use. When you writing a file, press save `ctrl+s` to generate the compil
 
 # Configuration
 
+Click to open the extension management interface `Configure Extension Settings`, You can change the path of the project compilation directory, or toggle the switch of language.
+
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/5.gif" />
 
 # Open In Browser
