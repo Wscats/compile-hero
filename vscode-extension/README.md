@@ -12,11 +12,11 @@ Easily work with `less, sass, scss, typescript, jade, pug and jsx` files in Visu
 
 Compile on save `(ctrl+s)` for `less, sass, scss, typescript, jade, pug and jsx` files without using a build task.
 
-<img width="600" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/1.gif" />
+<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/1.gif" />
 
 <br/>
 
-<img width="600"  src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/3.gif" />
+<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/3.gif" />
 
 - Compile `less, sass, scss, typescript, jade, pug and jsx` on save.
 - Support autoprefixer for `less, scss, scss`.
@@ -44,13 +44,13 @@ Click to open the extension management interface `Configure Extension Settings`,
 
 Right click the `html` file in the directory menu, and the `open in browser` option will appear. You can preview the page in the browser.
 
-<img width="200" src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/2.gif" />
+<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/2.gif" />
 
 # Close Port
 
 At some point, you may be using ports for some services. You can use the `close port` command to close.
 
-<img width="400"  src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/4.gif" />
+<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/4.gif" />
 
 # Thanks
 
