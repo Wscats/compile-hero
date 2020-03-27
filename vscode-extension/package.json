@@ -73,7 +73,8 @@
     "*",
     "onCommand:extension.openInBrowser",
     "onCommand:extension.closePort",
-    "onCommand:extension.makeRequest"
+    "onCommand:extension.makeRequest",
+    "onCommand:extension.compileFile"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -89,6 +90,10 @@
       {
         "command": "extension.makeRequest",
         "title": "Make Request"
+      },
+      {
+        "command": "extension.compileFile",
+        "title": "Compile File(s)"
       }
     ],
     "configuration": {
@@ -172,6 +177,9 @@
           "when": "resourceLangId == html",
           "command": "extension.openInBrowser",
           "group": "open-in-browser"
+        },
+        {
+          "command": "extension.compileFile"
         }
       ],
       "editor/context": [
@@ -179,6 +187,9 @@
           "when": "resourceLangId == html",
           "command": "extension.openInBrowser",
           "group": "open-in-browser"
+        },
+        {
+          "command": "extension.compileFile"
         }
       ],
       "editor/title/context": [
@@ -186,6 +197,9 @@
           "when": "resourceLangId == html",
           "command": "extension.openInBrowser",
           "group": "open-in-browser"
+        },
+        {
+          "command": "extension.compileFile"
         }
       ]
     }
