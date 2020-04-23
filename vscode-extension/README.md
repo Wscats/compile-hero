@@ -10,7 +10,7 @@
 
 Easily work with `less, sass, scss, typescript, jade, pug and jsx` files in Visual Studio Code.
 
-Compile on save `(ctrl+s)` for `less, sass, scss, typescript, jade, pug and jsx` files without using a build task.
+Compile on save `(ctrl+s)` or select `Compile File(s)` on right-click menu item for `less, sass, scss, typescript, jade, pug and jsx` files without using a build task.
 
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/1.gif" />
 
