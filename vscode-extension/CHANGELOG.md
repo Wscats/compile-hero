@@ -13,6 +13,7 @@
 - 2019-11-14 Add configure extension settings.
 - 2019-11-15 Delete unused material files.
 - 2019-11-21 Support compiling `jade` files.
+- 2020-04-28 Add command `compileFile`.
 
 # Unreleased
 
