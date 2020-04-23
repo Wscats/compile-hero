@@ -18,6 +18,10 @@ Compile on save `(ctrl+s)` for `less, sass, scss, typescript, jade, pug and jsx`
 
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/3.gif" />
 
+<br/>
+
+<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/6.gif" />
+
 - Compile `less, sass, scss, typescript, jade, pug and jsx` on save.
 - Support autoprefixer for `less, scss, scss`.
 - Support to open `html` files to preview in browser.
