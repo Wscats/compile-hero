@@ -99,6 +99,11 @@
     "configuration": {
       "title": "Compile hero configuration",
       "properties": {
+        "compile-hero.disable-compile-files-on-did-save-code": {
+          "type": "boolean",
+          "default": true,
+          "description": "Disable Compile Files On Did Save Code."
+        },
         "compile-hero.javascript-output-directory": {
           "type": "string",
           "default": "./dist",

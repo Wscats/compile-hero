@@ -34,7 +34,7 @@ const command = (cmd: string) => {
 };
 const transformPort = (data: string): string => {
   let port: string = "";
-  data.split(/[\n|\r]/).forEach(item => {
+  data.split(/[\n|\r]/).forEach((item) => {
     if (item.indexOf("LISTEN") !== -1 && !port) {
       let reg = item.split(/\s+/);
       if (/\d+/.test(reg[1])) {
@@ -44,7 +44,7 @@ const transformPort = (data: string): string => {
   });
   return port;
 };
-const empty = function(code: string) {
+const empty = function (code: string) {
   let stream = through.obj((file: any, encoding: any, callback: any) => {
     if (!file.isBuffer()) {
       return callback();
@@ -66,7 +66,7 @@ const readFileName = async (path: string, fileContext: string) => {
     ".jade": config.get<string>("jade-output-directory") || "",
     ".ts": config.get<string>("typescript-output-directory") || "",
     ".tsx": config.get<string>("typescriptx-output-directory") || "",
-    ".pug": config.get<string>("pug-output-directory") || ""
+    ".pug": config.get<string>("pug-output-directory") || "",
   };
   let compileStatus: any = {
     ".js": config.get<boolean>("javascript-output-toggle"),
@@ -76,7 +76,7 @@ const readFileName = async (path: string, fileContext: string) => {
     ".jade": config.get<boolean>("jade-output-toggle"),
     ".ts": config.get<boolean>("typescript-output-toggle"),
     ".tsx": config.get<boolean>("typescriptx-output-toggle"),
-    ".pug": config.get<boolean>("pug-output-toggle")
+    ".pug": config.get<boolean>("pug-output-toggle"),
   };
   if (!compileStatus[fileSuffix]) return;
   let outputPath = p.resolve(path, "../", outputDirectoryPath[fileSuffix]);
@@ -84,13 +84,13 @@ const readFileName = async (path: string, fileContext: string) => {
     case ".scss":
     case ".sass":
       let { text } = await compileSass(fileContext, {
-        style: sass.style.expanded || sass.style.compressed
+        style: sass.style.expanded || sass.style.compressed,
       });
       src(path)
         .pipe(empty(text))
         .pipe(
           rename({
-            extname: ".css"
+            extname: ".css",
           })
         )
         .pipe(dest(outputPath))
@@ -98,7 +98,7 @@ const readFileName = async (path: string, fileContext: string) => {
         .pipe(
           rename({
             extname: ".css",
-            suffix: ".min"
+            suffix: ".min",
           })
         )
         .pipe(dest(outputPath));
@@ -114,7 +114,7 @@ const readFileName = async (path: string, fileContext: string) => {
       src(path)
         .pipe(
           babel({
-            presets: [babelEnv]
+            presets: [babelEnv],
           })
         )
         .pipe(rename({ suffix: ".dev" }))
@@ -122,7 +122,7 @@ const readFileName = async (path: string, fileContext: string) => {
       src(path)
         .pipe(
           babel({
-            presets: [babelEnv]
+            presets: [babelEnv],
           })
         )
         .pipe(uglify())
@@ -140,16 +140,14 @@ const readFileName = async (path: string, fileContext: string) => {
       vscode.window.setStatusBarMessage(`Compile successfully!`);
       break;
     case ".ts":
-      src(path)
-        .pipe(ts())
-        .pipe(dest(outputPath));
+      src(path).pipe(ts()).pipe(dest(outputPath));
       vscode.window.setStatusBarMessage(`Compile successfully!`);
       break;
     case ".tsx":
       src(path)
         .pipe(
           ts({
-            jsx: "react"
+            jsx: "react",
           })
         )
         .pipe(dest(outputPath));
@@ -159,7 +157,7 @@ const readFileName = async (path: string, fileContext: string) => {
       src(path)
         .pipe(
           jade({
-            pretty: true
+            pretty: true,
           })
         )
         .pipe(dest(outputPath));
@@ -174,13 +172,13 @@ const readFileName = async (path: string, fileContext: string) => {
         .pipe(
           empty(
             pug.render(readFileContext(path), {
-              pretty: true
+              pretty: true,
             })
           )
         )
         .pipe(
           rename({
-            extname: ".html"
+            extname: ".html",
           })
         )
         .pipe(dest(outputPath))
@@ -188,7 +186,7 @@ const readFileName = async (path: string, fileContext: string) => {
         .pipe(
           rename({
             suffix: ".min",
-            extname: ".html"
+            extname: ".html",
           })
         )
         .pipe(dest(outputPath));
@@ -203,7 +201,7 @@ export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "qf" is now active!');
   let openInBrowser = vscode.commands.registerCommand(
     "extension.openInBrowser",
-    path => {
+    (path) => {
       let uri = path.fsPath;
       let platform = process.platform;
       open(uri, {
@@ -212,8 +210,8 @@ export function activate(context: vscode.ExtensionContext) {
             ? "chrome"
             : platform === "darwin"
             ? "google chrome"
-            : "google-chrome"
-        ]
+            : "google-chrome",
+        ],
       });
     }
   );
@@ -221,7 +219,7 @@ export function activate(context: vscode.ExtensionContext) {
     "extension.closePort",
     async () => {
       let inputPort = await vscode.window.showInputBox({
-        placeHolder: "Enter the port you need to close?"
+        placeHolder: "Enter the port you need to close?",
       });
       let info = await command(`lsof -i :${inputPort}`);
       let port = transformPort(info);
@@ -248,7 +246,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
   let compileFile = vscode.commands.registerCommand(
     "extension.compileFile",
-    path => {
+    (path) => {
       let uri = path.fsPath;
       console.log(uri);
       const fileContext: string = readFileContext(uri);
@@ -260,7 +258,12 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(closePort);
   context.subscriptions.push(makeRequest);
   context.subscriptions.push(compileFile);
-  vscode.workspace.onDidSaveTextDocument(document => {
+  vscode.workspace.onDidSaveTextDocument((document) => {
+    let config = vscode.workspace.getConfiguration("compile-hero");
+    let isDisableOnDidSaveTextDocument =
+      config.get<string>("disable-compile-files-on-did-save-code") || "";
+    console.log(isDisableOnDidSaveTextDocument);
+    if (!isDisableOnDidSaveTextDocument) return;
     const { fileName } = document;
     const fileContext: string = readFileContext(fileName);
     readFileName(fileName, fileContext);

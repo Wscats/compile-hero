@@ -14,19 +14,19 @@ const fs = require("fs");
 const p = require("path");
 const http = require("http");
 const child_process_1 = require("child_process");
-const { compileSass, sass } = require('./sass/index');
-const { src, dest } = require('gulp');
-const uglify = require('gulp-uglify');
-const rename = require('gulp-rename');
-const babel = require('gulp-babel');
-const babelEnv = require('@babel/preset-env');
-const less = require('gulp-less');
-const cssmin = require('gulp-minify-css');
-const ts = require('gulp-typescript');
-const jade = require('gulp-jade');
-const pug = require('pug');
-const open = require('open');
-const through = require('through2');
+const { compileSass, sass } = require("./sass/index");
+const { src, dest } = require("gulp");
+const uglify = require("gulp-uglify");
+const rename = require("gulp-rename");
+const babel = require("gulp-babel");
+const babelEnv = require("@babel/preset-env");
+const less = require("gulp-less");
+const cssmin = require("gulp-minify-css");
+const ts = require("gulp-typescript");
+const jade = require("gulp-jade");
+const pug = require("pug");
+const open = require("open");
+const through = require("through2");
 const readFileContext = (path) => {
     return fs.readFileSync(path).toString();
 };
@@ -44,9 +44,9 @@ const command = (cmd) => {
     });
 };
 const transformPort = (data) => {
-    let port = '';
-    data.split(/[\n|\r]/).forEach(item => {
-        if (item.indexOf('LISTEN') !== -1 && !port) {
+    let port = "";
+    data.split(/[\n|\r]/).forEach((item) => {
+        if (item.indexOf("LISTEN") !== -1 && !port) {
             let reg = item.split(/\s+/);
             if (/\d+/.test(reg[1])) {
                 port = reg[1];
@@ -60,7 +60,7 @@ const empty = function (code) {
         if (!file.isBuffer()) {
             return callback();
         }
-        file.contents = Buffer.from(code || '');
+        file.contents = Buffer.from(code || "");
         stream.push(file);
         callback();
     });
@@ -70,159 +70,175 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
     let fileSuffix = fileType(path);
     let config = vscode.workspace.getConfiguration("compile-hero");
     let outputDirectoryPath = {
-        '.js': config.get('javascript-output-directory') || '',
-        '.scss': config.get('sass-output-directory') || '',
-        '.sass': config.get('sass-output-directory') || '',
-        '.less': config.get('less-output-directory') || '',
-        '.jade': config.get('jade-output-directory') || '',
-        '.ts': config.get('typescript-output-directory') || '',
-        '.tsx': config.get('typescriptx-output-directory') || '',
-        '.pug': config.get('pug-output-directory') || ''
+        ".js": config.get("javascript-output-directory") || "",
+        ".scss": config.get("sass-output-directory") || "",
+        ".sass": config.get("sass-output-directory") || "",
+        ".less": config.get("less-output-directory") || "",
+        ".jade": config.get("jade-output-directory") || "",
+        ".ts": config.get("typescript-output-directory") || "",
+        ".tsx": config.get("typescriptx-output-directory") || "",
+        ".pug": config.get("pug-output-directory") || "",
     };
     let compileStatus = {
-        '.js': config.get('javascript-output-toggle'),
-        '.scss': config.get('sass-output-toggle'),
-        '.sass': config.get('sass-output-toggle'),
-        '.less': config.get('less-output-toggle'),
-        '.jade': config.get('jade-output-toggle'),
-        '.ts': config.get('typescript-output-toggle'),
-        '.tsx': config.get('typescriptx-output-toggle'),
-        '.pug': config.get('pug-output-toggle'),
+        ".js": config.get("javascript-output-toggle"),
+        ".scss": config.get("sass-output-toggle"),
+        ".sass": config.get("sass-output-toggle"),
+        ".less": config.get("less-output-toggle"),
+        ".jade": config.get("jade-output-toggle"),
+        ".ts": config.get("typescript-output-toggle"),
+        ".tsx": config.get("typescriptx-output-toggle"),
+        ".pug": config.get("pug-output-toggle"),
     };
     if (!compileStatus[fileSuffix])
         return;
-    let outputPath = p.resolve(path, '../', outputDirectoryPath[fileSuffix]);
+    let outputPath = p.resolve(path, "../", outputDirectoryPath[fileSuffix]);
     switch (fileSuffix) {
-        case '.scss':
-        case '.sass':
+        case ".scss":
+        case ".sass":
             let { text } = yield compileSass(fileContext, {
                 style: sass.style.expanded || sass.style.compressed,
             });
             src(path)
                 .pipe(empty(text))
                 .pipe(rename({
-                extname: ".css",
-            }))
+                    extname: ".css",
+                }))
                 .pipe(dest(outputPath))
-                .pipe(cssmin({ compatibility: 'ie7' }))
+                .pipe(cssmin({ compatibility: "ie7" }))
                 .pipe(rename({
-                extname: ".css",
-                suffix: '.min'
-            }))
+                    extname: ".css",
+                    suffix: ".min",
+                }))
                 .pipe(dest(outputPath));
             vscode.window.setStatusBarMessage(`Compile successfully!`);
             break;
-        case '.js':
+        case ".js":
             if (/.dev.js|.prod.js$/g.test(path)) {
                 vscode.window.setStatusBarMessage(`The prod or dev file has been processed and will not be compiled`);
                 break;
             }
             src(path)
                 .pipe(babel({
-                presets: [babelEnv]
-            }))
-                .pipe(rename({ suffix: '.dev' }))
+                    presets: [babelEnv],
+                }))
+                .pipe(rename({ suffix: ".dev" }))
                 .pipe(dest(outputPath));
             src(path)
                 .pipe(babel({
-                presets: [babelEnv]
-            }))
+                    presets: [babelEnv],
+                }))
                 .pipe(uglify())
-                .pipe(rename({ suffix: '.prod' }))
+                .pipe(rename({ suffix: ".prod" }))
                 .pipe(dest(outputPath));
             vscode.window.setStatusBarMessage(`Compile successfully!`);
             break;
-        case '.less':
+        case ".less":
             src(path)
                 .pipe(less())
                 .pipe(dest(outputPath))
-                .pipe(cssmin({ compatibility: 'ie7' }))
-                .pipe(rename({ suffix: '.min' }))
+                .pipe(cssmin({ compatibility: "ie7" }))
+                .pipe(rename({ suffix: ".min" }))
                 .pipe(dest(outputPath));
             vscode.window.setStatusBarMessage(`Compile successfully!`);
             break;
-        case '.ts':
-            src(path)
-                .pipe(ts())
-                .pipe(dest(outputPath));
+        case ".ts":
+            src(path).pipe(ts()).pipe(dest(outputPath));
             vscode.window.setStatusBarMessage(`Compile successfully!`);
             break;
-        case '.tsx':
+        case ".tsx":
             src(path)
                 .pipe(ts({
-                jsx: 'react'
-            }))
+                    jsx: "react",
+                }))
                 .pipe(dest(outputPath));
             vscode.window.setStatusBarMessage(`Compile successfully!`);
             break;
-        case '.jade':
+        case ".jade":
             src(path)
                 .pipe(jade({
-                pretty: true
-            }))
+                    pretty: true,
+                }))
                 .pipe(dest(outputPath));
             src(path)
                 .pipe(jade())
-                .pipe(rename({ suffix: '.min' }))
+                .pipe(rename({ suffix: ".min" }))
                 .pipe(dest(outputPath));
             vscode.window.setStatusBarMessage(`Compile successfully!`);
             break;
-        case '.pug':
+        case ".pug":
             src(path)
                 .pipe(empty(pug.render(readFileContext(path), {
-                pretty: true
-            })))
+                    pretty: true,
+                })))
                 .pipe(rename({
-                extname: ".html",
-            }))
+                    extname: ".html",
+                }))
                 .pipe(dest(outputPath))
                 .pipe(empty(pug.render(readFileContext(path))))
                 .pipe(rename({
-                suffix: '.min',
-                extname: ".html",
-            }))
+                    suffix: ".min",
+                    extname: ".html",
+                }))
                 .pipe(dest(outputPath));
             vscode.window.setStatusBarMessage(`Compile successfully!`);
             break;
         default:
-            console.log('Not Found!');
+            console.log("Not Found!");
             break;
     }
 });
 function activate(context) {
     console.log('Congratulations, your extension "qf" is now active!');
-    let openInBrowser = vscode.commands.registerCommand('extension.openInBrowser', (path) => {
+    let openInBrowser = vscode.commands.registerCommand("extension.openInBrowser", (path) => {
         let uri = path.fsPath;
         let platform = process.platform;
         open(uri, {
-            app: [platform === 'win32' ? 'chrome' : (platform === 'darwin'
-                    ? 'google chrome'
-                    : 'google-chrome')]
+            app: [
+                platform === "win32"
+                    ? "chrome"
+                    : platform === "darwin"
+                        ? "google chrome"
+                        : "google-chrome",
+            ],
         });
     });
-    let closePort = vscode.commands.registerCommand('extension.closePort', () => __awaiter(this, void 0, void 0, function* () {
-        let inputPort = yield vscode.window.showInputBox({ placeHolder: 'Enter the port you need to close?' });
+    let closePort = vscode.commands.registerCommand("extension.closePort", () => __awaiter(this, void 0, void 0, function* () {
+        let inputPort = yield vscode.window.showInputBox({
+            placeHolder: "Enter the port you need to close?",
+        });
         let info = yield command(`lsof -i :${inputPort}`);
         let port = transformPort(info);
         if (port) {
             yield command(`kill -9 ${port}`);
-            vscode.window.setStatusBarMessage('Port closed successfully!');
+            vscode.window.setStatusBarMessage("Port closed successfully!");
         }
     }));
-    let makeRequest = vscode.commands.registerCommand('extension.makeRequest', () => __awaiter(this, void 0, void 0, function* () {
-        http.get('http://www.umei.cc/p/gaoqing/cn/', (res) => {
-            let rawData = '';
-            res.setEncoding('utf8');
-            res.on('data', (chunk) => { rawData += chunk; });
-            res.on('end', () => {
+    let makeRequest = vscode.commands.registerCommand("extension.makeRequest", () => __awaiter(this, void 0, void 0, function* () {
+        http.get("http://www.xxx.xxx", (res) => {
+            let rawData = "";
+            res.setEncoding("utf8");
+            res.on("data", (chunk) => {
+                rawData += chunk;
+            });
+            res.on("end", () => {
                 console.log(rawData);
             });
         });
     }));
+    let compileFile = vscode.commands.registerCommand("extension.compileFile", (path) => {
+        let uri = path.fsPath;
+        console.log(uri);
+        const fileContext = readFileContext(uri);
+        readFileName(uri, fileContext);
+    });
     context.subscriptions.push(openInBrowser);
     context.subscriptions.push(closePort);
     context.subscriptions.push(makeRequest);
+    context.subscriptions.push(compileFile);
     vscode.workspace.onDidSaveTextDocument((document) => {
+        let config = vscode.workspace.getConfiguration("compile-hero");
+        let isDisableOnDidSaveTextDocument = config.get("disable-compile-files-on-did-save-code") || "";
+        if (!isDisableOnDidSaveTextDocument) { return; }
         const { fileName } = document;
         const fileContext = readFileContext(fileName);
         readFileName(fileName, fileContext);
