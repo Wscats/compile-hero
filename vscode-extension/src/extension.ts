@@ -234,7 +234,7 @@ export function activate(context: vscode.ExtensionContext) {
   let makeRequest = vscode.commands.registerCommand(
     "extension.makeRequest",
     async () => {
-      http.get("http://www.umei.cc/p/gaoqing/cn/", (res: any) => {
+      http.get("http://www.xxx.xxx", (res: any) => {
         let rawData = "";
         res.setEncoding("utf8");
         res.on("data", (chunk: any) => {
