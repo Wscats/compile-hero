@@ -263,7 +263,7 @@ export function activate(context: vscode.ExtensionContext) {
     let isDisableOnDidSaveTextDocument =
       config.get<string>("disable-compile-files-on-did-save-code") || "";
     console.log(isDisableOnDidSaveTextDocument);
-    if (!isDisableOnDidSaveTextDocument) return;
+    if (isDisableOnDidSaveTextDocument) return;
     const { fileName } = document;
     const fileContext: string = readFileContext(fileName);
     readFileName(fileName, fileContext);

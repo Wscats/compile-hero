@@ -48,7 +48,7 @@ Click to open the extension management interface `Configure Extension Settings`.
 
 |Whether the configuration is automatically compiled after saving`(ctrl+s)`|Default Value|
 |-|-|
-|disable-compile-files-on-did-save-code|true|
+|disable-compile-files-on-did-save-code|false|
 
 |Output Path Configuration|Default Value|Compile Switch Status|Default Value|
 |-|-|-|-|
@@ -70,9 +70,13 @@ Right click the `html` file in the directory menu, and the `open in browser` opt
 
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/2.gif" />
 
-# Close Port(MAC)
+# Compile File Command
 
-At some point, you may be using ports for some services. You can use the `close port` command to close, but now only supported on mac.
+Sometimes you may not need to automatically compile the file every time you save the file, at this time you can disable the automatic compilation. And use the `Compile File(s)` command to replace.
+
+# Close Port Command(MAC)
+
+At some point, you may be using ports for some services. You can use the `Close Port` command to close, but now only supported on mac.
 
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/4.gif" />
 

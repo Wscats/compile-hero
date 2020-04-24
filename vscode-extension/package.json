@@ -8,7 +8,7 @@
     "url": "https://github.com/Wscats"
   },
   "publisher": "Wscats",
-  "version": "6.8.46",
+  "version": "6.8.47",
   "preview": true,
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/compile-hero",
@@ -101,7 +101,7 @@
       "properties": {
         "compile-hero.disable-compile-files-on-did-save-code": {
           "type": "boolean",
-          "default": true,
+          "default": false,
           "description": "Disable Compile Files On Did Save Code."
         },
         "compile-hero.javascript-output-directory": {

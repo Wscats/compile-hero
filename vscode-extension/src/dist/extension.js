@@ -41,18 +41,19 @@ var fs = require("fs");
 var p = require("path");
 var http = require("http");
 var child_process_1 = require("child_process");
-var _a = require('./sass/index'), compileSass = _a.compileSass, sass = _a.sass;
-var _b = require('gulp'), src = _b.src, dest = _b.dest;
-var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
-var babel = require('gulp-babel');
-var babelEnv = require('@babel/preset-env');
-var less = require('gulp-less');
-var cssmin = require('gulp-minify-css');
-var ts = require('gulp-typescript');
-var jade = require('gulp-jade');
-var open = require('open');
-var through = require('through2');
+var _a = require("./sass/index"), compileSass = _a.compileSass, sass = _a.sass;
+var _b = require("gulp"), src = _b.src, dest = _b.dest;
+var uglify = require("gulp-uglify");
+var rename = require("gulp-rename");
+var babel = require("gulp-babel");
+var babelEnv = require("@babel/preset-env");
+var less = require("gulp-less");
+var cssmin = require("gulp-minify-css");
+var ts = require("gulp-typescript");
+var jade = require("gulp-jade");
+var pug = require("pug");
+var open = require("open");
+var through = require("through2");
 var readFileContext = function (path) {
     return fs.readFileSync(path).toString();
 };
@@ -70,9 +71,9 @@ var command = function (cmd) {
     });
 };
 var transformPort = function (data) {
-    var port = '';
+    var port = "";
     data.split(/[\n|\r]/).forEach(function (item) {
-        if (item.indexOf('LISTEN') !== -1 && !port) {
+        if (item.indexOf("LISTEN") !== -1 && !port) {
             var reg = item.split(/\s+/);
             if (/\d+/.test(reg[1])) {
                 port = reg[1];
@@ -86,7 +87,7 @@ var empty = function (code) {
         if (!file.isBuffer()) {
             return callback();
         }
-        file.contents = Buffer.from(code || '');
+        file.contents = Buffer.from(code || "");
         stream.push(file);
         callback();
     });
@@ -100,37 +101,40 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                 fileSuffix = fileType(path);
                 config = vscode.workspace.getConfiguration("compile-hero");
                 outputDirectoryPath = {
-                    '.js': config.get('javascript-output-directory') || '',
-                    '.scss': config.get('sass-output-directory') || '',
-                    '.sass': config.get('sass-output-directory') || '',
-                    '.less': config.get('less-output-directory') || '',
-                    '.jade': config.get('jade-output-directory') || '',
-                    '.ts': config.get('typescript-output-directory') || '',
-                    '.tsx': config.get('typescriptx-output-directory') || ''
+                    ".js": config.get("javascript-output-directory") || "",
+                    ".scss": config.get("sass-output-directory") || "",
+                    ".sass": config.get("sass-output-directory") || "",
+                    ".less": config.get("less-output-directory") || "",
+                    ".jade": config.get("jade-output-directory") || "",
+                    ".ts": config.get("typescript-output-directory") || "",
+                    ".tsx": config.get("typescriptx-output-directory") || "",
+                    ".pug": config.get("pug-output-directory") || ""
                 };
                 compileStatus = {
-                    '.js': config.get('javascript-output-toggle'),
-                    '.scss': config.get('sass-output-toggle'),
-                    '.sass': config.get('sass-output-toggle'),
-                    '.less': config.get('less-output-toggle'),
-                    '.jade': config.get('jade-output-toggle'),
-                    '.ts': config.get('typescript-output-toggle'),
-                    '.tsx': config.get('typescriptx-output-toggle')
+                    ".js": config.get("javascript-output-toggle"),
+                    ".scss": config.get("sass-output-toggle"),
+                    ".sass": config.get("sass-output-toggle"),
+                    ".less": config.get("less-output-toggle"),
+                    ".jade": config.get("jade-output-toggle"),
+                    ".ts": config.get("typescript-output-toggle"),
+                    ".tsx": config.get("typescriptx-output-toggle"),
+                    ".pug": config.get("pug-output-toggle")
                 };
                 if (!compileStatus[fileSuffix])
                     return [2 /*return*/];
-                outputPath = p.resolve(path, '../', outputDirectoryPath[fileSuffix]);
+                outputPath = p.resolve(path, "../", outputDirectoryPath[fileSuffix]);
                 _a = fileSuffix;
                 switch (_a) {
-                    case '.scss': return [3 /*break*/, 1];
-                    case '.sass': return [3 /*break*/, 1];
-                    case '.js': return [3 /*break*/, 3];
-                    case '.less': return [3 /*break*/, 4];
-                    case '.ts': return [3 /*break*/, 5];
-                    case '.tsx': return [3 /*break*/, 6];
-                    case '.jade': return [3 /*break*/, 7];
+                    case ".scss": return [3 /*break*/, 1];
+                    case ".sass": return [3 /*break*/, 1];
+                    case ".js": return [3 /*break*/, 3];
+                    case ".less": return [3 /*break*/, 4];
+                    case ".ts": return [3 /*break*/, 5];
+                    case ".tsx": return [3 /*break*/, 6];
+                    case ".jade": return [3 /*break*/, 7];
+                    case ".pug": return [3 /*break*/, 8];
                 }
-                return [3 /*break*/, 8];
+                return [3 /*break*/, 9];
             case 1: return [4 /*yield*/, compileSass(fileContext, {
                     style: sass.style.expanded || sass.style.compressed
                 })];
@@ -142,57 +146,55 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                     extname: ".css"
                 }))
                     .pipe(dest(outputPath))
-                    .pipe(cssmin({ compatibility: 'ie7' }))
+                    .pipe(cssmin({ compatibility: "ie7" }))
                     .pipe(rename({
                     extname: ".css",
-                    suffix: '.min'
+                    suffix: ".min"
                 }))
                     .pipe(dest(outputPath));
                 vscode.window.setStatusBarMessage("Compile successfully!");
-                return [3 /*break*/, 9];
+                return [3 /*break*/, 10];
             case 3:
                 if (/.dev.js|.prod.js$/g.test(path)) {
                     vscode.window.setStatusBarMessage("The prod or dev file has been processed and will not be compiled");
-                    return [3 /*break*/, 9];
+                    return [3 /*break*/, 10];
                 }
                 src(path)
                     .pipe(babel({
                     presets: [babelEnv]
                 }))
-                    .pipe(rename({ suffix: '.dev' }))
+                    .pipe(rename({ suffix: ".dev" }))
                     .pipe(dest(outputPath));
                 src(path)
                     .pipe(babel({
                     presets: [babelEnv]
                 }))
                     .pipe(uglify())
-                    .pipe(rename({ suffix: '.prod' }))
+                    .pipe(rename({ suffix: ".prod" }))
                     .pipe(dest(outputPath));
                 vscode.window.setStatusBarMessage("Compile successfully!");
-                return [3 /*break*/, 9];
+                return [3 /*break*/, 10];
             case 4:
                 src(path)
                     .pipe(less())
                     .pipe(dest(outputPath))
-                    .pipe(cssmin({ compatibility: 'ie7' }))
-                    .pipe(rename({ suffix: '.min' }))
+                    .pipe(cssmin({ compatibility: "ie7" }))
+                    .pipe(rename({ suffix: ".min" }))
                     .pipe(dest(outputPath));
                 vscode.window.setStatusBarMessage("Compile successfully!");
-                return [3 /*break*/, 9];
+                return [3 /*break*/, 10];
             case 5:
-                src(path)
-                    .pipe(ts())
-                    .pipe(dest(outputPath));
+                src(path).pipe(ts()).pipe(dest(outputPath));
                 vscode.window.setStatusBarMessage("Compile successfully!");
-                return [3 /*break*/, 9];
+                return [3 /*break*/, 10];
             case 6:
                 src(path)
                     .pipe(ts({
-                    jsx: 'react'
+                    jsx: "react"
                 }))
                     .pipe(dest(outputPath));
                 vscode.window.setStatusBarMessage("Compile successfully!");
-                return [3 /*break*/, 9];
+                return [3 /*break*/, 10];
             case 7:
                 src(path)
                     .pipe(jade({
@@ -201,34 +203,57 @@ var readFileName = function (path, fileContext) { return __awaiter(void 0, void 
                     .pipe(dest(outputPath));
                 src(path)
                     .pipe(jade())
-                    .pipe(rename({ suffix: '.min' }))
+                    .pipe(rename({ suffix: ".min" }))
                     .pipe(dest(outputPath));
                 vscode.window.setStatusBarMessage("Compile successfully!");
-                return [3 /*break*/, 9];
+                return [3 /*break*/, 10];
             case 8:
-                console.log('Not Found!');
-                return [3 /*break*/, 9];
-            case 9: return [2 /*return*/];
+                src(path)
+                    .pipe(empty(pug.render(readFileContext(path), {
+                    pretty: true
+                })))
+                    .pipe(rename({
+                    extname: ".html"
+                }))
+                    .pipe(dest(outputPath))
+                    .pipe(empty(pug.render(readFileContext(path))))
+                    .pipe(rename({
+                    suffix: ".min",
+                    extname: ".html"
+                }))
+                    .pipe(dest(outputPath));
+                vscode.window.setStatusBarMessage("Compile successfully!");
+                return [3 /*break*/, 10];
+            case 9:
+                console.log("Not Found!");
+                return [3 /*break*/, 10];
+            case 10: return [2 /*return*/];
         }
     });
 }); };
 function activate(context) {
     var _this = this;
     console.log('Congratulations, your extension "qf" is now active!');
-    var openInBrowser = vscode.commands.registerCommand('extension.openInBrowser', function (path) {
+    var openInBrowser = vscode.commands.registerCommand("extension.openInBrowser", function (path) {
         var uri = path.fsPath;
         var platform = process.platform;
         open(uri, {
-            app: [platform === 'win32' ? 'chrome' : (platform === 'darwin'
-                    ? 'google chrome'
-                    : 'google-chrome')]
+            app: [
+                platform === "win32"
+                    ? "chrome"
+                    : platform === "darwin"
+                        ? "google chrome"
+                        : "google-chrome",
+            ]
         });
     });
-    var closePort = vscode.commands.registerCommand('extension.closePort', function () { return __awaiter(_this, void 0, void 0, function () {
+    var closePort = vscode.commands.registerCommand("extension.closePort", function () { return __awaiter(_this, void 0, void 0, function () {
         var inputPort, info, port;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, vscode.window.showInputBox({ placeHolder: 'Enter the port you need to close?' })];
+                case 0: return [4 /*yield*/, vscode.window.showInputBox({
+                        placeHolder: "Enter the port you need to close?"
+                    })];
                 case 1:
                     inputPort = _a.sent();
                     return [4 /*yield*/, command("lsof -i :" + inputPort)];
@@ -239,29 +264,43 @@ function activate(context) {
                     return [4 /*yield*/, command("kill -9 " + port)];
                 case 3:
                     _a.sent();
-                    vscode.window.setStatusBarMessage('Port closed successfully!');
+                    vscode.window.setStatusBarMessage("Port closed successfully!");
                     _a.label = 4;
                 case 4: return [2 /*return*/];
             }
         });
     }); });
-    var makeRequest = vscode.commands.registerCommand('extension.makeRequest', function () { return __awaiter(_this, void 0, void 0, function () {
+    var makeRequest = vscode.commands.registerCommand("extension.makeRequest", function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            http.get('http://www.umei.cc/p/gaoqing/cn/', function (res) {
-                var rawData = '';
-                res.setEncoding('utf8');
-                res.on('data', function (chunk) { rawData += chunk; });
-                res.on('end', function () {
+            http.get("http://www.xxx.xxx", function (res) {
+                var rawData = "";
+                res.setEncoding("utf8");
+                res.on("data", function (chunk) {
+                    rawData += chunk;
+                });
+                res.on("end", function () {
                     console.log(rawData);
                 });
             });
             return [2 /*return*/];
         });
     }); });
+    var compileFile = vscode.commands.registerCommand("extension.compileFile", function (path) {
+        var uri = path.fsPath;
+        console.log(uri);
+        var fileContext = readFileContext(uri);
+        readFileName(uri, fileContext);
+    });
     context.subscriptions.push(openInBrowser);
     context.subscriptions.push(closePort);
     context.subscriptions.push(makeRequest);
+    context.subscriptions.push(compileFile);
     vscode.workspace.onDidSaveTextDocument(function (document) {
+        var config = vscode.workspace.getConfiguration("compile-hero");
+        var isDisableOnDidSaveTextDocument = config.get("disable-compile-files-on-did-save-code") || "";
+        console.log(isDisableOnDidSaveTextDocument);
+        if (isDisableOnDidSaveTextDocument)
+            return;
         var fileName = document.fileName;
         var fileContext = readFileContext(fileName);
         readFileName(fileName, fileContext);

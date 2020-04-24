@@ -101,14 +101,14 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
             src(path)
                 .pipe(empty(text))
                 .pipe(rename({
-                    extname: ".css",
-                }))
+                extname: ".css",
+            }))
                 .pipe(dest(outputPath))
                 .pipe(cssmin({ compatibility: "ie7" }))
                 .pipe(rename({
-                    extname: ".css",
-                    suffix: ".min",
-                }))
+                extname: ".css",
+                suffix: ".min",
+            }))
                 .pipe(dest(outputPath));
             vscode.window.setStatusBarMessage(`Compile successfully!`);
             break;
@@ -119,14 +119,14 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
             }
             src(path)
                 .pipe(babel({
-                    presets: [babelEnv],
-                }))
+                presets: [babelEnv],
+            }))
                 .pipe(rename({ suffix: ".dev" }))
                 .pipe(dest(outputPath));
             src(path)
                 .pipe(babel({
-                    presets: [babelEnv],
-                }))
+                presets: [babelEnv],
+            }))
                 .pipe(uglify())
                 .pipe(rename({ suffix: ".prod" }))
                 .pipe(dest(outputPath));
@@ -148,16 +148,16 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
         case ".tsx":
             src(path)
                 .pipe(ts({
-                    jsx: "react",
-                }))
+                jsx: "react",
+            }))
                 .pipe(dest(outputPath));
             vscode.window.setStatusBarMessage(`Compile successfully!`);
             break;
         case ".jade":
             src(path)
                 .pipe(jade({
-                    pretty: true,
-                }))
+                pretty: true,
+            }))
                 .pipe(dest(outputPath));
             src(path)
                 .pipe(jade())
@@ -168,17 +168,17 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
         case ".pug":
             src(path)
                 .pipe(empty(pug.render(readFileContext(path), {
-                    pretty: true,
-                })))
+                pretty: true,
+            })))
                 .pipe(rename({
-                    extname: ".html",
-                }))
+                extname: ".html",
+            }))
                 .pipe(dest(outputPath))
                 .pipe(empty(pug.render(readFileContext(path))))
                 .pipe(rename({
-                    suffix: ".min",
-                    extname: ".html",
-                }))
+                suffix: ".min",
+                extname: ".html",
+            }))
                 .pipe(dest(outputPath));
             vscode.window.setStatusBarMessage(`Compile successfully!`);
             break;
@@ -238,7 +238,9 @@ function activate(context) {
     vscode.workspace.onDidSaveTextDocument((document) => {
         let config = vscode.workspace.getConfiguration("compile-hero");
         let isDisableOnDidSaveTextDocument = config.get("disable-compile-files-on-did-save-code") || "";
-        if (!isDisableOnDidSaveTextDocument) { return; }
+        console.log(isDisableOnDidSaveTextDocument);
+        if (!isDisableOnDidSaveTextDocument)
+            return;
         const { fileName } = document;
         const fileContext = readFileContext(fileName);
         readFileName(fileName, fileContext);
