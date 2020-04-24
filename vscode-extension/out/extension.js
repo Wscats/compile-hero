@@ -239,7 +239,7 @@ function activate(context) {
         let config = vscode.workspace.getConfiguration("compile-hero");
         let isDisableOnDidSaveTextDocument = config.get("disable-compile-files-on-did-save-code") || "";
         console.log(isDisableOnDidSaveTextDocument);
-        if (!isDisableOnDidSaveTextDocument)
+        if (isDisableOnDidSaveTextDocument)
             return;
         const { fileName } = document;
         const fileContext = readFileContext(fileName);
