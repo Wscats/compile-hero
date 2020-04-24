@@ -20,8 +20,6 @@ Compile on save `(ctrl+s)` or select `Compile File(s)` on right-click menu item 
 
 <br/>
 
-<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/6.gif" />
-
 - Compile `less, sass, scss, typescript, jade, pug and jsx` on save.
 - Support autoprefixer for `less, scss, scss`.
 - Support to open `html` files to preview in browser.
@@ -70,9 +68,11 @@ Right click the `html` file in the directory menu, and the `open in browser` opt
 
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/2.gif" />
 
-# Compile File Command
+# Compile File Menu Item
 
-Sometimes you may not need to automatically compile the file every time you save the file, at this time you can disable the automatic compilation. And use the `Compile File(s)` command to replace.
+Sometimes you may not need to automatically compile the file every time you save the file, at this time you can disable the automatic compilation. And use the `Compile File(s)` menu item to replace.
+
+<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/6.gif" />
 
 # Close Port Command(MAC)
 
