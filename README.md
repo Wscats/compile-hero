@@ -1,4 +1,4 @@
-<a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Download-8k+-orange" alt="Download" /></a>
+<a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Download-107k+-orange" alt="Download" /></a>
 <a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Macketplace-v2.00-brightgreen" alt="Macketplace" /></a>
 <a href="https://github.com/Wscats/compile-hero"><img src="https://img.shields.io/badge/Github Page-Wscats-yellow" alt="Github Page" /></a>
 <a href="https://github.com/Wscats"><img src="https://img.shields.io/badge/Author-Eno Yao-blueviolet" alt="Eno Yao" /></a>
@@ -10,13 +10,15 @@
 
 Easily work with `less, sass, scss, typescript, jade, pug and jsx` files in Visual Studio Code.
 
-Compile on save `(ctrl+s)` for `less, sass, scss, typescript, jade, pug and jsx` files without using a build task.
+Compile on save `(ctrl+s)` or select `Compile File(s)` on right-click menu item for `less, sass, scss, typescript, jade, pug and jsx` files without using a build task.
 
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/1.gif" />
 
 <br/>
 
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/3.gif" />
+
+<br/>
 
 - Compile `less, sass, scss, typescript, jade, pug and jsx` on save.
 - Support autoprefixer for `less, scss, scss`.
@@ -36,8 +38,28 @@ Easy to use. When you writing a file, press save `ctrl+s` to generate the compil
 
 # Configuration
 
-Click to open the extension management interface `Configure Extension Settings`, You can change the path of the project compilation directory, or toggle the switch of language.
+Click to open the extension management interface `Configure Extension Settings`.
 
+- You can change the output path of the project compilation directory. 
+- Toggle the compile switch of different language.
+- Or disable automatic compilation on save `(ctrl+s)`.
+
+|Whether the configuration is automatically compiled after saving`(ctrl+s)`|Default Value|
+|-|-|
+|disable-compile-files-on-did-save-code|false|
+
+|Output Path Configuration|Default Value|Compile Switch Status|Default Value|
+|-|-|-|-|
+|javascript-output-directory|./dist|javascript-output-toggle|true|
+|sass-output-directory|./dist|sass-output-toggle|true|
+|sass-output-directory|./dist|sass-output-toggle|true|
+|less-output-directory|./dist|less-output-toggle|true|
+|jade-output-directory|./dist|jade-output-toggle|true|
+|typescript-output-directory|./dist|typescript-output-toggle|true|
+|typescriptx-output-directory|./dist|typescriptx-output-toggle|true|
+|pug-output-directory|./dist|pug-output-toggle|true|
+
+<br>
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/5.gif" />
 
 # Open In Browser
@@ -46,9 +68,15 @@ Right click the `html` file in the directory menu, and the `open in browser` opt
 
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/2.gif" />
 
-# Close Port
+# Compile File Menu Item
 
-At some point, you may be using ports for some services. You can use the `close port` command to close.
+Sometimes you may not need to automatically compile the file every time you save the file, at this time you can disable the automatic compilation. And use the `Compile File(s)` menu item to replace.
+
+<img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/6.gif" />
+
+# Close Port Command(MAC)
+
+At some point, you may be using ports for some services. You can use the `Close Port` command to close, but now only supported on mac.
 
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/4.gif" />
 
