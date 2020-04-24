@@ -40,8 +40,28 @@ Easy to use. When you writing a file, press save `ctrl+s` to generate the compil
 
 # Configuration
 
-Click to open the extension management interface `Configure Extension Settings`, You can change the path of the project compilation directory, or toggle the switch of language.
+Click to open the extension management interface `Configure Extension Settings`.
 
+- You can change the output path of the project compilation directory. 
+- Toggle the compile switch of different language.
+- Or disable automatic compilation on save `(ctrl+s)`.
+
+|Whether the configuration is automatically compiled after saving`(ctrl+s)`|Default Value|
+|-|-|
+|disable-compile-files-on-did-save-code|true|
+
+|Output Path Configuration|Default Value|Compile Switch Status|Default Value|
+|-|-|-|-|
+|javascript-output-directory|./dist|javascript-output-toggle|true|
+|sass-output-directory|./dist|sass-output-toggle|true|
+|sass-output-directory|./dist|sass-output-toggle|true|
+|less-output-directory|./dist|less-output-toggle|true|
+|jade-output-directory|./dist|jade-output-toggle|true|
+|typescript-output-directory|./dist|typescript-output-toggle|true|
+|typescriptx-output-directory|./dist|typescriptx-output-toggle|true|
+|pug-output-directory|./dist|pug-output-toggle|true|
+
+<br>
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/5.gif" />
 
 # Open In Browser
@@ -50,9 +70,9 @@ Right click the `html` file in the directory menu, and the `open in browser` opt
 
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/2.gif" />
 
-# Close Port
+# Close Port(MAC)
 
-At some point, you may be using ports for some services. You can use the `close port` command to close.
+At some point, you may be using ports for some services. You can use the `close port` command to close, but now only supported on mac.
 
 <img src="https://wscats.github.io/compile-hero/vscode-extension/screenshots/4.gif" />
 
