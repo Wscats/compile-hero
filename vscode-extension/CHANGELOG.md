@@ -15,6 +15,7 @@
 - 2019-11-21 Support compiling `jade` files.
 - 2020-03-28 Add command `compileFile`.
 - 2020-04-24 Add switch to control compilation.
+- 2020-04-25 Add advanced extension settings.
 
 # Unreleased
 
