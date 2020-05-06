@@ -1,2 +1,5 @@
+# out 里面有份 sass.sync.js 比较关键，不能被移除
 node_modules
-.DS_Store
+.vscode-test/
+*.vsix
+tests
