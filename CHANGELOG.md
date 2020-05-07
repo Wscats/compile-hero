@@ -15,10 +15,11 @@
 - 2019-11-21 Support compiling `jade` files.
 - 2020-03-28 Add command `compileFile`.
 - 2020-04-24 Add switch to control compilation.
-- 2020-04-25 Add advanced extension settings.
+- 2020-04-25 Add advanced extension settings - [Documentation on a per project config](https://github.com/Wscats/compile-hero/issues/6).
 - 2020-05-05 Add `scss` files configure extension settings.
-- 2020-05-06 Delete unused commands such as `makeRequest`.
+- 2020-05-06 Delete unused commands such as `makeRequest` - [Dubious makeRequest function](https://github.com/Wscats/compile-hero/issues/9).
 - 2020-05-07 Increase `scss/sass/less` compilation error monitoring.
+- 2020-05-08 Add Feature - [Output:❌Errors/ ✔Success](https://github.com/Wscats/compile-hero/issues/15)
 
 # Unreleased
 
