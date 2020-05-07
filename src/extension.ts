@@ -15,6 +15,8 @@ const jade = require("gulp-jade");
 const pug = require("pug");
 const open = require("open");
 const through = require("through2");
+const successMessage = "✔ Compile successfully!";
+const errorMessage = "❌ Compile failed!";
 const readFileContext = (path: string): string => {
   return fs.readFileSync(path).toString();
 };
@@ -87,7 +89,7 @@ const readFileName = async (path: string, fileContext: string) => {
         style: sass.style.expanded || sass.style.compressed,
       });
       if (status !== 0) {
-        vscode.window.setStatusBarMessage(`Compile failed!`);
+        vscode.window.setStatusBarMessage(errorMessage);
         return;
       }
       src(path)
@@ -106,7 +108,7 @@ const readFileName = async (path: string, fileContext: string) => {
           })
         )
         .pipe(dest(outputPath));
-      vscode.window.setStatusBarMessage(`Compile successfully!`);
+      vscode.window.setStatusBarMessage(successMessage);
       break;
     case ".js":
       if (/.dev.js|.prod.js$/g.test(path)) {
@@ -132,7 +134,7 @@ const readFileName = async (path: string, fileContext: string) => {
         .pipe(uglify())
         .pipe(rename({ suffix: ".prod" }))
         .pipe(dest(outputPath));
-      vscode.window.setStatusBarMessage(`Compile successfully!`);
+      vscode.window.setStatusBarMessage(successMessage);
       break;
     case ".less":
       console.log(path);
@@ -140,7 +142,7 @@ const readFileName = async (path: string, fileContext: string) => {
         .pipe(
           less().on("error", (error: any) => {
             vscode.window.showErrorMessage(error.message);
-            vscode.window.setStatusBarMessage(`Compile failed!`);
+            vscode.window.setStatusBarMessage(errorMessage);
           })
         )
         .pipe(dest(outputPath))
@@ -148,12 +150,12 @@ const readFileName = async (path: string, fileContext: string) => {
         .pipe(rename({ suffix: ".min" }))
         .pipe(dest(outputPath))
         .on("end", () => {
-          vscode.window.setStatusBarMessage(`Compile successfully!`);
+          vscode.window.setStatusBarMessage(successMessage);
         });
       break;
     case ".ts":
       src(path).pipe(ts()).pipe(dest(outputPath));
-      vscode.window.setStatusBarMessage(`Compile successfully!`);
+      vscode.window.setStatusBarMessage(successMessage);
       break;
     case ".tsx":
       src(path)
@@ -163,7 +165,7 @@ const readFileName = async (path: string, fileContext: string) => {
           })
         )
         .pipe(dest(outputPath));
-      vscode.window.setStatusBarMessage(`Compile successfully!`);
+      vscode.window.setStatusBarMessage(successMessage);
       break;
     case ".jade":
       src(path)
@@ -177,7 +179,7 @@ const readFileName = async (path: string, fileContext: string) => {
         .pipe(jade())
         .pipe(rename({ suffix: ".min" }))
         .pipe(dest(outputPath));
-      vscode.window.setStatusBarMessage(`Compile successfully!`);
+      vscode.window.setStatusBarMessage(successMessage);
       break;
     case ".pug":
       src(path)
@@ -202,7 +204,7 @@ const readFileName = async (path: string, fileContext: string) => {
           })
         )
         .pipe(dest(outputPath));
-      vscode.window.setStatusBarMessage(`Compile successfully!`);
+      vscode.window.setStatusBarMessage(successMessage);
       break;
     default:
       console.log("Not Found!");
