@@ -18,7 +18,7 @@
 - 2020-04-25 Add advanced extension settings.
 - 2020-05-05 Add `scss` files configure extension settings.
 - 2020-05-06 Delete unused commands such as `makeRequest`.
-- 2020-05-07 Increase `scss/sass` compilation error monitoring.
+- 2020-05-07 Increase `scss/sass/less` compilation error monitoring.
 
 # Unreleased
 

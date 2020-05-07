@@ -79,131 +79,134 @@ const readFileName = async (path: string, fileContext: string) => {
   };
   if (!compileStatus[fileSuffix]) return;
   let outputPath = p.resolve(path, "../", outputDirectoryPath[fileSuffix]);
-  try {
-    switch (fileSuffix) {
-      case ".scss":
-      case ".sass":
-        let { text, status } = await compileSass(fileContext, {
-          style: sass.style.expanded || sass.style.compressed,
+
+  switch (fileSuffix) {
+    case ".scss":
+    case ".sass":
+      let { text, status } = await compileSass(fileContext, {
+        style: sass.style.expanded || sass.style.compressed,
+      });
+      if (status !== 0) {
+        vscode.window.setStatusBarMessage(`Compile failed!`);
+        return;
+      }
+      src(path)
+        .pipe(empty(text))
+        .pipe(
+          rename({
+            extname: ".css",
+          })
+        )
+        .pipe(dest(outputPath))
+        .pipe(cssmin({ compatibility: "ie7" }))
+        .pipe(
+          rename({
+            extname: ".css",
+            suffix: ".min",
+          })
+        )
+        .pipe(dest(outputPath));
+      vscode.window.setStatusBarMessage(`Compile successfully!`);
+      break;
+    case ".js":
+      if (/.dev.js|.prod.js$/g.test(path)) {
+        vscode.window.setStatusBarMessage(
+          `The prod or dev file has been processed and will not be compiled`
+        );
+        break;
+      }
+      src(path)
+        .pipe(
+          babel({
+            presets: [babelEnv],
+          })
+        )
+        .pipe(rename({ suffix: ".dev" }))
+        .pipe(dest(outputPath));
+      src(path)
+        .pipe(
+          babel({
+            presets: [babelEnv],
+          })
+        )
+        .pipe(uglify())
+        .pipe(rename({ suffix: ".prod" }))
+        .pipe(dest(outputPath));
+      vscode.window.setStatusBarMessage(`Compile successfully!`);
+      break;
+    case ".less":
+      console.log(path);
+      src(path)
+        .pipe(
+          less().on("error", (error: any) => {
+            vscode.window.showErrorMessage(error.message);
+            vscode.window.setStatusBarMessage(`Compile failed!`);
+          })
+        )
+        .pipe(dest(outputPath))
+        .pipe(cssmin({ compatibility: "ie7" }))
+        .pipe(rename({ suffix: ".min" }))
+        .pipe(dest(outputPath))
+        .on("end", () => {
+          vscode.window.setStatusBarMessage(`Compile successfully!`);
         });
-        if (status !== 0) {
-          vscode.window.setStatusBarMessage(`Compile failed!`);
-          return;
-        }
-        src(path)
-          .pipe(empty(text))
-          .pipe(
-            rename({
-              extname: ".css",
-            })
-          )
-          .pipe(dest(outputPath))
-          .pipe(cssmin({ compatibility: "ie7" }))
-          .pipe(
-            rename({
-              extname: ".css",
-              suffix: ".min",
-            })
-          )
-          .pipe(dest(outputPath));
-        vscode.window.setStatusBarMessage(`Compile successfully!`);
-        break;
-      case ".js":
-        if (/.dev.js|.prod.js$/g.test(path)) {
-          vscode.window.setStatusBarMessage(
-            `The prod or dev file has been processed and will not be compiled`
-          );
-          break;
-        }
-        src(path)
-          .pipe(
-            babel({
-              presets: [babelEnv],
-            })
-          )
-          .pipe(rename({ suffix: ".dev" }))
-          .pipe(dest(outputPath));
-        src(path)
-          .pipe(
-            babel({
-              presets: [babelEnv],
-            })
-          )
-          .pipe(uglify())
-          .pipe(rename({ suffix: ".prod" }))
-          .pipe(dest(outputPath));
-        vscode.window.setStatusBarMessage(`Compile successfully!`);
-        break;
-      case ".less":
-        src(path)
-          .pipe(less())
-          .pipe(dest(outputPath))
-          .pipe(cssmin({ compatibility: "ie7" }))
-          .pipe(rename({ suffix: ".min" }))
-          .pipe(dest(outputPath));
-        vscode.window.setStatusBarMessage(`Compile successfully!`);
-        break;
-      case ".ts":
-        src(path).pipe(ts()).pipe(dest(outputPath));
-        vscode.window.setStatusBarMessage(`Compile successfully!`);
-        break;
-      case ".tsx":
-        src(path)
-          .pipe(
-            ts({
-              jsx: "react",
-            })
-          )
-          .pipe(dest(outputPath));
-        vscode.window.setStatusBarMessage(`Compile successfully!`);
-        break;
-      case ".jade":
-        src(path)
-          .pipe(
-            jade({
+      break;
+    case ".ts":
+      src(path).pipe(ts()).pipe(dest(outputPath));
+      vscode.window.setStatusBarMessage(`Compile successfully!`);
+      break;
+    case ".tsx":
+      src(path)
+        .pipe(
+          ts({
+            jsx: "react",
+          })
+        )
+        .pipe(dest(outputPath));
+      vscode.window.setStatusBarMessage(`Compile successfully!`);
+      break;
+    case ".jade":
+      src(path)
+        .pipe(
+          jade({
+            pretty: true,
+          })
+        )
+        .pipe(dest(outputPath));
+      src(path)
+        .pipe(jade())
+        .pipe(rename({ suffix: ".min" }))
+        .pipe(dest(outputPath));
+      vscode.window.setStatusBarMessage(`Compile successfully!`);
+      break;
+    case ".pug":
+      src(path)
+        .pipe(
+          empty(
+            pug.render(readFileContext(path), {
               pretty: true,
             })
           )
-          .pipe(dest(outputPath));
-        src(path)
-          .pipe(jade())
-          .pipe(rename({ suffix: ".min" }))
-          .pipe(dest(outputPath));
-        vscode.window.setStatusBarMessage(`Compile successfully!`);
-        break;
-      case ".pug":
-        src(path)
-          .pipe(
-            empty(
-              pug.render(readFileContext(path), {
-                pretty: true,
-              })
-            )
-          )
-          .pipe(
-            rename({
-              extname: ".html",
-            })
-          )
-          .pipe(dest(outputPath))
-          .pipe(empty(pug.render(readFileContext(path))))
-          .pipe(
-            rename({
-              suffix: ".min",
-              extname: ".html",
-            })
-          )
-          .pipe(dest(outputPath));
-        vscode.window.setStatusBarMessage(`Compile successfully!`);
-        break;
-      default:
-        console.log("Not Found!");
-        break;
-    }
-  } catch (error) {
-    console.log(error);
-    vscode.window.showErrorMessage(error);
-    vscode.window.setStatusBarMessage(`Compile failed!`);
+        )
+        .pipe(
+          rename({
+            extname: ".html",
+          })
+        )
+        .pipe(dest(outputPath))
+        .pipe(empty(pug.render(readFileContext(path))))
+        .pipe(
+          rename({
+            suffix: ".min",
+            extname: ".html",
+          })
+        )
+        .pipe(dest(outputPath));
+      vscode.window.setStatusBarMessage(`Compile successfully!`);
+      break;
+    default:
+      console.log("Not Found!");
+      break;
   }
 };
 export function activate(context: vscode.ExtensionContext) {
