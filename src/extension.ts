@@ -85,7 +85,6 @@ const readFileName = async (path: string, fileContext: string) => {
   switch (fileSuffix) {
     case ".scss":
     case ".sass":
-      console.log(fileContext);
       let { text, status } = await compileSass(fileContext, {
         style: sass.style.expanded || sass.style.compressed,
       });
@@ -168,7 +167,6 @@ const readFileName = async (path: string, fileContext: string) => {
       vscode.window.setStatusBarMessage(successMessage);
       break;
     case ".jade":
-      console.log(path);
       src(path)
         .pipe(
           jade({

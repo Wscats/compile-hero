@@ -97,7 +97,6 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
     switch (fileSuffix) {
         case ".scss":
         case ".sass":
-            console.log(fileContext);
             let { text, status } = yield compileSass(fileContext, {
                 style: sass.style.expanded || sass.style.compressed,
             });
@@ -166,7 +165,6 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
             vscode.window.setStatusBarMessage(successMessage);
             break;
         case ".jade":
-            console.log(path);
             src(path)
                 .pipe(jade({
                 pretty: true,
