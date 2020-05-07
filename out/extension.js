@@ -93,9 +93,11 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
     if (!compileStatus[fileSuffix])
         return;
     let outputPath = p.resolve(path, "../", outputDirectoryPath[fileSuffix]);
+    console.log(fileSuffix);
     switch (fileSuffix) {
         case ".scss":
         case ".sass":
+            console.log(fileContext);
             let { text, status } = yield compileSass(fileContext, {
                 style: sass.style.expanded || sass.style.compressed,
             });
@@ -138,7 +140,6 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
             vscode.window.setStatusBarMessage(successMessage);
             break;
         case ".less":
-            console.log(path);
             src(path)
                 .pipe(less().on("error", (error) => {
                 vscode.window.showErrorMessage(error.message);
@@ -165,9 +166,14 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
             vscode.window.setStatusBarMessage(successMessage);
             break;
         case ".jade":
+            console.log(path);
             src(path)
                 .pipe(jade({
                 pretty: true,
+            }).on("error", (error) => {
+                console.log(error);
+                vscode.window.showErrorMessage(error.message);
+                vscode.window.setStatusBarMessage(errorMessage);
             }))
                 .pipe(dest(outputPath));
             src(path)

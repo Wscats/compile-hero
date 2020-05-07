@@ -19,9 +19,11 @@
 - 2020-05-05 Add `scss` files configure extension settings.
 - 2020-05-06 Delete unused commands such as `makeRequest` - [Dubious makeRequest function](https://github.com/Wscats/compile-hero/issues/9).
 - 2020-05-07 Increase `scss/sass/less` compilation error monitoring.
-- 2020-05-08 Add Feature - [Output:❌Errors/ ✔Success](https://github.com/Wscats/compile-hero/issues/15)
+- 2020-05-08 Add Feature - [Feature: Output:❌Errors/ ✔Success](https://github.com/Wscats/compile-hero/issues/15)
 
 # Unreleased
 
 - Support opening in browser and starting non security mode to solve cross domain problems.
 - Support to start custom server and refresh page automatically.
+- [Feature: Minified options settings](https://github.com/Wscats/compile-hero/issues/13)
+- [Feature: Support autoprefixer for less, scss, scss](https://github.com/Wscats/compile-hero/issues/14)
