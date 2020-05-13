@@ -8,7 +8,7 @@
     "url": "https://github.com/Wscats"
   },
   "publisher": "Wscats",
-  "version": "6.8.54",
+  "version": "6.8.55",
   "preview": true,
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/compile-hero",
@@ -42,6 +42,7 @@
     "ES5",
     "JS",
     "javascript",
+    "html",
     "compile",
     "translate",
     "tsx",
@@ -57,7 +58,6 @@
     "*",
     "onCommand:extension.openInBrowser",
     "onCommand:extension.closePort",
-    "onCommand:extension.makeRequest",
     "onCommand:extension.compileFile"
   ],
   "main": "./out/extension.js",
@@ -70,10 +70,6 @@
       {
         "command": "extension.closePort",
         "title": "Close Port"
-      },
-      {
-        "command": "extension.makeRequest",
-        "title": "Make Request"
       },
       {
         "command": "extension.compileFile",
