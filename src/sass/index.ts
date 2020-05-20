@@ -25,7 +25,7 @@ const compileSass = (data: string, option: Object) => {
         // style: sass.style.nested,
       },
       (result: Result) => {
-        // console.log(result);
+        // console.log(option, result);
         if (result.status !== 0) {
           vscode.window.showErrorMessage(result.message, ...[result.formatted]);
         }

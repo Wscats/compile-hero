@@ -5,7 +5,7 @@ const sass = require("./sass.sync.js");
 const compileSass = (data, option) => {
     return new Promise((resolve, reject) => {
         sass.compile(data, Object.assign({}, option), (result) => {
-            // console.log(result);
+            // console.log(option, result);
             if (result.status !== 0) {
                 vscode.window.showErrorMessage(result.message, ...[result.formatted]);
             }

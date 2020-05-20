@@ -81,12 +81,13 @@ const readFileName = async (path: string, fileContext: string) => {
   };
   if (!compileStatus[fileSuffix]) return;
   let outputPath = p.resolve(path, "../", outputDirectoryPath[fileSuffix]);
-  console.log(fileSuffix);
+  // console.log(fileSuffix);
   switch (fileSuffix) {
     case ".scss":
     case ".sass":
       let { text, status } = await compileSass(fileContext, {
         style: sass.style.expanded || sass.style.compressed,
+        indentedSyntax: fileSuffix === ".sass" ? true : false,
       });
       if (status !== 0) {
         vscode.window.setStatusBarMessage(errorMessage);
