@@ -209,7 +209,7 @@ const readFileName = async (path: string, fileContext: string) => {
     case ".pug":
       let html = "";
       try {
-        html = pug.render(readFileContext(path), {
+        html = pug.renderFile(path, {
           pretty: true,
         });
       } catch (error) {
@@ -224,7 +224,7 @@ const readFileName = async (path: string, fileContext: string) => {
           })
         )
         .pipe(dest(outputPath))
-        .pipe(empty(pug.render(readFileContext(path))))
+        .pipe(empty(pug.renderFile(path)))
         .pipe(
           rename({
             suffix: ".min",

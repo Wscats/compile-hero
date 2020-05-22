@@ -201,7 +201,7 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
         case ".pug":
             let html = "";
             try {
-                html = pug.render(readFileContext(path), {
+                html = pug.renderFile(path, {
                     pretty: true,
                 });
             }
@@ -215,7 +215,7 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
                 extname: ".html",
             }))
                 .pipe(dest(outputPath))
-                .pipe(empty(pug.render(readFileContext(path))))
+                .pipe(empty(pug.renderFile(path)))
                 .pipe(rename({
                 suffix: ".min",
                 extname: ".html",

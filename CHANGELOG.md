@@ -21,6 +21,7 @@
 - 2020-05-07 Increase `scss/sass/less` compilation error monitoring.
 - 2020-05-08 Add Feature - [Feature: Output:❌Errors/ ✔Success](https://github.com/Wscats/compile-hero/issues/15)
 - 2020-05-20 Fix indented syntax which it can treat code as `sass` (as opposed to `scss`) - [Bug: Using sass syntax doesn't work but scss works](https://github.com/Wscats/compile-hero/issues/17)
+- 2020-05-23 Fix compilation failure due to relative path of pug - [Bug: Pug include tag not working](https://github.com/Wscats/compile-hero/issues/19)
 
 # Unreleased
 
