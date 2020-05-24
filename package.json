@@ -1,14 +1,14 @@
 {
   "name": "qf",
   "displayName": "Sass/Less/Typescript/Jade/Pug Compile Hero",
-  "description": "Easy to compile ts, tsx, scss, less, jade, pug and es6+ on save without using a build task.",
+  "description": "🚀Easy to compile ts, tsx, scss, less, jade, pug and es6+ on save without using a build task.",
   "author": {
     "name": "Eno Yao",
     "email": "kalone.cool@gmail.com",
     "url": "https://github.com/Wscats"
   },
   "publisher": "Wscats",
-  "version": "6.8.61",
+  "version": "6.8.62",
   "preview": true,
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/compile-hero",
@@ -51,7 +51,7 @@
     "close",
     "port",
     "pug",
-    "easy sass",
+    "easysass",
     "easy"
   ],
   "activationEvents": [
