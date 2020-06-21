@@ -24,7 +24,7 @@ const fileType = (filename: string) => {
   const index1 = filename.lastIndexOf(".");
   const index2 = filename.length;
   const type = filename.substring(index1, index2);
-  return type;
+  return type as FileSuffix;
 };
 const command = (cmd: string) => {
   return new Promise<string>((resolve, reject) => {
@@ -46,7 +46,7 @@ const transformPort = (data: string): string => {
   return port;
 };
 const empty = function (code: string) {
-  let stream = through.obj((file: any, encoding: any, callback: any) => {
+  let stream = through.obj((file: any, encoding: any, callback: Function) => {
     if (!file.isBuffer()) {
       return callback();
     }
@@ -56,10 +56,48 @@ const empty = function (code: string) {
   });
   return stream;
 };
+interface OutputDirectoryPath {
+  ".js": string;
+  ".scss": string;
+  ".sass": string;
+  ".less": string;
+  ".jade": string;
+  ".ts": string;
+  ".tsx": string;
+  ".pug": string;
+}
+
+interface CompileStatus {
+  ".js": boolean | undefined;
+  ".scss": boolean | undefined;
+  ".sass": boolean | undefined;
+  ".less": boolean | undefined;
+  ".jade": boolean | undefined;
+  ".ts": boolean | undefined;
+  ".tsx": boolean | undefined;
+  ".pug": boolean | undefined;
+}
+
+interface CompileOptions {
+  generateMinifiedHtml: boolean | undefined;
+  generateMinifiedCss: boolean | undefined;
+  generateMinifiedJs: boolean | undefined;
+}
+
+type FileSuffix =
+  | ".js"
+  | ".scss"
+  | ".sass"
+  | ".less"
+  | ".jade"
+  | ".ts"
+  | ".tsx"
+  | ".pug";
+
 const readFileName = async (path: string, fileContext: string) => {
-  let fileSuffix = fileType(path);
+  let fileSuffix: FileSuffix = fileType(path);
   let config = vscode.workspace.getConfiguration("compile-hero");
-  let outputDirectoryPath: any = {
+  let outputDirectoryPath: OutputDirectoryPath = {
     ".js": config.get<string>("javascript-output-directory") || "",
     ".scss": config.get<string>("scss-output-directory") || "",
     ".sass": config.get<string>("sass-output-directory") || "",
@@ -69,7 +107,7 @@ const readFileName = async (path: string, fileContext: string) => {
     ".tsx": config.get<string>("typescriptx-output-directory") || "",
     ".pug": config.get<string>("pug-output-directory") || "",
   };
-  let compileStatus: any = {
+  let compileStatus: CompileStatus = {
     ".js": config.get<boolean>("javascript-output-toggle"),
     ".scss": config.get<boolean>("scss-output-toggle"),
     ".sass": config.get<boolean>("sass-output-toggle"),
@@ -79,6 +117,13 @@ const readFileName = async (path: string, fileContext: string) => {
     ".tsx": config.get<boolean>("typescriptx-output-toggle"),
     ".pug": config.get<boolean>("pug-output-toggle"),
   };
+
+  let compileOptions: CompileOptions = {
+    generateMinifiedHtml: config.get<boolean>("generate-minified-html"),
+    generateMinifiedCss: config.get<boolean>("generate-minified-css"),
+    generateMinifiedJs: config.get<boolean>("generate-minified-javascript"),
+  };
+
   if (!compileStatus[fileSuffix]) return;
   let outputPath = p.resolve(path, "../", outputDirectoryPath[fileSuffix]);
   // console.log(fileSuffix);
@@ -101,14 +146,26 @@ const readFileName = async (path: string, fileContext: string) => {
           })
         )
         .pipe(dest(outputPath))
-        .pipe(cssmin({ compatibility: "ie7" }))
-        .pipe(
-          rename({
-            extname: ".css",
-            suffix: ".min",
-          })
-        )
         .pipe(dest(outputPath));
+
+      if (compileOptions.generateMinifiedCss) {
+        src(path)
+          .pipe(empty(text))
+          .pipe(
+            rename({
+              extname: ".css",
+            })
+          )
+          .pipe(dest(outputPath))
+          .pipe(cssmin({ compatibility: "ie7" }))
+          .pipe(
+            rename({
+              extname: ".css",
+              suffix: ".min",
+            })
+          )
+          .pipe(dest(outputPath));
+      }
       vscode.window.setStatusBarMessage(successMessage);
       break;
     case ".js":
@@ -129,18 +186,20 @@ const readFileName = async (path: string, fileContext: string) => {
         )
         .pipe(rename({ suffix: ".dev" }))
         .pipe(dest(outputPath));
-      src(path)
-        .pipe(
-          babel({
-            presets: [babelEnv],
-          }).on("error", (error: any) => {
-            vscode.window.showErrorMessage(error.message);
-            vscode.window.setStatusBarMessage(errorMessage);
-          })
-        )
-        .pipe(uglify())
-        .pipe(rename({ suffix: ".prod" }))
-        .pipe(dest(outputPath));
+      if (compileOptions.generateMinifiedJs) {
+        src(path)
+          .pipe(
+            babel({
+              presets: [babelEnv],
+            }).on("error", (error: any) => {
+              vscode.window.showErrorMessage(error.message);
+              vscode.window.setStatusBarMessage(errorMessage);
+            })
+          )
+          .pipe(uglify())
+          .pipe(rename({ suffix: ".prod" }))
+          .pipe(dest(outputPath));
+      }
       vscode.window.setStatusBarMessage(successMessage);
       break;
     case ".less":
@@ -152,12 +211,27 @@ const readFileName = async (path: string, fileContext: string) => {
           })
         )
         .pipe(dest(outputPath))
-        .pipe(cssmin({ compatibility: "ie7" }))
-        .pipe(rename({ suffix: ".min" }))
         .pipe(dest(outputPath))
         .on("end", () => {
           vscode.window.setStatusBarMessage(successMessage);
         });
+
+      if (compileOptions.generateMinifiedCss) {
+        src(path)
+          .pipe(
+            less().on("error", (error: any) => {
+              vscode.window.showErrorMessage(error.message);
+              vscode.window.setStatusBarMessage(errorMessage);
+            })
+          )
+          .pipe(dest(outputPath))
+          .pipe(cssmin({ compatibility: "ie7" }))
+          .pipe(rename({ suffix: ".min" }))
+          .pipe(dest(outputPath))
+          .on("end", () => {
+            vscode.window.setStatusBarMessage(successMessage);
+          });
+      }
       break;
     case ".ts":
       src(path)
@@ -168,6 +242,17 @@ const readFileName = async (path: string, fileContext: string) => {
           })
         )
         .pipe(dest(outputPath));
+      if (compileOptions.generateMinifiedJs) {
+        src(path)
+          .pipe(ts())
+          .pipe(
+            uglify().on("error", (error: any) => {
+              vscode.window.showErrorMessage(error.message);
+              vscode.window.setStatusBarMessage(errorMessage);
+            })
+          )
+          .pipe(dest(outputPath));
+      }
       vscode.window.setStatusBarMessage(successMessage);
       break;
     case ".tsx":
@@ -181,6 +266,21 @@ const readFileName = async (path: string, fileContext: string) => {
           })
         )
         .pipe(dest(outputPath));
+
+      if (compileOptions.generateMinifiedJs) {
+        src(path)
+          .pipe(
+            ts({
+              jsx: "react",
+            })
+              .pipe(uglify())
+              .on("error", (error: any) => {
+                vscode.window.showErrorMessage(error.message);
+                vscode.window.setStatusBarMessage(errorMessage);
+              })
+          )
+          .pipe(dest(outputPath));
+      }
       vscode.window.setStatusBarMessage(successMessage);
       break;
     case ".jade":
@@ -195,15 +295,17 @@ const readFileName = async (path: string, fileContext: string) => {
           })
         )
         .pipe(dest(outputPath));
-      src(path)
-        .pipe(
-          jade().on("error", (error: any) => {
-            vscode.window.showErrorMessage(error.message);
-            vscode.window.setStatusBarMessage(errorMessage);
-          })
-        )
-        .pipe(rename({ suffix: ".min" }))
-        .pipe(dest(outputPath));
+      if (compileOptions.generateMinifiedHtml) {
+        src(path)
+          .pipe(
+            jade().on("error", (error: any) => {
+              vscode.window.showErrorMessage(error.message);
+              vscode.window.setStatusBarMessage(errorMessage);
+            })
+          )
+          .pipe(rename({ suffix: ".min" }))
+          .pipe(dest(outputPath));
+      }
       vscode.window.setStatusBarMessage(successMessage);
       break;
     case ".pug":
@@ -216,22 +318,24 @@ const readFileName = async (path: string, fileContext: string) => {
         vscode.window.showErrorMessage(error.message);
         vscode.window.setStatusBarMessage(errorMessage);
       }
-      src(path)
-        .pipe(empty(html))
-        .pipe(
-          rename({
-            extname: ".html",
-          })
-        )
-        .pipe(dest(outputPath))
-        .pipe(empty(pug.renderFile(path)))
-        .pipe(
-          rename({
-            suffix: ".min",
-            extname: ".html",
-          })
-        )
-        .pipe(dest(outputPath));
+      if (compileOptions.generateMinifiedHtml) {
+        src(path)
+          .pipe(empty(html))
+          .pipe(
+            rename({
+              extname: ".html",
+            })
+          )
+          .pipe(dest(outputPath))
+          .pipe(empty(pug.renderFile(path)))
+          .pipe(
+            rename({
+              suffix: ".min",
+              extname: ".html",
+            })
+          )
+          .pipe(dest(outputPath));
+      }
       vscode.window.setStatusBarMessage(successMessage);
       break;
     default:

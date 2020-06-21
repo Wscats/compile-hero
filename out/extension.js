@@ -91,6 +91,11 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
         ".tsx": config.get("typescriptx-output-toggle"),
         ".pug": config.get("pug-output-toggle"),
     };
+    let compileOptions = {
+        generateMinifiedHtml: config.get("generate-minified-html"),
+        generateMinifiedCss: config.get("generate-minified-css"),
+        generateMinifiedJs: config.get("generate-minified-javascript"),
+    };
     if (!compileStatus[fileSuffix])
         return;
     let outputPath = p.resolve(path, "../", outputDirectoryPath[fileSuffix]);
@@ -112,12 +117,21 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
                 extname: ".css",
             }))
                 .pipe(dest(outputPath))
-                .pipe(cssmin({ compatibility: "ie7" }))
-                .pipe(rename({
-                extname: ".css",
-                suffix: ".min",
-            }))
                 .pipe(dest(outputPath));
+            if (compileOptions.generateMinifiedCss) {
+                src(path)
+                    .pipe(empty(text))
+                    .pipe(rename({
+                    extname: ".css",
+                }))
+                    .pipe(dest(outputPath))
+                    .pipe(cssmin({ compatibility: "ie7" }))
+                    .pipe(rename({
+                    extname: ".css",
+                    suffix: ".min",
+                }))
+                    .pipe(dest(outputPath));
+            }
             vscode.window.setStatusBarMessage(successMessage);
             break;
         case ".js":
@@ -134,16 +148,18 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
             }))
                 .pipe(rename({ suffix: ".dev" }))
                 .pipe(dest(outputPath));
-            src(path)
-                .pipe(babel({
-                presets: [babelEnv],
-            }).on("error", (error) => {
-                vscode.window.showErrorMessage(error.message);
-                vscode.window.setStatusBarMessage(errorMessage);
-            }))
-                .pipe(uglify())
-                .pipe(rename({ suffix: ".prod" }))
-                .pipe(dest(outputPath));
+            if (compileOptions.generateMinifiedJs) {
+                src(path)
+                    .pipe(babel({
+                    presets: [babelEnv],
+                }).on("error", (error) => {
+                    vscode.window.showErrorMessage(error.message);
+                    vscode.window.setStatusBarMessage(errorMessage);
+                }))
+                    .pipe(uglify())
+                    .pipe(rename({ suffix: ".prod" }))
+                    .pipe(dest(outputPath));
+            }
             vscode.window.setStatusBarMessage(successMessage);
             break;
         case ".less":
@@ -153,12 +169,24 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
                 vscode.window.setStatusBarMessage(errorMessage);
             }))
                 .pipe(dest(outputPath))
-                .pipe(cssmin({ compatibility: "ie7" }))
-                .pipe(rename({ suffix: ".min" }))
                 .pipe(dest(outputPath))
                 .on("end", () => {
                 vscode.window.setStatusBarMessage(successMessage);
             });
+            if (compileOptions.generateMinifiedCss) {
+                src(path)
+                    .pipe(less().on("error", (error) => {
+                    vscode.window.showErrorMessage(error.message);
+                    vscode.window.setStatusBarMessage(errorMessage);
+                }))
+                    .pipe(dest(outputPath))
+                    .pipe(cssmin({ compatibility: "ie7" }))
+                    .pipe(rename({ suffix: ".min" }))
+                    .pipe(dest(outputPath))
+                    .on("end", () => {
+                    vscode.window.setStatusBarMessage(successMessage);
+                });
+            }
             break;
         case ".ts":
             src(path)
@@ -167,6 +195,15 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
                 vscode.window.setStatusBarMessage(errorMessage);
             }))
                 .pipe(dest(outputPath));
+            if (compileOptions.generateMinifiedJs) {
+                src(path)
+                    .pipe(ts())
+                    .pipe(uglify().on("error", (error) => {
+                    vscode.window.showErrorMessage(error.message);
+                    vscode.window.setStatusBarMessage(errorMessage);
+                }))
+                    .pipe(dest(outputPath));
+            }
             vscode.window.setStatusBarMessage(successMessage);
             break;
         case ".tsx":
@@ -178,6 +215,18 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
                 vscode.window.setStatusBarMessage(errorMessage);
             }))
                 .pipe(dest(outputPath));
+            if (compileOptions.generateMinifiedJs) {
+                src(path)
+                    .pipe(ts({
+                    jsx: "react",
+                })
+                    .pipe(uglify())
+                    .on("error", (error) => {
+                    vscode.window.showErrorMessage(error.message);
+                    vscode.window.setStatusBarMessage(errorMessage);
+                }))
+                    .pipe(dest(outputPath));
+            }
             vscode.window.setStatusBarMessage(successMessage);
             break;
         case ".jade":
@@ -190,13 +239,15 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
                 vscode.window.setStatusBarMessage(errorMessage);
             }))
                 .pipe(dest(outputPath));
-            src(path)
-                .pipe(jade().on("error", (error) => {
-                vscode.window.showErrorMessage(error.message);
-                vscode.window.setStatusBarMessage(errorMessage);
-            }))
-                .pipe(rename({ suffix: ".min" }))
-                .pipe(dest(outputPath));
+            if (compileOptions.generateMinifiedHtml) {
+                src(path)
+                    .pipe(jade().on("error", (error) => {
+                    vscode.window.showErrorMessage(error.message);
+                    vscode.window.setStatusBarMessage(errorMessage);
+                }))
+                    .pipe(rename({ suffix: ".min" }))
+                    .pipe(dest(outputPath));
+            }
             vscode.window.setStatusBarMessage(successMessage);
             break;
         case ".pug":
@@ -210,18 +261,20 @@ const readFileName = (path, fileContext) => __awaiter(void 0, void 0, void 0, fu
                 vscode.window.showErrorMessage(error.message);
                 vscode.window.setStatusBarMessage(errorMessage);
             }
-            src(path)
-                .pipe(empty(html))
-                .pipe(rename({
-                extname: ".html",
-            }))
-                .pipe(dest(outputPath))
-                .pipe(empty(pug.renderFile(path)))
-                .pipe(rename({
-                suffix: ".min",
-                extname: ".html",
-            }))
-                .pipe(dest(outputPath));
+            if (compileOptions.generateMinifiedHtml) {
+                src(path)
+                    .pipe(empty(html))
+                    .pipe(rename({
+                    extname: ".html",
+                }))
+                    .pipe(dest(outputPath))
+                    .pipe(empty(pug.renderFile(path)))
+                    .pipe(rename({
+                    suffix: ".min",
+                    extname: ".html",
+                }))
+                    .pipe(dest(outputPath));
+            }
             vscode.window.setStatusBarMessage(successMessage);
             break;
         default:

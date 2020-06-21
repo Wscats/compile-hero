@@ -1,4 +1,4 @@
-<a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Download-125k+-orange" alt="Download" /></a>
+<a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Download-3M+-orange" alt="Download" /></a>
 <a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Macketplace-v2.00-brightgreen" alt="Macketplace" /></a>
 <a href="https://github.com/Wscats/compile-hero"><img src="https://img.shields.io/badge/Github Page-Wscats-yellow" alt="Github Page" /></a>
 <a href="https://github.com/Wscats"><img src="https://img.shields.io/badge/Author-Eno Yao-blueviolet" alt="Eno Yao" /></a>
@@ -58,6 +58,9 @@ Click to open the extension management interface `Configure Extension Settings`.
 | typescript-output-directory  | ./dist        | typescript-output-toggle  | true          |
 | typescriptx-output-directory | ./dist        | typescriptx-output-toggle | true          |
 | pug-output-directory         | ./dist        | pug-output-toggle         | true          |
+| generate-minified-html       | false         |
+| generate-minified-css        | false         |
+| generate-minified-javascript | false         |
 
 <br>
 <img src="https://wscats.github.io/compile-hero/screenshots/5.gif" />
