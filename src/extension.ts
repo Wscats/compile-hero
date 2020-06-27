@@ -380,9 +380,16 @@ export function activate(context: vscode.ExtensionContext) {
     "extension.compileFile",
     (path) => {
       let uri = path.fsPath;
-      console.log(uri);
-      const fileContext: string = readFileContext(uri);
-      readFileName(uri, fileContext);
+      if (fs.readdirSync(uri).length > 0) {
+        const files = fs.readdirSync(uri);
+        files.forEach((filename) => {
+          const fileContext: string = readFileContext(uri + "/" + filename);
+          readFileName(uri + "/" + filename, fileContext);
+        });
+      } else {
+        const fileContext: string = readFileContext(uri);
+        readFileName(uri, fileContext);
+      }
     }
   );
 

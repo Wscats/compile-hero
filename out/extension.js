@@ -310,9 +310,17 @@ function activate(context) {
     }));
     let compileFile = vscode.commands.registerCommand("extension.compileFile", (path) => {
         let uri = path.fsPath;
-        console.log(uri);
-        const fileContext = readFileContext(uri);
-        readFileName(uri, fileContext);
+        if (fs.readdirSync(uri).length > 0) {
+            const files = fs.readdirSync(uri);
+            files.forEach((filename) => {
+                const fileContext = readFileContext(uri + "/" + filename);
+                readFileName(uri + "/" + filename, fileContext);
+            });
+        }
+        else {
+            const fileContext = readFileContext(uri);
+            readFileName(uri, fileContext);
+        }
     });
     context.subscriptions.push(openInBrowser);
     context.subscriptions.push(closePort);

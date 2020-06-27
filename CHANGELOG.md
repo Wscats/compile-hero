@@ -23,6 +23,7 @@
 - 2020-05-20 Fix indented syntax which it can treat code as `sass` (as opposed to `scss`) - [Bug: Using sass syntax doesn't work but scss works](https://github.com/Wscats/compile-hero/issues/17)
 - 2020-05-23 Fix compilation failure due to relative path of pug - [Bug: Pug include tag not working](https://github.com/Wscats/compile-hero/issues/19)
 - 2020-06-21 Add javascript, css, html minified options settings - [Feature: Minified options settings](https://github.com/Wscats/compile-hero/issues/13)
+- 2020-06-27 Support to compile all files in the entire folder
 
 # Unreleased
 
