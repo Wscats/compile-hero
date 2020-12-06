@@ -1,0 +1,37 @@
+// @forward "./index.sass";
+// @forward './index.sass' as ($blue: #0366d6);
+// @forward './index.sass'  with (
+//   $hue: 0 !default, // Can be overridden by upstream users.
+//   $saturation: 50% // Cannot be overridden by upstream users.
+// );
+
+
+@use 'lib.scss' with ($black: #666);
+p {
+    color: red;
+    span {
+      background-color: blue;
+    }
+  }
+
+
+// @import "./index.css";
+
+// @mixin special-text {
+//   @include important-text;
+//   @include link;
+//   @include special-border;
+// }
+
+// /* Define mixin with two arguments */
+// @mixin bordered($color, $width) {
+//   border: $width solid $color;
+// }
+
+// .myArticle {
+//   @include bordered(blue, 1px); // Call mixin with two values
+// }
+
+// .myNotes {
+//   @include bordered(red, 2px); // Call mixin with two values
+// }

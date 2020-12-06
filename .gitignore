@@ -1,0 +1,7 @@
+node_modules
+.vscode-test/
+.vscode/**
+*.vsix
+tests
+auto.js
+auto2.js
