@@ -15,7 +15,7 @@ import { successMessage, errorMessage, loaderOption } from '../util';
 export const javascriptLoader = ({ fileName, outputPath, notificationStatus, compileOptions }: loaderOption) => {
     if (/.dev.js|.prod.js$/g.test(fileName)) {
         vscode.window.setStatusBarMessage(
-            `The prod or dev file has been processed and will not be compiled`
+            `The prod or dev file has been processed and will not be compiled.`
         );
         return;
     }

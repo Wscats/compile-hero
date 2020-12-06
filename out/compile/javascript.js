@@ -15,7 +15,7 @@ const rename = require("gulp-rename");
 const util_1 = require("../util");
 exports.javascriptLoader = ({ fileName, outputPath, notificationStatus, compileOptions }) => {
     if (/.dev.js|.prod.js$/g.test(fileName)) {
-        vscode.window.setStatusBarMessage(`The prod or dev file has been processed and will not be compiled`);
+        vscode.window.setStatusBarMessage(`The prod or dev file has been processed and will not be compiled.`);
         return;
     }
     src(fileName)
