@@ -4,6 +4,7 @@
  * @author enoyao
  */
 
+exports.readFileName = exports.getWorkspaceRoot = exports.getSelectedText = exports.complieDir = exports.complieFile = exports.empty = exports.transformPort = exports.command = exports.fileType = exports.readFileContext = exports.openBrowser = exports.open = exports.defaultBrowser = exports.standardizedBrowserName = exports.wsl = exports.docker = exports.errorMessage = exports.successMessage = void 0;
 import * as vscode from "vscode";
 import { exec } from "child_process";
 import * as fs from "fs";

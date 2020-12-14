@@ -4,6 +4,8 @@
  * @author enoyao
  */
 
+
+exports.StatusBarUi = void 0;
 import * as vscode from 'vscode';
 
 export class StatusBarUi {
