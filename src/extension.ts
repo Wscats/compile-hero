@@ -4,6 +4,8 @@
  * @author enoyao
  */
 
+
+exports.deactivate = exports.activate = void 0;
 import * as vscode from "vscode";
 import * as fs from "fs";
 

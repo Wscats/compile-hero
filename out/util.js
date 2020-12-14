@@ -153,17 +153,17 @@ exports.complieDir = (uri) => {
 };
 // 获取当前选中的文本
 exports.getSelectedText = () => {
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e, _f, _g;
     const documentText = (_a = vscode.window.activeTextEditor) === null || _a === void 0 ? void 0 : _a.document.getText();
     if (!documentText) {
         return "";
     }
     const activeSelection = (_b = vscode.window.activeTextEditor) === null || _b === void 0 ? void 0 : _b.selection;
-    if (activeSelection === null || activeSelection === void 0 ? void 0 : activeSelection.isEmpty) {
+    if ((_c = activeSelection) === null || _c === void 0 ? void 0 : _c.isEmpty) {
         return "";
     }
-    const selectStartOffset = (_c = vscode.window.activeTextEditor) === null || _c === void 0 ? void 0 : _c.document.offsetAt(activeSelection === null || activeSelection === void 0 ? void 0 : activeSelection.start);
-    const selectEndOffset = (_d = vscode.window.activeTextEditor) === null || _d === void 0 ? void 0 : _d.document.offsetAt(activeSelection === null || activeSelection === void 0 ? void 0 : activeSelection.end);
+    const selectStartOffset = (_d = vscode.window.activeTextEditor) === null || _d === void 0 ? void 0 : _d.document.offsetAt((_e = activeSelection) === null || _e === void 0 ? void 0 : _e.start);
+    const selectEndOffset = (_f = vscode.window.activeTextEditor) === null || _f === void 0 ? void 0 : _f.document.offsetAt((_g = activeSelection) === null || _g === void 0 ? void 0 : _g.end);
     let selectedText = documentText.slice(selectStartOffset, selectEndOffset).trim();
     selectedText = selectedText.replace(/\s\s+/g, " ");
     return selectedText;
@@ -224,8 +224,12 @@ exports.readFileName = ({ fileName, selectedText }) => __awaiter(void 0, void 0,
     };
     if (!compileStatus[fileSuffix])
         return;
-    let outputPath = path.resolve(fileName, "../", outputDirectoryPath[fileSuffix]);
-    let loaderOption = { fileName, outputPath, notificationStatus, compileOptions, selectedText };
+    let getOutputPath = veriableCheck(outputDirectoryPath[fileSuffix], fileSuffix, String(workspaceRootPath));
+    if (!getOutputPath)
+        return;
+    let outputPath = path.resolve(fileName, "../", getOutputPath);
+    let rootPath = String(workspaceRootPath);
+    let loaderOption = { fileName, outputPath, notificationStatus, compileOptions, rootPath, selectedText };
     switch (fileSuffix) {
         case ".scss":
         case ".sass":
@@ -252,4 +256,44 @@ exports.readFileName = ({ fileName, selectedText }) => __awaiter(void 0, void 0,
             break;
     }
 });
+function veriableCheck(uri, fileSuffix, workspaceRootPath) {
+    let veriableError;
+    if ((uri.indexOf("}/") < 0) &&
+        ((uri.length - uri.indexOf("}")) > 1) &&
+        (uri.indexOf("$") >= 0)) {
+        veriableError = fileSuffix +
+            "; '/' must be used at the end of the variable or '}' must be the last character.";
+        vscode.window.showErrorMessage(veriableError);
+        return false;
+    }
+    else if (uri.indexOf("${workspaceFolder}") >= 0) {
+        uri = uri.replace("${workspaceFolder}", String(workspaceRootPath));
+    }
+    else if (uri.indexOf("${folderPath}") >= 0) {
+        uri = uri.replace("${folderPath}", String(workspaceRootPath));
+    }
+    else if (uri.indexOf("$") >= 0) {
+        let findStartNumber = uri.indexOf("$");
+        let findEndNumber;
+        if (uri.indexOf("}") < 0) {
+            if (uri.indexOf("/") < 0) {
+                findEndNumber = uri.length;
+            }
+            else {
+                findEndNumber = uri.indexOf("/");
+            }
+        }
+        else {
+            findEndNumber = uri.indexOf("}");
+        }
+        findEndNumber++;
+        veriableError = fileSuffix + "; Output directory unsupported variable: " +
+            uri.slice(findStartNumber, findEndNumber);
+        vscode.window.showErrorMessage(veriableError);
+        return false;
+    }
+    return uri;
+}
+exports.veriableCheck = veriableCheck;
+;
 //# sourceMappingURL=util.js.map
