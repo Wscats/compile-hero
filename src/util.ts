@@ -57,11 +57,13 @@ export interface CompileOptions {
 }
 
 export interface loaderOption {
-    fileName: string
+    fileName: string;
     outputPath: string;
     notificationStatus: boolean | undefined;
     compileOptions: CompileOptions;
+    rootPath: string;
     selectedText?: string;
+    
 }
 
 let isDocker: boolean;
@@ -279,8 +281,11 @@ export const readFileName = async ({ fileName, selectedText }: { fileName: strin
     };
 
     if (!compileStatus[fileSuffix]) return;
-    let outputPath = path.resolve(fileName, "../", outputDirectoryPath[fileSuffix]);
-    let loaderOption: loaderOption = { fileName, outputPath, notificationStatus, compileOptions, selectedText };
+    let getOutputPath = veriableCheck(outputDirectoryPath[fileSuffix], fileSuffix, String(workspaceRootPath));
+    if (!getOutputPath)  return;
+    let outputPath = path.resolve(fileName, "../", getOutputPath);
+    let rootPath:string = String(workspaceRootPath);
+    let loaderOption: loaderOption = { fileName, outputPath, notificationStatus, compileOptions, rootPath, selectedText};
     switch (fileSuffix) {
         case ".scss":
         case ".sass":
@@ -306,4 +311,40 @@ export const readFileName = async ({ fileName, selectedText }: { fileName: strin
             stylusLoader(loaderOption);
             break;
     }
+};
+
+export function veriableCheck (uri: string, fileSuffix: string, workspaceRootPath: string) {
+    
+    let veriableError: string;
+
+    if ((uri.indexOf("}/") < 0) &&
+        ((uri.length - uri.indexOf("}")) > 1) &&
+        (uri.indexOf("$") >= 0)) {
+        veriableError = fileSuffix +
+            "; '/' must be used at the end of the variable or '}' must be the last character.";
+        vscode.window.showErrorMessage(veriableError);
+        return false;
+    } else if (uri.indexOf("${workspaceFolder}") >= 0) {
+        uri = uri.replace("${workspaceFolder}", String(workspaceRootPath));
+    } else if (uri.indexOf("${folderPath}") >= 0) {
+        uri = uri.replace("${folderPath}", String(workspaceRootPath));
+    } else if (uri.indexOf("$") >= 0) {
+        let findStartNumber: number = uri.indexOf("$");
+        let findEndNumber: number;
+        if (uri.indexOf("}") < 0) {
+            if (uri.indexOf("/") < 0) {
+                findEndNumber = uri.length;
+            } else {
+                findEndNumber = uri.indexOf("/");
+            } 
+        } else {
+            findEndNumber = uri.indexOf("}");
+        }
+        findEndNumber++;
+        veriableError = fileSuffix + "; Output directory unsupported variable: " +
+        uri.slice(findStartNumber, findEndNumber);
+        vscode.window.showErrorMessage(veriableError);
+        return false;
+    }
+    return uri;
 };
