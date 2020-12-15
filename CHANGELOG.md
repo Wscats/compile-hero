@@ -40,6 +40,7 @@
 - 2020-11-26 Fix the problem that shortcut keys can’t be used normally, and improve the documentation.
 - 2020-11-28 Fix when compiling `less`, `sass`, `jade` and `pug` files, `@import` syntax failed to find files - [Bug: @import syntax failed](https://github.com/Wscats/compile-hero/issues/80).
 - 2020-11-29 Support the compilation of `stylus` and merge the `pug` and `jade` engines.
+- 2020-12-15 Support for `-output-directory` for `${folderPath}` and `${workspaceFolder}` variables can be added - [Feature: Variable support settings.json](https://github.com/Wscats/compile-hero/issues/84).
 
 # Unreleased
 

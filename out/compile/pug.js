@@ -6,6 +6,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.pugLoader = void 0;
+exports.pugLoader = void 0;
 const util_1 = require("../util");
 const vscode = require("vscode");
 const path = require("path");

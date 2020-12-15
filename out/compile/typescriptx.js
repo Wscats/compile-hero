@@ -6,6 +6,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.typescriptxLoader = void 0;
+exports.typescriptxLoader = void 0;
 const util_1 = require("../util");
 const path = require("path");
 const fs = require("fs");

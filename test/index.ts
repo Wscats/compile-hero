@@ -1,2 +1,2 @@
-const a = 1;
+const a = 2;
 window.console.log(1);

@@ -6,6 +6,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.javascriptLoader = void 0;
+exports.javascriptLoader = void 0;
 const vscode = require("vscode");
 const { src, dest } = require("gulp");
 const babel = require("gulp-babel");

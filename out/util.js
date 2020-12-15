@@ -14,6 +14,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.veriableCheck = exports.readFileName = exports.getWorkspaceRoot = exports.getSelectedText = exports.complieDir = exports.complieFile = exports.empty = exports.transformPort = exports.command = exports.fileType = exports.readFileContext = exports.openBrowser = exports.open = exports.defaultBrowser = exports.standardizedBrowserName = exports.wsl = exports.docker = exports.errorMessage = exports.successMessage = void 0;
 exports.readFileName = exports.getWorkspaceRoot = exports.getSelectedText = exports.complieDir = exports.complieFile = exports.empty = exports.transformPort = exports.command = exports.fileType = exports.readFileContext = exports.openBrowser = exports.open = exports.defaultBrowser = exports.standardizedBrowserName = exports.wsl = exports.docker = exports.errorMessage = exports.successMessage = void 0;
 const vscode = require("vscode");
 const child_process_1 = require("child_process");
@@ -153,17 +154,17 @@ exports.complieDir = (uri) => {
 };
 // 获取当前选中的文本
 exports.getSelectedText = () => {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a, _b, _c, _d;
     const documentText = (_a = vscode.window.activeTextEditor) === null || _a === void 0 ? void 0 : _a.document.getText();
     if (!documentText) {
         return "";
     }
     const activeSelection = (_b = vscode.window.activeTextEditor) === null || _b === void 0 ? void 0 : _b.selection;
-    if ((_c = activeSelection) === null || _c === void 0 ? void 0 : _c.isEmpty) {
+    if (activeSelection === null || activeSelection === void 0 ? void 0 : activeSelection.isEmpty) {
         return "";
     }
-    const selectStartOffset = (_d = vscode.window.activeTextEditor) === null || _d === void 0 ? void 0 : _d.document.offsetAt((_e = activeSelection) === null || _e === void 0 ? void 0 : _e.start);
-    const selectEndOffset = (_f = vscode.window.activeTextEditor) === null || _f === void 0 ? void 0 : _f.document.offsetAt((_g = activeSelection) === null || _g === void 0 ? void 0 : _g.end);
+    const selectStartOffset = (_c = vscode.window.activeTextEditor) === null || _c === void 0 ? void 0 : _c.document.offsetAt(activeSelection === null || activeSelection === void 0 ? void 0 : activeSelection.start);
+    const selectEndOffset = (_d = vscode.window.activeTextEditor) === null || _d === void 0 ? void 0 : _d.document.offsetAt(activeSelection === null || activeSelection === void 0 ? void 0 : activeSelection.end);
     let selectedText = documentText.slice(selectStartOffset, selectEndOffset).trim();
     selectedText = selectedText.replace(/\s\s+/g, " ");
     return selectedText;

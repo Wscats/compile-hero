@@ -6,6 +6,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StatusBarUi = void 0;
+exports.StatusBarUi = void 0;
 const vscode = require("vscode");
 class StatusBarUi {
     static get statusBarItem() {

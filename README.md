@@ -160,6 +160,15 @@ If you enjoy front end, you should have it! Xie, Yao, Yong, Ting, Jing, Lin, Tia
 
 If you think it's useful, you can leave us a [message and like it](https://marketplace.visualstudio.com/items?itemName=Wscats.qf&ssr=false#review-details), Your support is our driving force😀
 
+# Inspired By
+
+I will translate some previous articles one after another in the future, you can read it if you are interested:
+
+- [How do I use the simplest front end technology to reveal the principles behind those gray industries](https://github.com/Wscats/articles/issues/91)
+- [How do I use front-end technology to get the VIP of XXOO website](https://github.com/Wscats/articles/issues/62)
+- [How do I realize the WeChat mini game jump one jump plugin](https://github.com/Wscats/wechat-jump-game)
+- ...
+
 # License
 
 Compile Hero is released under the [MIT](http://opensource.org/licenses/MIT).
