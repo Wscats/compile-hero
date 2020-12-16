@@ -5,7 +5,6 @@
  */
 
 
-exports.browserConfig = void 0;
 import { QuickPickItem } from "vscode";
 
 interface PickItem extends QuickPickItem {

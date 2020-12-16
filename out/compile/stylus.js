@@ -6,7 +6,6 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.stylusLoader = void 0;
-exports.stylusLoader = void 0;
 const util_1 = require("../util");
 const path = require("path");
 const vscode = require("vscode");

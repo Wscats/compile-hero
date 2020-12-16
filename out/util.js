@@ -15,7 +15,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.veriableCheck = exports.readFileName = exports.getWorkspaceRoot = exports.getSelectedText = exports.complieDir = exports.complieFile = exports.empty = exports.transformPort = exports.command = exports.fileType = exports.readFileContext = exports.openBrowser = exports.open = exports.defaultBrowser = exports.standardizedBrowserName = exports.wsl = exports.docker = exports.errorMessage = exports.successMessage = void 0;
-exports.readFileName = exports.getWorkspaceRoot = exports.getSelectedText = exports.complieDir = exports.complieFile = exports.empty = exports.transformPort = exports.command = exports.fileType = exports.readFileContext = exports.openBrowser = exports.open = exports.defaultBrowser = exports.standardizedBrowserName = exports.wsl = exports.docker = exports.errorMessage = exports.successMessage = void 0;
 const vscode = require("vscode");
 const child_process_1 = require("child_process");
 const fs = require("fs");
@@ -225,12 +224,8 @@ exports.readFileName = ({ fileName, selectedText }) => __awaiter(void 0, void 0,
     };
     if (!compileStatus[fileSuffix])
         return;
-    let getOutputPath = veriableCheck(outputDirectoryPath[fileSuffix], fileSuffix, String(workspaceRootPath));
-    if (!getOutputPath)
-        return;
-    let outputPath = path.resolve(fileName, "../", getOutputPath);
-    let rootPath = String(workspaceRootPath);
-    let loaderOption = { fileName, outputPath, notificationStatus, compileOptions, rootPath, selectedText };
+    let outputPath = path.resolve(fileName, "../", outputDirectoryPath[fileSuffix]);
+    let loaderOption = { fileName, outputPath, notificationStatus, compileOptions, selectedText };
     switch (fileSuffix) {
         case ".scss":
         case ".sass":

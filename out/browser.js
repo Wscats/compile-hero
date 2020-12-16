@@ -6,7 +6,6 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.browserConfig = void 0;
-exports.browserConfig = void 0;
 const platform = process.platform;
 const chromeItem = {
     description: "Windows, Mac, Linux",

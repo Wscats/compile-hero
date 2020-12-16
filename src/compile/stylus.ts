@@ -5,7 +5,6 @@
  */
 
 
-exports.stylusLoader = void 0;
 import { successMessage, errorMessage, loaderOption, readFileContext, empty } from '../util';
 import * as path from "path";
 import * as vscode from "vscode";

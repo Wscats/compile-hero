@@ -6,7 +6,6 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sassLoader = void 0;
-exports.sassLoader = void 0;
 const vscode = require("vscode");
 const path = require("path");
 const { src, dest } = require("gulp");

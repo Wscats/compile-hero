@@ -5,7 +5,6 @@
  */
 
 
-exports.lessLoader = void 0;
 import { successMessage, errorMessage, loaderOption, readFileContext, empty } from '../util';
 import * as vscode from "vscode";
 import * as path from "path";

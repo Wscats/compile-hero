@@ -5,7 +5,6 @@
  */
 
 
-exports.javascriptLoader = void 0;
 import * as vscode from "vscode";
 const { src, dest } = require("gulp");
 const babel = require("gulp-babel");

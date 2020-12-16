@@ -5,7 +5,6 @@
  */
 
 
-exports.pugLoader = void 0;
 import { successMessage, errorMessage, empty, loaderOption } from '../util';
 import * as vscode from "vscode";
 import * as path from "path";

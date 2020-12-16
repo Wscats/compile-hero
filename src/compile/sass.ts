@@ -5,7 +5,6 @@
  */
 
 
-exports.sassLoader = void 0;
 import * as vscode from "vscode";
 import * as path from "path";
 const { src, dest } = require("gulp");

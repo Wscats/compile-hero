@@ -4,7 +4,6 @@
  * @author enoyao
  */
 
-exports.readFileName = exports.getWorkspaceRoot = exports.getSelectedText = exports.complieDir = exports.complieFile = exports.empty = exports.transformPort = exports.command = exports.fileType = exports.readFileContext = exports.openBrowser = exports.open = exports.defaultBrowser = exports.standardizedBrowserName = exports.wsl = exports.docker = exports.errorMessage = exports.successMessage = void 0;
 import * as vscode from "vscode";
 import { exec } from "child_process";
 import * as fs from "fs";
@@ -58,13 +57,11 @@ export interface CompileOptions {
 }
 
 export interface loaderOption {
-    fileName: string;
+    fileName: string
     outputPath: string;
     notificationStatus: boolean | undefined;
     compileOptions: CompileOptions;
-    rootPath: string;
     selectedText?: string;
-    
 }
 
 let isDocker: boolean;
@@ -282,11 +279,8 @@ export const readFileName = async ({ fileName, selectedText }: { fileName: strin
     };
 
     if (!compileStatus[fileSuffix]) return;
-    let getOutputPath = veriableCheck(outputDirectoryPath[fileSuffix], fileSuffix, String(workspaceRootPath));
-    if (!getOutputPath)  return;
-    let outputPath = path.resolve(fileName, "../", getOutputPath);
-    let rootPath:string = String(workspaceRootPath);
-    let loaderOption: loaderOption = { fileName, outputPath, notificationStatus, compileOptions, rootPath, selectedText};
+    let outputPath = path.resolve(fileName, "../", outputDirectoryPath[fileSuffix]);
+    let loaderOption: loaderOption = { fileName, outputPath, notificationStatus, compileOptions, selectedText };
     switch (fileSuffix) {
         case ".scss":
         case ".sass":
@@ -315,7 +309,6 @@ export const readFileName = async ({ fileName, selectedText }: { fileName: strin
 };
 
 export function veriableCheck (uri: string, fileSuffix: string, workspaceRootPath: string) {
-    
     let veriableError: string;
 
     if ((uri.indexOf("}/") < 0) &&
