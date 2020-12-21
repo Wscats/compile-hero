@@ -161,12 +161,15 @@ If you think it's useful, you can leave us a [message and like it](https://marke
 
 # Inspired By
 
-I will translate some previous articles one after another in the future, you can read it if you are interested:
+<!-- I will translate some previous articles one after another in the future, you can read it if you are interested: -->
+
+<details><summary><b>I will translate some previous articles one after another in the future, you can read it if you are interested.</b></summary>
 
 - [How do I use the simplest front end technology to reveal the principles behind those gray industries](https://github.com/Wscats/articles/issues/91)
 - [How do I use front-end technology to get the VIP of XXOO website](https://github.com/Wscats/articles/issues/62)
 - [How do I realize the WeChat mini game jump one jump plugin](https://github.com/Wscats/wechat-jump-game)
 - ...
+</details>
 
 # License
 
