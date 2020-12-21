@@ -1,5 +1,6 @@
 <!-- <a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Download-2k+-orange" alt="Download" /></a>
 <a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Macketplace-v2.00-brightgreen" alt="Macketplace" /></a> -->
+
 <a href="https://github.com/Wscats/compile-hero"><img src="https://img.shields.io/badge/Github Page-Wscats-yellow" alt="Github Page" /></a>
 <a href="https://github.com/Wscats"><img src="https://img.shields.io/badge/Author-Eno Yao-blueviolet" alt="Eno Yao" /></a>
 ![badge version](https://vsmarketplacebadge.apphb.com/version-short/wscats.eno.svg?color=blue&style=flat-square)
@@ -16,7 +17,7 @@ Visual Studio Code 中自动编译以下文件：`less, sass, scss, stylus, type
 
 ![Demo](./screenshots/9.png)
 
-> 2.按快捷键 `(ctrl+s)` 
+> 2.按快捷键 `(ctrl+s)`
 
 或者在文件列表右键菜单选择 `Compile Files` 命令启动编译，将会在该文件的同级目录 `dist` 下生成编译后的文件，希望能你远离 `webpack` 和 `gulp` 等编译工具繁琐的操作。
 
@@ -99,7 +100,8 @@ Visual Studio Code 中自动编译以下文件：`less, sass, scss, stylus, type
     "javascript-output-toggle": false, // 局部开关，true 为开启 javascript 自动编译，false 为不开启 javascript 自动编译
     "sass-output-directory": "./out", // sass 输出的目录
     "sass-output-toggle": true, // 局部开关，true 为开启 sass 自动编译，false 为不开启 sass 自动编译
-    "ignore": ["src/test.js", "*/test.scss", "**/spec/*", "**/src/**/*"], // 禁止文件自动格式化和编译
+    "ignore": ["src/test.js", "*/test.scss", "**/spec/*", "**/src/**/*"], // 禁止文件和文件夹自动格式化和编译
+    "watch": ["sass/test.sass", "**/less/**/*"] // 监听对应文件或者文件夹，保存的时候触发编译
   }
 }
 // 更多配置项：详见下列表格
