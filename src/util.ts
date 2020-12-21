@@ -263,11 +263,16 @@ export const readFileName = async ({ fileName, selectedText }: { fileName: strin
         ".styl": config.get<boolean>("stylus-output-toggle"),
     };
     let ignore = config.get<string[] | string>("ignore") || [];
+    let watch = config.get<string[] | string>("watch") || [];
 
     if (workspaceRootPath && fileName.startsWith(workspaceRootPath)) {
         let relativePath = path.relative(workspaceRootPath, fileName);
         if (!Array.isArray(ignore)) { ignore = [ignore] };
         if (ignore.some(glob => minimatch(relativePath, glob))) return;
+
+        // 如果设置了 watch，则监听保存的文件路径是否符合，如果不设置，则所有文件都会被监听
+        if (!Array.isArray(watch)) { watch = [watch] };
+        if (watch.length > 0 && !watch.some(glob => minimatch(relativePath, glob))) return;
     };
 
     let notificationStatus: boolean | undefined = config.get<boolean>("notification-toggle");
@@ -308,7 +313,7 @@ export const readFileName = async ({ fileName, selectedText }: { fileName: strin
     }
 };
 
-export function veriableCheck (uri: string, fileSuffix: string, workspaceRootPath: string) {
+export function veriableCheck(uri: string, fileSuffix: string, workspaceRootPath: string) {
     let veriableError: string;
 
     if ((uri.indexOf("}/") < 0) &&
@@ -330,13 +335,13 @@ export function veriableCheck (uri: string, fileSuffix: string, workspaceRootPat
                 findEndNumber = uri.length;
             } else {
                 findEndNumber = uri.indexOf("/");
-            } 
+            }
         } else {
             findEndNumber = uri.indexOf("}");
         }
         findEndNumber++;
         veriableError = fileSuffix + "; Output directory unsupported variable: " +
-        uri.slice(findStartNumber, findEndNumber);
+            uri.slice(findStartNumber, findEndNumber);
         vscode.window.showErrorMessage(veriableError);
         return false;
     }

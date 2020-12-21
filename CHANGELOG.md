@@ -41,6 +41,7 @@
 - 2020-11-28 Fix when compiling `less`, `sass`, `jade` and `pug` files, `@import` syntax failed to find files - [Bug: @import syntax failed](https://github.com/Wscats/compile-hero/issues/80).
 - 2020-11-29 Support the compilation of `stylus` and merge the `pug` and `jade` engines.
 - 2020-12-15 Support for `-output-directory` for `${folderPath}` and `${workspaceFolder}` variables can be added - [Feature: Variable support settings.json](https://github.com/Wscats/compile-hero/issues/84).
+- 2020-12-21 Use `compile-hero.watch` to monitor partial files - [Feature: Main SCSS file doesn't compile when partials are saved](https://github.com/Wscats/compile-hero/issues/94).
 
 # Unreleased
 

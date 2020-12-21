@@ -13,7 +13,6 @@ Easily work with `less, sass, scss, stylus, typescript, jade, pug and jsx` files
 
 ![9](https://user-images.githubusercontent.com/17243165/100497845-f3341980-3198-11eb-83bc-c551e17b0b84.png)
 
-
 > 2.Compile on save `(ctrl+s)` ↓
 
 Or select `Compile Files` on right-click menu item for `less, sass, scss, stylus, typescript, jade, pug and jsx` files without using a build task.
@@ -24,7 +23,6 @@ Or select `Compile Files` on right-click menu item for `less, sass, scss, stylus
 You can also select part of the code and use the `Compile Selected` menu item or shortcut key `(ctrl+shift+s)` to perform partial compilation of the code block.
 
 ![10](https://user-images.githubusercontent.com/17243165/100497811-c253e480-3198-11eb-894d-e0b28d84905a.gif)
-
 
 > 3.Beautify on save `(alt+shift+f)` or select `Format Document` on right-click menu item for `javascript, json, css, sass and html`.
 
@@ -66,11 +64,11 @@ Click to open the extension management interface `Configure Extension Settings`.
 
 | Switch to control the notification | Default Value |
 | ---------------------------------- | ------------- |
-| notification-toggle | true |
+| notification-toggle                | true          |
 
 | Switch to control compilation and formatting of specific files | Default Value |
-| ---------------------------------- | ------------- |
-| ignore | null |
+| -------------------------------------------------------------- | ------------- |
+| ignore                                                         | null          |
 
 | Output Path Configuration    | Default Value | Compile Switch Status     | Default Value |
 | ---------------------------- | ------------- | ------------------------- | ------------- |
@@ -83,10 +81,9 @@ Click to open the extension management interface `Configure Extension Settings`.
 | typescriptx-output-directory | ./dist        | typescriptx-output-toggle | true          |
 | pug-output-directory         | ./dist        | pug-output-toggle         | true          |
 | stylus-output-directory      | ./dist        | stylus-output-toggle      | true          |
-| generate-minified-html       | false         | 
+| generate-minified-html       | false         |
 | generate-minified-css        | false         |
 | generate-minified-javascript | false         |
-
 
 ## Using `settings.json`
 
@@ -97,6 +94,7 @@ Advanced Extension Settings:
 - Alternatively, settings can go in User Settings for global defaults.
 - Use the `compile-hero` key.
 - Prohibit partial compilation and formatting of specific files `compile-hero.ignore`.
+- Use `compile-hero.watch` to monitor partial files.
 
 Here Example `settings.json` file:
 
@@ -110,6 +108,7 @@ Here Example `settings.json` file:
     "sass-output-directory": "./out",
     "sass-output-toggle": true,
     "ignore": ["src/test.js", "*/test.scss", "**/spec/*", "**/src/**/*"],
+    "watch": ["sass/test.sass", "**/less/**/*"]
   }
 }
 ```
@@ -172,6 +171,7 @@ I will translate some previous articles one after another in the future, you can
 # License
 
 Compile Hero is released under the [MIT](http://opensource.org/licenses/MIT).
+
 <!-- ![badge rate](https://vsmarketplacebadge.apphb.com/rating-short/wscats.eno.svg?color=red&style=flat-square) -->
 <!-- ![badge download](https://vsmarketplacebadge.apphb.com/downloads-short/wscats.eno.svg?color=orange&style=flat-square) -->
 <!-- <a href="https://marketplace.visualstudio.com/items?itemName=Wscats.eno"><img src="https://img.shields.io/badge/Macketplace-v2.00-brightgreen" alt="Macketplace" /></a> -->

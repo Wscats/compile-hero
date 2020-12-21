@@ -261,6 +261,18 @@ const packageJson = {
                     "description": "List of paths to ignore when using format or compile command, including format or compile on save, uses glob pattern matching.",
                     "scope": "resource"
                 },
+                "compile-hero.watch": {
+                    "type": [
+                        "string",
+                        "array"
+                    ],
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [],
+                    "description": "List of paths to watch when using format or compile command, including format or compile on save, uses glob pattern matching.",
+                    "scope": "resource"
+                },
                 "compile-hero.config": {
                     "type": [
                         "string",

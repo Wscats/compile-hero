@@ -206,6 +206,7 @@ exports.readFileName = ({ fileName, selectedText }) => __awaiter(void 0, void 0,
         ".styl": config.get("stylus-output-toggle"),
     };
     let ignore = config.get("ignore") || [];
+    let watch = config.get("watch") || [];
     if (workspaceRootPath && fileName.startsWith(workspaceRootPath)) {
         let relativePath = path.relative(workspaceRootPath, fileName);
         if (!Array.isArray(ignore)) {
@@ -213,6 +214,13 @@ exports.readFileName = ({ fileName, selectedText }) => __awaiter(void 0, void 0,
         }
         ;
         if (ignore.some(glob => minimatch(relativePath, glob)))
+            return;
+        // 如果设置了 watch，则监听保存的文件路径是否符合，如果不设置，则所有文件都会被监听
+        if (!Array.isArray(watch)) {
+            watch = [watch];
+        }
+        ;
+        if (watch.length > 0 && !watch.some(glob => minimatch(relativePath, glob)))
             return;
     }
     ;
