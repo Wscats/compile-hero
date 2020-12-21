@@ -94,7 +94,7 @@ Advanced Extension Settings:
 - Alternatively, settings can go in User Settings for global defaults.
 - Use the `compile-hero` key.
 - Prohibit partial compilation and formatting of specific files `compile-hero.ignore`.
-- Use `compile-hero.watch` to monitor partial files.
+- Use `compile-hero.watch` to monitor partial files - You can turn this on -> `Compile Hero: On` when using.
 
 Here Example `settings.json` file:
 

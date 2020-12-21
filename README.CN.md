@@ -101,7 +101,7 @@ Visual Studio Code 中自动编译以下文件：`less, sass, scss, stylus, type
     "sass-output-directory": "./out", // sass 输出的目录
     "sass-output-toggle": true, // 局部开关，true 为开启 sass 自动编译，false 为不开启 sass 自动编译
     "ignore": ["src/test.js", "*/test.scss", "**/spec/*", "**/src/**/*"], // 禁止文件和文件夹自动格式化和编译
-    "watch": ["sass/test.sass", "**/less/**/*"] // 监听对应文件或者文件夹，保存的时候触发编译
+    "watch": ["sass/test.sass", "**/less/**/*"] // 监听对应文件或者文件夹，保存的时候触发编译，一般配合 Compile Hero: On 开关打开使用
   }
 }
 // 更多配置项：详见下列表格
