@@ -70,20 +70,20 @@ Click to open the extension management interface `Configure Extension Settings`.
 | -------------------------------------------------------------- | ------------- |
 | ignore                                                         | null          |
 
-| Output Path Configuration    | Default Value | Compile Switch Status     | Default Value |
-| ---------------------------- | ------------- | ------------------------- | ------------- |
-| javascript-output-directory  | ./dist        | javascript-output-toggle  | true          |
-| sass-output-directory        | ./dist        | sass-output-toggle        | true          |
-| scss-output-directory        | ./dist        | scss-output-toggle        | true          |
-| less-output-directory        | ./dist        | less-output-toggle        | true          |
-| jade-output-directory        | ./dist        | jade-output-toggle        | true          |
-| typescript-output-directory  | ./dist        | typescript-output-toggle  | true          |
-| typescriptx-output-directory | ./dist        | typescriptx-output-toggle | true          |
-| pug-output-directory         | ./dist        | pug-output-toggle         | true          |
-| stylus-output-directory      | ./dist        | stylus-output-toggle      | true          |
-| generate-minified-html       | false         |
-| generate-minified-css        | false         |
-| generate-minified-javascript | false         |
+| Output Path Configuration    | Default Value | Compile Switch Status             | Default Value |
+| ---------------------------- | ------------- | --------------------------------- | ------------- |
+| javascript-output-directory  | ./dist        | javascript-output-toggle          | true          |
+| sass-output-directory        | ./dist        | sass-output-toggle                | true          |
+| scss-output-directory        | ./dist        | scss-output-toggle                | true          |
+| less-output-directory        | ./dist        | less-output-toggle                | true          |
+| jade-output-directory        | ./dist        | jade-output-toggle                | true          |
+| typescript-output-directory  | ./dist        | typescript-output-toggle          | true          |
+| typescriptx-output-directory | ./dist        | typescriptx-output-toggle         | true          |
+| pug-output-directory         | ./dist        | pug-output-toggle                 | true          |
+| stylus-output-directory      | ./dist        | stylus-output-toggle              | true          |
+| generate-minified-html       | false         | generate-minified-html-only       | false         |
+| generate-minified-css        | false         | generate-minified-css-only        | false         |
+| generate-minified-javascript | false         | generate-minified-javascript-only | false         |
 
 ## Using `settings.json`
 

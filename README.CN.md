@@ -81,9 +81,9 @@ Visual Studio Code 中自动编译以下文件：`less, sass, scss, stylus, type
 | typescriptx-output-directory   | ./dist | typescriptx-output-toggle            | true   |
 | pug-output-directory           | ./dist | pug-output-toggle                    | true   |
 | stylus-output-directory        | ./dist | stylus-output-toggle                 | true   |
-| generate-minified-html         | false  |
-| generate-minified-css          | false  |
-| generate-minified-javascript   | false  |
+| generate-minified-html         | false  | generate-minified-html-only          | false  |
+| generate-minified-css          | false  | generate-minified-css-only           | false  |
+| generate-minified-javascript   | false  | generate-minified-javascript-only    | false  |
 
 ## 使用 `settings.json`
 
