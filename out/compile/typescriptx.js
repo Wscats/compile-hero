@@ -13,30 +13,33 @@ const vscode = require("vscode");
 const ts = require("gulp-typescript");
 const { src, dest } = require("gulp");
 const uglify = require("gulp-uglify");
+const rename = require("gulp-rename");
 exports.typescriptxLoader = ({ fileName, outputPath, notificationStatus, compileOptions }) => {
     const tsxConfigPath = path.join(fileName, '../tsconfig.json');
     const isExistsTsxconfigPath = fs.existsSync(tsxConfigPath);
-    src(fileName)
-        .pipe((() => {
-        if (isExistsTsxconfigPath) {
-            const tsxConfig = ts.createProject(tsxConfigPath);
-            return ts({
-                jsx: "react",
-            }).pipe(tsxConfig()).on("error", (error) => {
-                false && vscode.window.showErrorMessage(error.message);
-                vscode.window.setStatusBarMessage(util_1.errorMessage);
-            });
-        }
-        else {
-            return ts({
-                jsx: "react",
-            }).on("error", (error) => {
-                false && vscode.window.showErrorMessage(error.message);
-                vscode.window.setStatusBarMessage(util_1.errorMessage);
-            });
-        }
-    })())
-        .pipe(dest(outputPath));
+    if (!compileOptions.generateMinifiedJsOnly) {
+        src(fileName)
+            .pipe((() => {
+            if (isExistsTsxconfigPath) {
+                const tsxConfig = ts.createProject(tsxConfigPath);
+                return ts({
+                    jsx: "react",
+                }).pipe(tsxConfig()).on("error", (error) => {
+                    false && vscode.window.showErrorMessage(error.message);
+                    vscode.window.setStatusBarMessage(util_1.errorMessage);
+                });
+            }
+            else {
+                return ts({
+                    jsx: "react",
+                }).on("error", (error) => {
+                    false && vscode.window.showErrorMessage(error.message);
+                    vscode.window.setStatusBarMessage(util_1.errorMessage);
+                });
+            }
+        })())
+            .pipe(dest(outputPath));
+    }
     if (compileOptions.generateMinifiedJs) {
         src(fileName)
             .pipe((() => {
@@ -59,6 +62,7 @@ exports.typescriptxLoader = ({ fileName, outputPath, notificationStatus, compile
             }
         })())
             .pipe(uglify())
+            .pipe((rename({ suffix: ".min" })))
             .pipe(dest(outputPath));
     }
     vscode.window.setStatusBarMessage(util_1.successMessage);

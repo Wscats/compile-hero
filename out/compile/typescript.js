@@ -13,26 +13,29 @@ const vscode = require("vscode");
 const ts = require("gulp-typescript");
 const { src, dest } = require("gulp");
 const uglify = require("gulp-uglify");
+const rename = require("gulp-rename");
 exports.typescriptLoader = ({ fileName, outputPath, notificationStatus, compileOptions }) => {
     const tsConfigPath = path.join(fileName, '../tsconfig.json');
     const isExistsTsconfigPath = fs.existsSync(tsConfigPath);
-    src(fileName)
-        .pipe((() => {
-        if (isExistsTsconfigPath) {
-            const tsConfig = ts.createProject(tsConfigPath);
-            return ts().pipe(tsConfig()).on("error", (error) => {
-                false && vscode.window.showErrorMessage(error.message);
-                vscode.window.setStatusBarMessage(util_1.errorMessage);
-            });
-        }
-        else {
-            return ts().on("error", (error) => {
-                false && vscode.window.showErrorMessage(error.message);
-                vscode.window.setStatusBarMessage(util_1.errorMessage);
-            });
-        }
-    })())
-        .pipe(dest(outputPath));
+    if (!compileOptions.generateMinifiedJsOnly) {
+        src(fileName)
+            .pipe((() => {
+            if (isExistsTsconfigPath) {
+                const tsConfig = ts.createProject(tsConfigPath);
+                return ts().pipe(tsConfig()).on("error", (error) => {
+                    false && vscode.window.showErrorMessage(error.message);
+                    vscode.window.setStatusBarMessage(util_1.errorMessage);
+                });
+            }
+            else {
+                return ts().on("error", (error) => {
+                    false && vscode.window.showErrorMessage(error.message);
+                    vscode.window.setStatusBarMessage(util_1.errorMessage);
+                });
+            }
+        })())
+            .pipe(dest(outputPath));
+    }
     if (compileOptions.generateMinifiedJs) {
         src(fileName)
             .pipe((() => {
@@ -54,6 +57,7 @@ exports.typescriptLoader = ({ fileName, outputPath, notificationStatus, compileO
             false && vscode.window.showErrorMessage(error.message);
             vscode.window.setStatusBarMessage(util_1.errorMessage);
         }))
+            .pipe((rename({ suffix: ".min" })))
             .pipe(dest(outputPath));
     }
     vscode.window.setStatusBarMessage(util_1.successMessage);

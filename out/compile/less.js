@@ -21,13 +21,15 @@ exports.lessLoader = ({ fileName, outputPath, notificationStatus, compileOptions
             paths: [path.join(fileName, '../')]
         }).then((output) => {
             css = output.css;
-            src(fileName)
-                .pipe(util_1.empty(css))
-                .pipe(rename({ extname: ".css" }))
-                .pipe(dest(outputPath))
-                .on("end", () => {
-                vscode.window.setStatusBarMessage(util_1.successMessage);
-            });
+            if (!compileOptions.generateMinifiedCssOnly) {
+                src(fileName)
+                    .pipe(util_1.empty(css))
+                    .pipe(rename({ extname: ".css" }))
+                    .pipe(dest(outputPath))
+                    .on("end", () => {
+                    vscode.window.setStatusBarMessage(util_1.successMessage);
+                });
+            }
             if (compileOptions.generateMinifiedCss) {
                 src(fileName)
                     .pipe(util_1.empty(css))

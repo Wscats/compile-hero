@@ -1,2 +1,6 @@
-const a = 2;
-window.console.log(1);
+const a = 1;
+a = 1
+
+window.console.log(a);
+
+

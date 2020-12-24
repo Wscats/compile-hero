@@ -14,12 +14,14 @@ const { src, dest } = require("gulp");
 const rename = require("gulp-rename");
 exports.pugLoader = ({ fileName, outputPath, notificationStatus, compileOptions, selectedText }) => {
     try {
-        const options = { pretty: true, filename: path.join(fileName) };
-        const html = selectedText ? pug.compile(selectedText, options)() : pug.renderFile(fileName, options);
-        src(fileName)
-            .pipe(util_1.empty(html))
-            .pipe(rename({ extname: ".html" }))
-            .pipe(dest(outputPath));
+        if (!compileOptions.generateMinifiedHtmlOnly) {
+            const options = { pretty: true, filename: path.join(fileName) };
+            const html = selectedText ? pug.compile(selectedText, options)() : pug.renderFile(fileName, options);
+            src(fileName)
+                .pipe(util_1.empty(html))
+                .pipe(rename({ extname: ".html" }))
+                .pipe(dest(outputPath));
+        }
     }
     catch (error) {
         notificationStatus && vscode.window.showErrorMessage(error.message);

@@ -227,8 +227,11 @@ exports.readFileName = ({ fileName, selectedText }) => __awaiter(void 0, void 0,
     let notificationStatus = config.get("notification-toggle");
     let compileOptions = {
         generateMinifiedHtml: config.get("generate-minified-html"),
+        generateMinifiedHtmlOnly: config.get("generate-minified-html-only"),
         generateMinifiedCss: config.get("generate-minified-css"),
+        generateMinifiedCssOnly: config.get("generate-minified-css-only"),
         generateMinifiedJs: config.get("generate-minified-javascript"),
+        generateMinifiedJsOnly: config.get("generate-minified-javascript-only"),
     };
     if (!compileStatus[fileSuffix])
         return;

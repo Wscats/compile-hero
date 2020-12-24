@@ -22,13 +22,15 @@ export const lessLoader = ({ fileName, outputPath, notificationStatus, compileOp
         }).then((output: any) => {
             css = output.css;
 
-            src(fileName)
-                .pipe(empty(css))
-                .pipe(rename({ extname: ".css" }))
-                .pipe(dest(outputPath))
-                .on("end", () => {
-                    vscode.window.setStatusBarMessage(successMessage);
-                });
+            if (!compileOptions.generateMinifiedCssOnly) {
+                src(fileName)
+                    .pipe(empty(css))
+                    .pipe(rename({ extname: ".css" }))
+                    .pipe(dest(outputPath))
+                    .on("end", () => {
+                        vscode.window.setStatusBarMessage(successMessage);
+                    });
+            }
 
             if (compileOptions.generateMinifiedCss) {
                 src(fileName)

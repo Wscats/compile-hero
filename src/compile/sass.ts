@@ -21,17 +21,8 @@ export const sassLoader = ({ fileName, outputPath, notificationStatus, compileOp
             includePaths: [path.join(fileName, '../')]
         }).css;
         const text = selectedText || sass.renderSync({ file: fileName }).css.toString();
-        src(fileName)
-            .pipe(empty(text))
-            .pipe(
-                rename({
-                    extname: ".css",
-                })
-            )
-            .pipe(dest(outputPath))
-            .pipe(dest(outputPath));
 
-        if (compileOptions.generateMinifiedCss) {
+        if (!compileOptions.generateMinifiedCssOnly) {
             src(fileName)
                 .pipe(empty(text))
                 .pipe(
@@ -40,6 +31,11 @@ export const sassLoader = ({ fileName, outputPath, notificationStatus, compileOp
                     })
                 )
                 .pipe(dest(outputPath))
+        }
+
+        if (compileOptions.generateMinifiedCss) {
+            src(fileName)
+                .pipe(empty(text))
                 .pipe(cssmin({ compatibility: "ie7" }))
                 .pipe(
                     rename({

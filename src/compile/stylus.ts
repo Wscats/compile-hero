@@ -19,13 +19,15 @@ export const stylusLoader = ({ fileName, outputPath, notificationStatus, compile
             // 作用域，支持 @import
             paths: [path.join(fileName, '../')],
         })
-        src(fileName)
-            .pipe(empty(css))
-            .pipe(rename({ extname: ".css" }))
-            .pipe(dest(outputPath))
-            .on("end", () => {
-                vscode.window.setStatusBarMessage(successMessage);
-            });
+        if (!compileOptions.generateMinifiedCssOnly) {
+            src(fileName)
+                .pipe(empty(css))
+                .pipe(rename({ extname: ".css" }))
+                .pipe(dest(outputPath))
+                .on("end", () => {
+                    vscode.window.setStatusBarMessage(successMessage);
+                });
+        }
 
         if (compileOptions.generateMinifiedCss) {
             src(fileName)

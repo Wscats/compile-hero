@@ -18,15 +18,17 @@ exports.javascriptLoader = ({ fileName, outputPath, notificationStatus, compileO
         vscode.window.setStatusBarMessage(`The prod or dev file has been processed and will not be compiled.`);
         return;
     }
-    src(fileName)
-        .pipe(babel({
-        presets: [babelEnv],
-    }).on("error", (error) => {
-        notificationStatus && vscode.window.showErrorMessage(error.message);
-        vscode.window.setStatusBarMessage(util_1.errorMessage);
-    }))
-        .pipe(rename({ suffix: ".dev" }))
-        .pipe(dest(outputPath));
+    if (!compileOptions.generateMinifiedJsOnly) {
+        src(fileName)
+            .pipe(babel({
+            presets: [babelEnv],
+        }).on("error", (error) => {
+            notificationStatus && vscode.window.showErrorMessage(error.message);
+            vscode.window.setStatusBarMessage(util_1.errorMessage);
+        }))
+            .pipe(rename({ suffix: ".dev" }))
+            .pipe(dest(outputPath));
+    }
     if (compileOptions.generateMinifiedJs) {
         src(fileName)
             .pipe(babel({
