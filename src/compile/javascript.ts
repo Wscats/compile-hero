@@ -21,17 +21,20 @@ export const javascriptLoader = ({ fileName, outputPath, notificationStatus, com
         return;
     }
 
-    src(fileName)
-        .pipe(
-            babel({
-                presets: [babelEnv],
-            }).on("error", (error: any) => {
-                notificationStatus && vscode.window.showErrorMessage(error.message);
-                vscode.window.setStatusBarMessage(errorMessage);
-            })
-        )
-        .pipe(rename({ suffix: ".dev" }))
-        .pipe(dest(outputPath));
+    if (!compileOptions.generateMinifiedJsOnly) {
+        src(fileName)
+            .pipe(
+                babel({
+                    presets: [babelEnv],
+                }).on("error", (error: any) => {
+                    notificationStatus && vscode.window.showErrorMessage(error.message);
+                    vscode.window.setStatusBarMessage(errorMessage);
+                })
+            )
+            .pipe(rename({ suffix: ".dev" }))
+            .pipe(dest(outputPath));
+    }
+
     if (compileOptions.generateMinifiedJs) {
         src(fileName)
             .pipe(

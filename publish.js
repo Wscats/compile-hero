@@ -244,15 +244,30 @@ const packageJson = {
                     "default": false,
                     "description": "Enable to generate minified html (*.min.html) files."
                 },
+                "compile-hero.generate-minified-html-only": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable to generate only minified html (*.min.html) files."
+                },
                 "compile-hero.generate-minified-css": {
                     "type": "boolean",
                     "default": false,
                     "description": "Enable to generate minified css (*.min.css) files."
                 },
+                "compile-hero.generate-minified-css-only": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable to generate only minified css (*.min.css) files."
+                },
                 "compile-hero.generate-minified-javascript": {
                     "type": "boolean",
                     "default": false,
                     "description": "Enable to generate minified javascript (*.dev.js) files."
+                },
+                "compile-hero.generate-minified-javascript-only": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable to generate only minified javascript (*.dev.js) files."
                 },
                 "compile-hero.ignore": {
                     "type": [

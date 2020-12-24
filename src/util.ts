@@ -51,9 +51,12 @@ export interface CompileStatus {
 }
 
 export interface CompileOptions {
-    generateMinifiedHtml: boolean | undefined;
-    generateMinifiedCss: boolean | undefined;
-    generateMinifiedJs: boolean | undefined;
+    generateMinifiedHtml: boolean | undefined,
+    generateMinifiedHtmlOnly: boolean | undefined,
+    generateMinifiedCss: boolean | undefined,
+    generateMinifiedCssOnly: boolean | undefined,
+    generateMinifiedJs: boolean | undefined,
+    generateMinifiedJsOnly: boolean | undefined,
 }
 
 export interface loaderOption {
@@ -279,8 +282,11 @@ export const readFileName = async ({ fileName, selectedText }: { fileName: strin
 
     let compileOptions: CompileOptions = {
         generateMinifiedHtml: config.get<boolean>("generate-minified-html"),
+        generateMinifiedHtmlOnly: config.get<boolean>("generate-minified-html-only"),
         generateMinifiedCss: config.get<boolean>("generate-minified-css"),
+        generateMinifiedCssOnly: config.get<boolean>("generate-minified-css-only"),
         generateMinifiedJs: config.get<boolean>("generate-minified-javascript"),
+        generateMinifiedJsOnly: config.get<boolean>("generate-minified-javascript-only"),
     };
 
     if (!compileStatus[fileSuffix]) return;
