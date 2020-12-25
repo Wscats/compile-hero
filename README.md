@@ -157,7 +157,7 @@ If you enjoy front end, you should have it! Xie, Yao, Yong, Ting, Jing, Lin, Tia
 
 </details> -->
 
-If you think it's useful, you can leave us a [message and like it](https://marketplace.visualstudio.com/items?itemName=Wscats.qf&ssr=false#review-details), Your support is our driving force😀
+If you think it's useful, you can leave us a [message and like it](https://marketplace.visualstudio.com/items?itemName=Wscats.eno&ssr=false#review-details), Your support is our driving force😀
 
 # Inspired By
 
