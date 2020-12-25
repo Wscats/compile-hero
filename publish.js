@@ -137,6 +137,24 @@ const packageJson = {
                     ".jsbeautifyrc",
                     ".jshintrc"
                 ]
+            },
+            {
+                "id": "sass",
+                "aliases": [
+                    "SASS"
+                ],
+                "extensions": [
+                    ".sass"
+                ]
+            },
+            {
+                "id": "stylus",
+                "aliases": [
+                    "styl"
+                ],
+                "extensions": [
+                    ".styl"
+                ]
             }
         ],
         "jsonValidation": [

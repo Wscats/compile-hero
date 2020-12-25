@@ -14,7 +14,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.veriableCheck = exports.readFileName = exports.getWorkspaceRoot = exports.getSelectedText = exports.complieDir = exports.complieFile = exports.empty = exports.transformPort = exports.command = exports.fileType = exports.readFileContext = exports.openBrowser = exports.open = exports.defaultBrowser = exports.standardizedBrowserName = exports.wsl = exports.docker = exports.errorMessage = exports.successMessage = void 0;
+exports.veriableCheck = exports.readFileName = exports.getWorkspaceRoot = exports.getSelectedText = exports.complieDir = exports.complieFile = exports.empty = exports.transformPort = exports.command = exports.fileType = exports.readFileContext = exports.openBrowser = exports.open = exports.defaultBrowser = exports.standardizedBrowserName = exports.wsl = exports.docker = exports.suffixs = exports.LANGUAGE_SUFFIX = exports.errorMessage = exports.successMessage = void 0;
 const vscode = require("vscode");
 const child_process_1 = require("child_process");
 const fs = require("fs");
@@ -33,6 +33,29 @@ const pug_1 = require("./compile/pug");
 const stylus_1 = require("./compile/stylus");
 exports.successMessage = "✔ Compilation Successed!";
 exports.errorMessage = "❌ Compilation Failed!";
+var LANGUAGE_SUFFIX;
+(function (LANGUAGE_SUFFIX) {
+    LANGUAGE_SUFFIX["JAVASCRIPT"] = ".js";
+    LANGUAGE_SUFFIX["SCSS"] = ".scss";
+    LANGUAGE_SUFFIX["SASS"] = ".sass";
+    LANGUAGE_SUFFIX["LESS"] = ".less";
+    LANGUAGE_SUFFIX["JADE"] = ".jade";
+    LANGUAGE_SUFFIX["TYPESCRIPT"] = ".ts";
+    LANGUAGE_SUFFIX["TYPESCRIPTX"] = ".tsx";
+    LANGUAGE_SUFFIX["PUG"] = ".pug";
+    LANGUAGE_SUFFIX["STYLUS"] = ".styl";
+})(LANGUAGE_SUFFIX = exports.LANGUAGE_SUFFIX || (exports.LANGUAGE_SUFFIX = {}));
+exports.suffixs = [
+    LANGUAGE_SUFFIX.JAVASCRIPT,
+    LANGUAGE_SUFFIX.SCSS,
+    LANGUAGE_SUFFIX.SASS,
+    LANGUAGE_SUFFIX.LESS,
+    LANGUAGE_SUFFIX.JADE,
+    LANGUAGE_SUFFIX.TYPESCRIPT,
+    LANGUAGE_SUFFIX.TYPESCRIPTX,
+    LANGUAGE_SUFFIX.PUG,
+    LANGUAGE_SUFFIX.STYLUS
+];
 let isDocker;
 exports.docker = () => {
     const hasDockerEnv = () => {
@@ -184,26 +207,26 @@ exports.readFileName = ({ fileName, selectedText }) => __awaiter(void 0, void 0,
     let fileSuffix = exports.fileType(fileName);
     let config = vscode.workspace.getConfiguration("compile-hero");
     let outputDirectoryPath = {
-        ".js": config.get("javascript-output-directory") || "",
-        ".scss": config.get("scss-output-directory") || "",
-        ".sass": config.get("sass-output-directory") || "",
-        ".less": config.get("less-output-directory") || "",
-        ".jade": config.get("jade-output-directory") || "",
-        ".ts": config.get("typescript-output-directory") || "",
-        ".tsx": config.get("typescriptx-output-directory") || "",
-        ".pug": config.get("pug-output-directory") || "",
-        ".styl": config.get("stylus-output-directory") || "",
+        [LANGUAGE_SUFFIX.JAVASCRIPT]: config.get("javascript-output-directory") || "",
+        [LANGUAGE_SUFFIX.SCSS]: config.get("scss-output-directory") || "",
+        [LANGUAGE_SUFFIX.SASS]: config.get("sass-output-directory") || "",
+        [LANGUAGE_SUFFIX.LESS]: config.get("less-output-directory") || "",
+        [LANGUAGE_SUFFIX.JADE]: config.get("jade-output-directory") || "",
+        [LANGUAGE_SUFFIX.TYPESCRIPT]: config.get("typescript-output-directory") || "",
+        [LANGUAGE_SUFFIX.TYPESCRIPTX]: config.get("typescriptx-output-directory") || "",
+        [LANGUAGE_SUFFIX.PUG]: config.get("pug-output-directory") || "",
+        [LANGUAGE_SUFFIX.STYLUS]: config.get("stylus-output-directory") || "",
     };
     let compileStatus = {
-        ".js": config.get("javascript-output-toggle"),
-        ".scss": config.get("scss-output-toggle"),
-        ".sass": config.get("sass-output-toggle"),
-        ".less": config.get("less-output-toggle"),
-        ".jade": config.get("jade-output-toggle"),
-        ".ts": config.get("typescript-output-toggle"),
-        ".tsx": config.get("typescriptx-output-toggle"),
-        ".pug": config.get("pug-output-toggle"),
-        ".styl": config.get("stylus-output-toggle"),
+        [LANGUAGE_SUFFIX.JAVASCRIPT]: config.get("javascript-output-toggle"),
+        [LANGUAGE_SUFFIX.SCSS]: config.get("scss-output-toggle"),
+        [LANGUAGE_SUFFIX.SASS]: config.get("sass-output-toggle"),
+        [LANGUAGE_SUFFIX.LESS]: config.get("less-output-toggle"),
+        [LANGUAGE_SUFFIX.JADE]: config.get("jade-output-toggle"),
+        [LANGUAGE_SUFFIX.TYPESCRIPT]: config.get("typescript-output-toggle"),
+        [LANGUAGE_SUFFIX.TYPESCRIPTX]: config.get("typescriptx-output-toggle"),
+        [LANGUAGE_SUFFIX.PUG]: config.get("pug-output-toggle"),
+        [LANGUAGE_SUFFIX.STYLUS]: config.get("stylus-output-toggle"),
     };
     let ignore = config.get("ignore") || [];
     let watch = config.get("watch") || [];
@@ -238,27 +261,27 @@ exports.readFileName = ({ fileName, selectedText }) => __awaiter(void 0, void 0,
     let outputPath = path.resolve(fileName, "../", outputDirectoryPath[fileSuffix]);
     let loaderOption = { fileName, outputPath, notificationStatus, compileOptions, selectedText };
     switch (fileSuffix) {
-        case ".scss":
-        case ".sass":
+        case LANGUAGE_SUFFIX.SCSS:
+        case LANGUAGE_SUFFIX.SASS:
             sass_1.sassLoader(loaderOption);
             break;
-        case ".js":
+        case LANGUAGE_SUFFIX.JAVASCRIPT:
             javascript_1.javascriptLoader(loaderOption);
             break;
-        case ".less":
+        case LANGUAGE_SUFFIX.LESS:
             less_1.lessLoader(loaderOption);
             break;
-        case ".ts":
+        case LANGUAGE_SUFFIX.TYPESCRIPT:
             typescript_1.typescriptLoader(loaderOption);
             break;
-        case ".tsx":
+        case LANGUAGE_SUFFIX.TYPESCRIPTX:
             typescriptx_1.typescriptxLoader(loaderOption);
             break;
-        case ".jade":
-        case ".pug":
+        case LANGUAGE_SUFFIX.JADE:
+        case LANGUAGE_SUFFIX.PUG:
             pug_1.pugLoader(loaderOption);
             break;
-        case ".styl":
+        case LANGUAGE_SUFFIX.STYLUS:
             stylus_1.stylusLoader(loaderOption);
             break;
     }

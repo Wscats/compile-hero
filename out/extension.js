@@ -67,6 +67,30 @@ function activate(context) {
         config.update("disable-compile-files-on-did-save-code", false);
         status_1.StatusBarUi.watching();
     });
+    let compileHeroStatus = vscode.window.onDidChangeActiveTextEditor((document) => {
+        if (!(document === null || document === void 0 ? void 0 : document.document.fileName)) {
+            status_1.StatusBarUi.hide();
+            return;
+        }
+        // 编辑器是否命中正确的编译文件，如果编译文件后缀正确才显示右下角状态栏
+        if (util_1.suffixs.includes(util_1.fileType(document === null || document === void 0 ? void 0 : document.document.fileName))) {
+            status_1.StatusBarUi.show();
+        }
+        else {
+            status_1.StatusBarUi.hide();
+        }
+    });
+    let compileHeroConfigure = vscode.workspace.onDidChangeConfiguration(() => {
+        // 修改配置，更新右下角底部状态栏
+        let config = vscode.workspace.getConfiguration("compile-hero");
+        let isDisable = config.get("disable-compile-files-on-did-save-code");
+        if (isDisable) {
+            status_1.StatusBarUi.notWatching();
+        }
+        else {
+            status_1.StatusBarUi.watching();
+        }
+    });
     formatters.configure();
     let beautify = vscode.commands.registerCommand('compile-hero.beautify', formatActiveDocument.bind(0, true));
     let beautifyFile = vscode.commands.registerCommand('compile-hero.beautifyFile', formatActiveDocument.bind(0, false));
@@ -78,6 +102,8 @@ function activate(context) {
     context.subscriptions.push(compileSelected);
     context.subscriptions.push(compileHeroOn);
     context.subscriptions.push(compileHeroOff);
+    context.subscriptions.push(compileHeroStatus);
+    context.subscriptions.push(compileHeroConfigure);
     context.subscriptions.push(beautify);
     context.subscriptions.push(beautifyFile);
     context.subscriptions.push(formattersConfigure);

@@ -26,28 +26,52 @@ import { stylusLoader } from './compile/stylus';
 export const successMessage = "✔ Compilation Successed!";
 export const errorMessage = "❌ Compilation Failed!";
 
+export enum LANGUAGE_SUFFIX {
+    JAVASCRIPT = ".js",
+    SCSS = ".scss",
+    SASS = ".sass",
+    LESS = ".less",
+    JADE = ".jade",
+    TYPESCRIPT = ".ts",
+    TYPESCRIPTX = ".tsx",
+    PUG = ".pug",
+    STYLUS = ".styl"
+}
+
+export const suffixs = [
+    LANGUAGE_SUFFIX.JAVASCRIPT,
+    LANGUAGE_SUFFIX.SCSS,
+    LANGUAGE_SUFFIX.SASS,
+    LANGUAGE_SUFFIX.LESS,
+    LANGUAGE_SUFFIX.JADE,
+    LANGUAGE_SUFFIX.TYPESCRIPT,
+    LANGUAGE_SUFFIX.TYPESCRIPTX,
+    LANGUAGE_SUFFIX.PUG,
+    LANGUAGE_SUFFIX.STYLUS
+];
+
 export interface OutputDirectoryPath {
-    ".js": string;
-    ".scss": string;
-    ".sass": string;
-    ".less": string;
-    ".jade": string;
-    ".ts": string;
-    ".tsx": string;
-    ".pug": string;
-    ".styl": string;
+    [LANGUAGE_SUFFIX.JAVASCRIPT]: string;
+    [LANGUAGE_SUFFIX.SCSS]: string;
+    [LANGUAGE_SUFFIX.SASS]: string;
+    [LANGUAGE_SUFFIX.LESS]: string;
+    [LANGUAGE_SUFFIX.JADE]: string;
+    [LANGUAGE_SUFFIX.TYPESCRIPT]: string;
+    [LANGUAGE_SUFFIX.TYPESCRIPTX]: string;
+    [LANGUAGE_SUFFIX.PUG]: string;
+    [LANGUAGE_SUFFIX.STYLUS]: string;
 }
 
 export interface CompileStatus {
-    ".js": boolean | undefined;
-    ".scss": boolean | undefined;
-    ".sass": boolean | undefined;
-    ".less": boolean | undefined;
-    ".jade": boolean | undefined;
-    ".ts": boolean | undefined;
-    ".tsx": boolean | undefined;
-    ".pug": boolean | undefined;
-    ".styl": boolean | undefined;
+    [LANGUAGE_SUFFIX.JAVASCRIPT]: boolean | undefined;
+    [LANGUAGE_SUFFIX.SCSS]: boolean | undefined;
+    [LANGUAGE_SUFFIX.SASS]: boolean | undefined;
+    [LANGUAGE_SUFFIX.LESS]: boolean | undefined;
+    [LANGUAGE_SUFFIX.JADE]: boolean | undefined;
+    [LANGUAGE_SUFFIX.TYPESCRIPT]: boolean | undefined;
+    [LANGUAGE_SUFFIX.TYPESCRIPTX]: boolean | undefined;
+    [LANGUAGE_SUFFIX.PUG]: boolean | undefined;
+    [LANGUAGE_SUFFIX.STYLUS]: boolean | undefined;
 }
 
 export interface CompileOptions {
@@ -136,15 +160,15 @@ export const openBrowser = (path: any): void => {
 
 
 export type FileSuffix =
-    | ".js"
-    | ".scss"
-    | ".sass"
-    | ".less"
-    | ".jade"
-    | ".ts"
-    | ".tsx"
-    | ".pug"
-    | ".styl";
+    | LANGUAGE_SUFFIX.JAVASCRIPT
+    | LANGUAGE_SUFFIX.SCSS
+    | LANGUAGE_SUFFIX.SASS
+    | LANGUAGE_SUFFIX.LESS
+    | LANGUAGE_SUFFIX.JADE
+    | LANGUAGE_SUFFIX.TYPESCRIPT
+    | LANGUAGE_SUFFIX.TYPESCRIPTX
+    | LANGUAGE_SUFFIX.PUG
+    | LANGUAGE_SUFFIX.STYLUS;
 
 export const readFileContext = (path: string): string => {
     return fs.readFileSync(path).toString();
@@ -244,26 +268,26 @@ export const readFileName = async ({ fileName, selectedText }: { fileName: strin
     let fileSuffix: FileSuffix = fileType(fileName);
     let config = vscode.workspace.getConfiguration("compile-hero");
     let outputDirectoryPath: OutputDirectoryPath = {
-        ".js": config.get<string>("javascript-output-directory") || "",
-        ".scss": config.get<string>("scss-output-directory") || "",
-        ".sass": config.get<string>("sass-output-directory") || "",
-        ".less": config.get<string>("less-output-directory") || "",
-        ".jade": config.get<string>("jade-output-directory") || "",
-        ".ts": config.get<string>("typescript-output-directory") || "",
-        ".tsx": config.get<string>("typescriptx-output-directory") || "",
-        ".pug": config.get<string>("pug-output-directory") || "",
-        ".styl": config.get<string>("stylus-output-directory") || "",
+        [LANGUAGE_SUFFIX.JAVASCRIPT]: config.get<string>("javascript-output-directory") || "",
+        [LANGUAGE_SUFFIX.SCSS]: config.get<string>("scss-output-directory") || "",
+        [LANGUAGE_SUFFIX.SASS]: config.get<string>("sass-output-directory") || "",
+        [LANGUAGE_SUFFIX.LESS]: config.get<string>("less-output-directory") || "",
+        [LANGUAGE_SUFFIX.JADE]: config.get<string>("jade-output-directory") || "",
+        [LANGUAGE_SUFFIX.TYPESCRIPT]: config.get<string>("typescript-output-directory") || "",
+        [LANGUAGE_SUFFIX.TYPESCRIPTX]: config.get<string>("typescriptx-output-directory") || "",
+        [LANGUAGE_SUFFIX.PUG]: config.get<string>("pug-output-directory") || "",
+        [LANGUAGE_SUFFIX.STYLUS]: config.get<string>("stylus-output-directory") || "",
     };
     let compileStatus: CompileStatus = {
-        ".js": config.get<boolean>("javascript-output-toggle"),
-        ".scss": config.get<boolean>("scss-output-toggle"),
-        ".sass": config.get<boolean>("sass-output-toggle"),
-        ".less": config.get<boolean>("less-output-toggle"),
-        ".jade": config.get<boolean>("jade-output-toggle"),
-        ".ts": config.get<boolean>("typescript-output-toggle"),
-        ".tsx": config.get<boolean>("typescriptx-output-toggle"),
-        ".pug": config.get<boolean>("pug-output-toggle"),
-        ".styl": config.get<boolean>("stylus-output-toggle"),
+        [LANGUAGE_SUFFIX.JAVASCRIPT]: config.get<boolean>("javascript-output-toggle"),
+        [LANGUAGE_SUFFIX.SCSS]: config.get<boolean>("scss-output-toggle"),
+        [LANGUAGE_SUFFIX.SASS]: config.get<boolean>("sass-output-toggle"),
+        [LANGUAGE_SUFFIX.LESS]: config.get<boolean>("less-output-toggle"),
+        [LANGUAGE_SUFFIX.JADE]: config.get<boolean>("jade-output-toggle"),
+        [LANGUAGE_SUFFIX.TYPESCRIPT]: config.get<boolean>("typescript-output-toggle"),
+        [LANGUAGE_SUFFIX.TYPESCRIPTX]: config.get<boolean>("typescriptx-output-toggle"),
+        [LANGUAGE_SUFFIX.PUG]: config.get<boolean>("pug-output-toggle"),
+        [LANGUAGE_SUFFIX.STYLUS]: config.get<boolean>("stylus-output-toggle"),
     };
     let ignore = config.get<string[] | string>("ignore") || [];
     let watch = config.get<string[] | string>("watch") || [];
@@ -293,27 +317,27 @@ export const readFileName = async ({ fileName, selectedText }: { fileName: strin
     let outputPath = path.resolve(fileName, "../", outputDirectoryPath[fileSuffix]);
     let loaderOption: loaderOption = { fileName, outputPath, notificationStatus, compileOptions, selectedText };
     switch (fileSuffix) {
-        case ".scss":
-        case ".sass":
+        case LANGUAGE_SUFFIX.SCSS:
+        case LANGUAGE_SUFFIX.SASS:
             sassLoader(loaderOption);
             break;
-        case ".js":
+        case LANGUAGE_SUFFIX.JAVASCRIPT:
             javascriptLoader(loaderOption);
             break;
-        case ".less":
+        case LANGUAGE_SUFFIX.LESS:
             lessLoader(loaderOption);
             break;
-        case ".ts":
+        case LANGUAGE_SUFFIX.TYPESCRIPT:
             typescriptLoader(loaderOption);
             break;
-        case ".tsx":
+        case LANGUAGE_SUFFIX.TYPESCRIPTX:
             typescriptxLoader(loaderOption);
             break;
-        case ".jade":
-        case ".pug":
+        case LANGUAGE_SUFFIX.JADE:
+        case LANGUAGE_SUFFIX.PUG:
             pugLoader(loaderOption);
             break;
-        case ".styl":
+        case LANGUAGE_SUFFIX.STYLUS:
             stylusLoader(loaderOption);
             break;
     }

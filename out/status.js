@@ -15,6 +15,12 @@ class StatusBarUi {
         }
         return StatusBarUi._statusBarItem;
     }
+    static show() {
+        this.statusBarItem.show();
+    }
+    static hide() {
+        this.statusBarItem.hide();
+    }
     static init(disableCompileFilesOnDidSaveCode) {
         StatusBarUi.working("Starting...");
         setTimeout(function () {

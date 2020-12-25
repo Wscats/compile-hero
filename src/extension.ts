@@ -9,7 +9,7 @@ import * as vscode from "vscode";
 import * as fs from "fs";
 
 import { StatusBarUi } from './status';
-import { command, transformPort, complieDir, complieFile, readFileName, getSelectedText, openBrowser } from './util';
+import { command, transformPort, complieDir, complieFile, readFileName, getSelectedText, openBrowser, fileType, suffixs } from './util';
 const { formatters, formatActiveDocument } = require("./beautify");
 
 export function activate(context: vscode.ExtensionContext) {
@@ -79,6 +79,30 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  let compileHeroStatus = vscode.window.onDidChangeActiveTextEditor((document) => {
+    if (!document?.document.fileName) {
+      StatusBarUi.hide();
+      return;
+    }
+    // 编辑器是否命中正确的编译文件，如果编译文件后缀正确才显示右下角状态栏
+    if (suffixs.includes(fileType(document?.document.fileName))) {
+      StatusBarUi.show();
+    } else {
+      StatusBarUi.hide();
+    }
+  })
+
+  let compileHeroConfigure = vscode.workspace.onDidChangeConfiguration(() => {
+    // 修改配置，更新右下角底部状态栏
+    let config = vscode.workspace.getConfiguration("compile-hero");
+    let isDisable = config.get("disable-compile-files-on-did-save-code");
+    if (isDisable) {
+      StatusBarUi.notWatching();
+    } else {
+      StatusBarUi.watching();
+    }
+  })
+
   formatters.configure();
   let beautify = vscode.commands.registerCommand('compile-hero.beautify', formatActiveDocument.bind(0, true));
   let beautifyFile = vscode.commands.registerCommand('compile-hero.beautifyFile', formatActiveDocument.bind(0, false));
@@ -91,6 +115,8 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(compileSelected);
   context.subscriptions.push(compileHeroOn);
   context.subscriptions.push(compileHeroOff);
+  context.subscriptions.push(compileHeroStatus);
+  context.subscriptions.push(compileHeroConfigure);
   context.subscriptions.push(beautify);
   context.subscriptions.push(beautifyFile);
   context.subscriptions.push(formattersConfigure);
