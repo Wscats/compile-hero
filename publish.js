@@ -80,7 +80,15 @@ const packageJson = {
         "formate"
     ],
     "activationEvents": [
-        "*",
+        "onLanguage:javascript",
+        "onLanguage:less",
+        "onLanguage:scss",
+        "onLanguage:sass",
+        "onLanguage:jade",
+        "onLanguage:pug",
+        "onLanguage:stylus",
+        "onLanguage:typescript",
+        "onLanguage:typescriptx",
         "onCommand:compile-hero.openInBrowser",
         "onCommand:compile-hero.closePort",
         "onCommand:compile-hero.compileFile",
