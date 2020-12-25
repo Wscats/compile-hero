@@ -553,7 +553,7 @@ switch (process.argv[2]) {
         packageJson.name = "qf";
         packageJson.displayName = "Formatter Hero - Beautify Sass/Less/Scss/Typescript/Javascript/Jade/Pug";
         packageJson.description = "🧣Beautify sass, less, scss, typescript, javascript, jade and pug.";
-        packageJson.version = "6.8.119";
+        packageJson.version = "6.8.120";
         packageJson.preview = true;
         packageJson.icon = "logos/hero4.png";
         packageJson.contributes.configuration.properties["compile-hero.disable-compile-files-on-did-save-code"] = {
@@ -591,14 +591,14 @@ switch (process.argv[2]) {
         break;
     case 'b':
         packageJson.name = "eno";
-        packageJson.displayName = "Sass/Less/Stylus/Typescript/Javascript/Jade/Pug Compile Hero Pro";
+        packageJson.displayName = "Sass/Less/Stylus/Pug/Jade/Typescript/Javascript Compile Hero Pro";
         packageJson.description = "🚀Easy to compile ts, tsx, scss, less, stylus, jade, pug and es6+ on save without using a build task.";
         packageJson.contributes.configuration.properties["compile-hero.disable-compile-files-on-did-save-code"] = {
             "type": "boolean",
             "default": true,
             "description": "Disable compile files on did save code."
         };
-        packageJson.version = "2.3.50";
+        packageJson.version = "2.3.51";
         packageJson.preview = true;
         packageJson.icon = "logos/hero2.png";
         fs.writeFileSync('./package.json', JSON.stringify(packageJson));
