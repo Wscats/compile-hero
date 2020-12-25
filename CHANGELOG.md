@@ -43,6 +43,7 @@
 - 2020-12-15 Support for `-output-directory` for `${folderPath}` and `${workspaceFolder}` variables can be added - [Feature: Variable support settings.json](https://github.com/Wscats/compile-hero/issues/84).
 - 2020-12-21 Use `compile-hero.watch` to monitor partial files - [Feature: Main SCSS file doesn't compile when partials are saved](https://github.com/Wscats/compile-hero/issues/94).
 - 2020-12-24 Add the following switches `generate-minified-html-only`, `generate-minified-css-only` and `generate-minified-javascript-only` - [Feature: How to keep only compressed files](https://github.com/Wscats/compile-hero/issues/95).
+- 2020-12-25 Optimize the startup method and reset the settings of activationEvents.
 
 # Unreleased
 

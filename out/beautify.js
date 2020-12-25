@@ -68,7 +68,6 @@ const getWorkspaceRoot = doc => {
 function fullEdit(type, doc, formattingOptions) {
     let name = doc.fileName;
     let base = getWorkspaceRoot(doc) || vscode.workspace.rootPath || '';
-    console.log(base);
     let ignore = vscode.workspace.getConfiguration('compile-hero', doc.uri)
         .ignore;
     console.log(ignore);
