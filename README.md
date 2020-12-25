@@ -9,15 +9,19 @@
 
 <!-- Easily work with `less, sass, scss, stylus, typescript, jade, pug and jsx` files in Visual Studio Code. -->
 
-> 1.Open the `less, sass, scss, stylus, ts, tsx, jade, pug or js` file.
+> 1.Open the `less, sass, scss, styl, ts, tsx, jade, pug or js` file.
 
 > 2.`Compile Hero: On/Off` will appear in the status bar at the bottom right corner, please turn on the `Compile Hero: On` switch when using ↓
 
-![9](https://user-images.githubusercontent.com/17243165/100497845-f3341980-3198-11eb-83bc-c551e17b0b84.png)
+<!-- ![9](https://user-images.githubusercontent.com/17243165/100497845-f3341980-3198-11eb-83bc-c551e17b0b84.png) -->
+
+![11](https://user-images.githubusercontent.com/17243165/103136646-1cdf5280-46fd-11eb-94a3-f78534835427.png)
 
 > 3.Compile on save `(ctrl+s)` ↓
 
-Or select `Compile Files` on right-click menu item for `less, sass, scss, stylus, typescript, jade, pug and jsx` files without using a build task.
+Or select `Compile Files` on right-click menu item, it will automatically compile the files to the `dist` directory.
+
+<!-- for `less, sass, scss, stylus, typescript, jade, pug and jsx` files without using a build task. -->
 
 ![1](https://user-images.githubusercontent.com/17243165/100497832-e1eb0d00-3198-11eb-967e-78d6736e5b6e.gif)
 ![3](https://user-images.githubusercontent.com/17243165/100497822-d7307800-3198-11eb-9a06-7b96c0862767.gif)
@@ -30,7 +34,7 @@ You can also select part of the code and use the `Compile Selected` menu item or
 
 ![8](https://user-images.githubusercontent.com/17243165/100497793-ae0fe780-3198-11eb-8b69-9c621a0cc9c6.gif)
 
-- Compile `less, sass, scss, stylus, typescript, typescriptreact, jade, pug and js` on save.
+- Compile `less, sass, scss, stylus, typescript, typescriptreact, jade, pug and javascript` on save.
 - Support autoprefixer for `less, scss, scss`.
 - Support to open `html` files to preview in browser.
 - minify `javascript` and `css` files.

@@ -11,13 +11,17 @@
 
 # 特性
 
-Visual Studio Code 中自动编译以下文件：`less, sass, scss, stylus, typescript, jade, pug and jsx`。
+<!-- Visual Studio Code 中自动编译以下文件：`less, sass, scss, stylus, typescript, jade, pug and jsx`。 -->
 
-> 1.使用之前打开编辑器右下角底部栏开关 `Compile Hero: On` ↓
+> 1.打开 `less, sass, scss, styl, ts, tsx, jade, pug` 或 `js` 等文件。
 
-![Demo](./screenshots/9.png)
+> 2.启动编辑器右下角底部栏开关 `Compile Hero: On` ↓
 
-> 2.按快捷键 `(ctrl+s)`
+<!-- ![Demo](./screenshots/9.png) -->
+
+![Demo](./screenshots/10.png)
+
+> 3.按快捷键 `(ctrl+s)`
 
 或者在文件列表右键菜单选择 `Compile Files` 命令启动编译，将会在该文件的同级目录 `dist` 下生成编译后的文件，希望能你远离 `webpack` 和 `gulp` 等编译工具繁琐的操作。
 
@@ -28,11 +32,11 @@ Visual Studio Code 中自动编译以下文件：`less, sass, scss, stylus, type
 
 ![Demo](./screenshots/10.gif)
 
-> 3.按快捷键 `(alt+shift+f)` 或者在文件列表右键菜单选择 `Format Document` 将会帮你自动格式化文件。
+> 4.按快捷键 `(alt+shift+f)` 或者在文件列表右键菜单选择 `Format Document` 将会帮你自动格式化文件。
 
 ![Demo](./screenshots/8.gif)
 
-- 按保存 `Ctrl+S` 会自动编译编译 `less, sass, scss, stylus, typescript, jade, pug and jsx` 等文件。
+- 按保存 `Ctrl+S` 会自动编译编译 `less, sass, scss, stylus, typescript, typescriptreact, jade, pug and js` 等文件。
 - 支持 `less, scss, scss` 等文件代码高亮。
 - 支持在默认浏览器打开 `html` 文件。
 - 支持压缩 `javascript` 和 `css` 文件。
