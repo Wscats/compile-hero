@@ -14,6 +14,7 @@ const uglify = require("gulp-uglify");
 const rename = require("gulp-rename");
 
 export const typescriptxLoader = ({ fileName, outputPath, notificationStatus, compileOptions }: loaderOption) => {
+    let config = vscode.workspace.getConfiguration("compile-hero");
     const tsxConfigPath = path.join(fileName, '../tsconfig.json');
     const isExistsTsxconfigPath = fs.existsSync(tsxConfigPath);
 
@@ -37,7 +38,12 @@ export const typescriptxLoader = ({ fileName, outputPath, notificationStatus, co
                     })
                 }
             })())
-            .pipe(dest(outputPath));
+            .pipe(dest(() => {
+                return outputPath.replace(
+                    config.get("template-root-development-directory"),
+                    config.get("template-destination-output-directory")
+                );
+            }));
     }
 
     if (compileOptions.generateMinifiedJs) {
@@ -61,8 +67,13 @@ export const typescriptxLoader = ({ fileName, outputPath, notificationStatus, co
                 }
             })())
             .pipe(uglify())
-            .pipe((rename({ suffix: ".min" })))
-            .pipe(dest(outputPath));
+            .pipe((rename({ suffix: config.get("template-minified-output-suffix") })))
+            .pipe(dest(() => {
+                return outputPath.replace(
+                    config.get("template-root-development-directory"),
+                    config.get("template-destination-minified-output-directory")
+                );
+            }));
     }
     vscode.window.setStatusBarMessage(successMessage);
 }

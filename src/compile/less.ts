@@ -14,6 +14,7 @@ const less = require("less");
 const rename = require("gulp-rename");
 
 export const lessLoader = ({ fileName, outputPath, notificationStatus, compileOptions, selectedText }: loaderOption) => {
+    let config = vscode.workspace.getConfiguration("compile-hero");
     try {
         let css = "";
         less.render(selectedText || readFileContext(fileName), {
@@ -26,7 +27,12 @@ export const lessLoader = ({ fileName, outputPath, notificationStatus, compileOp
                 src(fileName)
                     .pipe(empty(css))
                     .pipe(rename({ extname: ".css" }))
-                    .pipe(dest(outputPath))
+                    .pipe(dest(() => {
+                        return outputPath.replace(
+                            config.get("template-root-development-directory"),
+                            config.get("template-destination-output-directory")
+                        );
+                    }))
                     .on("end", () => {
                         vscode.window.setStatusBarMessage(successMessage);
                     });
@@ -36,8 +42,13 @@ export const lessLoader = ({ fileName, outputPath, notificationStatus, compileOp
                 src(fileName)
                     .pipe(empty(css))
                     .pipe(cssmin({ compatibility: "ie7" }))
-                    .pipe(rename({ suffix: ".min", extname: ".css" }))
-                    .pipe(dest(outputPath))
+                    .pipe(rename({ suffix: config.get("template-minified-output-suffix"), extname: ".css" }))
+                    .pipe(dest(() => {
+                        return outputPath.replace(
+                            config.get("template-root-development-directory"),
+                            config.get("template-destination-minified-output-directory")
+                        );
+                    }))
                     .on("end", () => {
                         vscode.window.setStatusBarMessage(successMessage);
                     });

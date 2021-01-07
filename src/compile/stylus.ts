@@ -14,6 +14,7 @@ const cssmin = require("gulp-minify-css");
 const rename = require("gulp-rename");
 
 export const stylusLoader = ({ fileName, outputPath, notificationStatus, compileOptions, selectedText }: loaderOption) => {
+    let config = vscode.workspace.getConfiguration("compile-hero");
     try {
         const css = stylus.render(selectedText || readFileContext(fileName), {
             // 作用域，支持 @import
@@ -23,7 +24,12 @@ export const stylusLoader = ({ fileName, outputPath, notificationStatus, compile
             src(fileName)
                 .pipe(empty(css))
                 .pipe(rename({ extname: ".css" }))
-                .pipe(dest(outputPath))
+                .pipe(dest(() => {
+                    return outputPath.replace(
+                        config.get("template-root-development-directory"),
+                        config.get("template-destination-output-directory")
+                    );
+                }))
                 .on("end", () => {
                     vscode.window.setStatusBarMessage(successMessage);
                 });
@@ -33,8 +39,13 @@ export const stylusLoader = ({ fileName, outputPath, notificationStatus, compile
             src(fileName)
                 .pipe(empty(css))
                 .pipe(cssmin({ compatibility: "ie7" }))
-                .pipe(rename({ suffix: ".min", extname: ".css" }))
-                .pipe(dest(outputPath))
+                .pipe(rename({ suffix: config.get("template-minified-output-suffix"), extname: ".css" }))
+                .pipe(dest(() => {
+                    return outputPath.replace(
+                        config.get("template-root-development-directory"),
+                        config.get("template-destination-minified-output-directory")
+                    );
+                }))
                 .on("end", () => {
                     vscode.window.setStatusBarMessage(successMessage);
                 });

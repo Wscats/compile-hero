@@ -14,6 +14,7 @@ const rename = require("gulp-rename");
 import { empty, successMessage, errorMessage, loaderOption } from '../util';
 
 export const sassLoader = ({ fileName, outputPath, notificationStatus, compileOptions, selectedText }: loaderOption) => {
+    let config = vscode.workspace.getConfiguration("compile-hero");
     try {
         selectedText = selectedText && sass.renderSync({
             data: selectedText,
@@ -30,7 +31,12 @@ export const sassLoader = ({ fileName, outputPath, notificationStatus, compileOp
                         extname: ".css",
                     })
                 )
-                .pipe(dest(outputPath))
+                .pipe(dest(() => {
+                    return outputPath.replace(
+                        config.get("template-root-development-directory"),
+                        config.get("template-destination-output-directory")
+                    );
+                }))
         }
 
         if (compileOptions.generateMinifiedCss) {
@@ -40,10 +46,15 @@ export const sassLoader = ({ fileName, outputPath, notificationStatus, compileOp
                 .pipe(
                     rename({
                         extname: ".css",
-                        suffix: ".min",
+                        suffix: config.get("template-minified-output-suffix"),
                     })
                 )
-                .pipe(dest(outputPath));
+                .pipe(dest(() => {
+                    return outputPath.replace(
+                        config.get("template-root-development-directory"),
+                        config.get("template-destination-minified-output-directory")
+                    );
+                }));
         }
         vscode.window.setStatusBarMessage(successMessage);
     } catch (error) {

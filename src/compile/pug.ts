@@ -13,6 +13,7 @@ const { src, dest } = require("gulp");
 const rename = require("gulp-rename");
 
 export const pugLoader = ({ fileName, outputPath, notificationStatus, compileOptions, selectedText }: loaderOption) => {
+    let config = vscode.workspace.getConfiguration("compile-hero");
     try {
         if (!compileOptions.generateMinifiedHtmlOnly) {
             const options = { pretty: true, filename: path.join(fileName) };
@@ -20,7 +21,12 @@ export const pugLoader = ({ fileName, outputPath, notificationStatus, compileOpt
             src(fileName)
                 .pipe(empty(html))
                 .pipe(rename({ extname: ".html" }))
-                .pipe(dest(outputPath));
+                .pipe(dest(() => {
+                    return outputPath.replace(
+                        config.get("template-root-development-directory"),
+                        config.get("template-destination-output-directory")
+                    );
+                }));
         }
     } catch (error) {
         notificationStatus && vscode.window.showErrorMessage(error.message);
@@ -32,8 +38,13 @@ export const pugLoader = ({ fileName, outputPath, notificationStatus, compileOpt
         const html = selectedText ? pug.compile(selectedText, options)() : pug.renderFile(fileName, options);
         src(fileName)
             .pipe(empty(html))
-            .pipe(rename({ suffix: ".min", extname: ".html" }))
-            .pipe(dest(outputPath));
+            .pipe(rename({ suffix: config.get("template-minified-output-suffix"), extname: ".html" }))
+            .pipe(dest(() => {
+                return outputPath.replace(
+                    config.get("template-root-development-directory"),
+                    config.get("template-destination-minified-output-directory")
+                );
+            }));
     }
     vscode.window.setStatusBarMessage(successMessage);
 }

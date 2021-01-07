@@ -14,6 +14,7 @@ const rename = require("gulp-rename");
 import { successMessage, errorMessage, loaderOption } from '../util';
 
 export const javascriptLoader = ({ fileName, outputPath, notificationStatus, compileOptions }: loaderOption) => {
+    let config = vscode.workspace.getConfiguration("compile-hero");
     if (/.dev.js|.prod.js$/g.test(fileName)) {
         vscode.window.setStatusBarMessage(
             `The prod or dev file has been processed and will not be compiled.`
@@ -32,7 +33,12 @@ export const javascriptLoader = ({ fileName, outputPath, notificationStatus, com
                 })
             )
             .pipe(rename({ suffix: ".dev" }))
-            .pipe(dest(outputPath));
+            .pipe(dest(() => {
+                return outputPath.replace(
+                    config.get("template-root-development-directory"),
+                    config.get("template-destination-output-directory")
+                );
+            }));
     }
 
     if (compileOptions.generateMinifiedJs) {
@@ -46,8 +52,13 @@ export const javascriptLoader = ({ fileName, outputPath, notificationStatus, com
                 })
             )
             .pipe(uglify())
-            .pipe(rename({ suffix: ".prod" }))
-            .pipe(dest(outputPath));
+            .pipe(rename({ suffix: config.get("template-minified-output-suffix") }))
+            .pipe(dest(() => {
+                return outputPath.replace(
+                    config.get("template-root-development-directory"),
+                    config.get("template-destination-minified-output-directory")
+                );
+            }));
     }
     vscode.window.setStatusBarMessage(successMessage);
 }
