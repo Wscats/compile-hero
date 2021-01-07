@@ -153,17 +153,17 @@ At some point, you may be using ports for some services. You can use the `Close 
 ![4](https://user-images.githubusercontent.com/17243165/100497713-422d7f00-3198-11eb-8e63-53573a71e62b.gif)
 
 # Simple template for development
-|||
+Description|Screenshot
 -|-
-1. Let's create a variant of the project structure.<br>_App - our root directory.<br>Build - files after compilation.<br>Dev - files before compilation (our working files).<br>Resources - application resources (images, etc.)_|![Template_01](https://user-images.githubusercontent.com/5076458/103905709-03cc9d80-5110-11eb-9ca6-93484ae2629f.jpg)
-2. Let's create structures and several files in the Dev folder to work on.|![Template_02](https://user-images.githubusercontent.com/5076458/103905711-04653400-5110-11eb-8578-f6b9c4347ff5.jpg)
-3. Let's clear **all** the default settings for specifying the output directories of our compiled files.|![Template_03](https://user-images.githubusercontent.com/5076458/103905720-062ef780-5110-11eb-9bc3-d91a92dee284.jpg)
-4. Now let's set up the directory of our compiled files (just in the file path, the _\Dev_ directory will be replaced with _\Build_ to write the compiled file).|![Template_04](https://user-images.githubusercontent.com/5076458/103905723-06c78e00-5110-11eb-9098-0acea6b53b7d.jpg)
-5. We are working on our project. When saving files, their compiled version will automatically appear in our _\Build_ directory for compiled versions, while maintaining the specified folder structure.|![Template_05](https://user-images.githubusercontent.com/5076458/103905724-07602480-5110-11eb-8c40-6dde74ae99c9.jpg)
-6. We can also configure the receipt of the minified version of our files (the _\Mini_ folder in this case), and, if necessary, the suffix in the name of the minified version (in this case _.mini_)|![Template_06](https://user-images.githubusercontent.com/5076458/103905727-0929e800-5110-11eb-88d5-21857a515c88.jpg)
-7. Also have to make settings to get minified version of files.|![Template_07](https://user-images.githubusercontent.com/5076458/103905736-0a5b1500-5110-11eb-8186-c04e061c0278.jpg)
-8. As a result, our project will look like this.|![Template_08](https://user-images.githubusercontent.com/5076458/103905743-0af3ab80-5110-11eb-81fa-d0a2b569d14c.jpg)
-9. Alternatively, if we are not interested in the intermediate compilation result, but only in the source code and its compiled already minified version, we can easily configure this by enabling obtaining only the minified version of our files (with _\Mini_, but without _\Build_).|![Template_09](https://user-images.githubusercontent.com/5076458/103905747-0b8c4200-5110-11eb-958d-bd10dabf390a.jpg)
+1\. Let's create a variant of the project structure.<br>_App - our root directory.<br>Build - files after compilation.<br>Dev - files before compilation (our working files).<br>Resources - application resources (images, etc.)_|![Template_01](https://user-images.githubusercontent.com/5076458/103905709-03cc9d80-5110-11eb-9ca6-93484ae2629f.jpg)
+2\. Let's create structures and several files in the Dev folder to work on.|![Template_02](https://user-images.githubusercontent.com/5076458/103905711-04653400-5110-11eb-8578-f6b9c4347ff5.jpg)
+3\. Let's clear **all** the default settings for specifying the output directories of our compiled files.|![Template_03](https://user-images.githubusercontent.com/5076458/103905720-062ef780-5110-11eb-9bc3-d91a92dee284.jpg)
+4\. Now let's set up the directory of our compiled files (just in the file path, the _\Dev_ directory will be replaced with _\Build_ to write the compiled file).|![Template_04](https://user-images.githubusercontent.com/5076458/103905723-06c78e00-5110-11eb-9098-0acea6b53b7d.jpg)
+5\. We are working on our project. When saving files, their compiled version will automatically appear in our _\Build_ directory for compiled versions, while maintaining the specified folder structure.|![Template_05](https://user-images.githubusercontent.com/5076458/103905724-07602480-5110-11eb-8c40-6dde74ae99c9.jpg)
+6\. We can also configure the receipt of the minified version of our files (the _\Mini_ folder in this case), and, if necessary, the suffix in the name of the minified version (in this case _.mini_)|![Template_06](https://user-images.githubusercontent.com/5076458/103905727-0929e800-5110-11eb-88d5-21857a515c88.jpg)
+7\. Also have to make settings to get minified version of files.|![Template_07](https://user-images.githubusercontent.com/5076458/103905736-0a5b1500-5110-11eb-8186-c04e061c0278.jpg)
+8\. As a result, our project will look like this.|![Template_08](https://user-images.githubusercontent.com/5076458/103905743-0af3ab80-5110-11eb-81fa-d0a2b569d14c.jpg)
+9\. Alternatively, if we are not interested in the intermediate compilation result, but only in the source code and its compiled already minified version, we can easily configure this by enabling obtaining only the minified version of our files (with _\Mini_, but without _\Build_).|![Template_09](https://user-images.githubusercontent.com/5076458/103905747-0b8c4200-5110-11eb-958d-bd10dabf390a.jpg)
 
 After development, we can upload the _\Build_ (or _\Mini_) folder with the _\Resources_ folder to the server 😎
 
