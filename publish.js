@@ -9,7 +9,7 @@ const packageJson = {
         "url": "https://github.com/Wscats"
     },
     "publisher": "Wscats",
-    "version": "2.3.26",
+    "version": "2.3.54",
     "preview": true,
     "icon": "logos/hero2.png",
     "homepage": "https://github.com/Wscats/compile-hero",
@@ -315,6 +315,26 @@ const packageJson = {
                     "description": "List of paths to watch when using format or compile command, including format or compile on save, uses glob pattern matching.",
                     "scope": "resource"
                 },
+				"compile-hero.template-root-development-directory": {
+					"type": "string",
+					"default": "",
+					"description": "Root development directory."
+				},
+				"compile-hero.template-destination-output-directory": {
+					"type": "string",
+					"default": "",
+					"description": "Destination deploying directory."
+				},
+				"compile-hero.template-destination-minified-output-directory": {
+					"type": "string",
+					"default": "",
+					"description": "Destination deploying directory for minified version."
+				},
+				"compile-hero.template-minified-output-suffix": {
+					"type": "string",
+					"default": "",
+					"description": "Suffix for minified version."
+				},
                 "compile-hero.config": {
                     "type": [
                         "string",
