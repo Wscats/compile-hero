@@ -524,7 +524,6 @@ const packageJson = {
         "build:beautify": "node publish b && vsce package",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
         "test": "yarn run compile && node ./node_modules/vscode/bin/test"
     },
     "dependencies": {
@@ -546,9 +545,9 @@ const packageJson = {
         "stylus": "^0.54.8"
     },
     "devDependencies": {
-        "vscode": "^1.1.28",
         "@types/mocha": "^2.2.42",
         "@types/node": "^10.12.21",
+        "@types/vscode": "^1.39.0",
     }
 }
 
