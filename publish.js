@@ -524,8 +524,7 @@ const packageJson = {
         "build:beautify": "node publish b && vsce package",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "yarn run compile && node ./node_modules/vscode/bin/test"
+        "test": "yarn run compile && node ./out/test/runTests.js"
     },
     "dependencies": {
         "@babel/core": "^7.7.0",
@@ -546,9 +545,13 @@ const packageJson = {
         "stylus": "^0.54.8"
     },
     "devDependencies": {
-        "vscode": "^1.1.28",
+        "@types/glob": "^7.2.0",
         "@types/mocha": "^2.2.42",
         "@types/node": "^10.12.21",
+        "@types/vscode": "^1.39.0",
+        "@vscode/test-electron": "^2.1.3",
+        "glob": "^7.2.0",
+        "mocha": "^9.2.2",
     }
 }
 
