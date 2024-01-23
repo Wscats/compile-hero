@@ -1,7 +1,7 @@
 <a href="https://github.com/Wscats/compile-hero"><img src="https://img.shields.io/badge/Github Page-Wscats-yellow" alt="Github Page" /></a>
 <a href="https://github.com/Wscats"><img src="https://img.shields.io/badge/Author-Eno Yao-blueviolet" alt="Eno Yao" /></a>
-![badge version](https://vsmarketplacebadge.apphb.com/version-short/wscats.eno.svg?color=blue&style=flat-square)
-![badge install](https://vsmarketplacebadge.apphb.com/installs-short/wscats.eno.svg?color=brightgreen&style=flat-square)
+![badge version](https://vsmarketplacebadges.dev/version-short/wscats.eno.svg?color=blue&style=flat-square)
+![badge install](https://vsmarketplacebadges.dev/installs-short/wscats.eno.svg?color=brightgreen&style=flat-square)
 
 [English](https://github.com/Wscats/compile-hero/blob/master/README.md) | [中文](https://gitee.com/wscats/compile-hero/blob/master/README.CN.md)
 
