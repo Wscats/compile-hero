@@ -9,31 +9,57 @@ on:
     types: [created]
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20, 22]
+
     steps:
       - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run compile
-      - run: npm run bundle
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Type check
+        run: pnpm typecheck
+
+      - name: Bundle
+        run: pnpm bundle
 
   publish:
-    needs: build
+    needs: ci
     runs-on: ubuntu-latest
     if: github.event_name == 'release'
     steps:
       - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run bundle
+          node-version: "20"
+          cache: "pnpm"
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Bundle for production
+        run: pnpm bundle
+
       - name: Publish to VSCode Marketplace
-        run: npx @vscode/vsce publish
+        run: pnpm exec vsce publish
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
