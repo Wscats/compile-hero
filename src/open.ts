@@ -30,7 +30,7 @@ const wslGetWindowsEnvVar = async (envVar: string) => {
     return stdout.trim();
 };
 
-export default async (target: string, options: any) => {
+export default async (target: string, options: unknown) => {
     if (typeof target !== 'string') {
         throw new TypeError('Expected a `target`');
     }
@@ -46,7 +46,7 @@ export default async (target: string, options: any) => {
     let { app } = options;
     let appArguments = [];
     const cliArguments = [];
-    const childProcessOptions: any = {};
+    const childProcessOptions: unknown = {};
 
     if (Array.isArray(app)) {
         appArguments = app.slice(1);

@@ -26,7 +26,7 @@ export const javascriptLoader = ({ fileName, outputPath, notificationStatus, com
             .pipe(
                 babel({
                     presets: [babelEnv],
-                }).on("error", (error: any) => {
+                }).on("error", (error: unknown) => {
                     notificationStatus && vscode.window.showErrorMessage(error.message);
                     vscode.window.setStatusBarMessage(errorMessage);
                 })
@@ -40,7 +40,7 @@ export const javascriptLoader = ({ fileName, outputPath, notificationStatus, com
             .pipe(
                 babel({
                     presets: [babelEnv],
-                }).on("error", (error: any) => {
+                }).on("error", (error: unknown) => {
                     notificationStatus && vscode.window.showErrorMessage(error.message);
                     vscode.window.setStatusBarMessage(errorMessage);
                 })

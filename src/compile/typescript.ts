@@ -22,12 +22,12 @@ export const typescriptLoader = ({ fileName, outputPath, notificationStatus, com
             .pipe((() => {
                 if (isExistsTsconfigPath) {
                     const tsConfig = ts.createProject(tsConfigPath);
-                    return ts().pipe(tsConfig()).on("error", (error: any) => {
+                    return ts().pipe(tsConfig()).on("error", (error: unknown) => {
                         false && vscode.window.showErrorMessage(error.message);
                         vscode.window.setStatusBarMessage(errorMessage);
                     })
                 } else {
-                    return ts().on("error", (error: any) => {
+                    return ts().on("error", (error: unknown) => {
                         false && vscode.window.showErrorMessage(error.message);
                         vscode.window.setStatusBarMessage(errorMessage);
                     })
@@ -40,19 +40,19 @@ export const typescriptLoader = ({ fileName, outputPath, notificationStatus, com
             .pipe((() => {
                 if (isExistsTsconfigPath) {
                     const tsConfig = ts.createProject(tsConfigPath);
-                    return ts().pipe(tsConfig()).on("error", (error: any) => {
+                    return ts().pipe(tsConfig()).on("error", (error: unknown) => {
                         false && vscode.window.showErrorMessage(error.message);
                         vscode.window.setStatusBarMessage(errorMessage);
                     })
                 } else {
-                    return ts().on("error", (error: any) => {
+                    return ts().on("error", (error: unknown) => {
                         false && vscode.window.showErrorMessage(error.message);
                         vscode.window.setStatusBarMessage(errorMessage);
                     })
                 }
             })())
             .pipe(
-                uglify().on("error", (error: any) => {
+                uglify().on("error", (error: unknown) => {
                     false && vscode.window.showErrorMessage(error.message);
                     vscode.window.setStatusBarMessage(errorMessage);
                 })

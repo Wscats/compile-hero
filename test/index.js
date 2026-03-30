@@ -1,3 +1,5 @@
+'use strict';
+
 class A {
     plus(a, b) {
         window.enoDebug = () => { };

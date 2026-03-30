@@ -13,7 +13,8 @@
   "icon": "logos/hero2.png",
   "homepage": "https://github.com/Wscats/compile-hero",
   "engines": {
-    "vscode": "^1.39.0"
+    "vscode": "^1.39.0",
+    "node": ">=18.0.0"
   },
   "badges": [
     {
@@ -526,7 +527,10 @@
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "yarn run compile && node ./node_modules/vscode/bin/test",
     "lint": "eslint src --ext .ts,.tsx,.js,.jsx --fix",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "lint:check": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@babel/core": "^7.7.0",

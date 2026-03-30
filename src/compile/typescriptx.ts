@@ -24,14 +24,14 @@ export const typescriptxLoader = ({ fileName, outputPath, notificationStatus, co
                     const tsxConfig = ts.createProject(tsxConfigPath);
                     return ts({
                         jsx: "react",
-                    }).pipe(tsxConfig()).on("error", (error: any) => {
+                    }).pipe(tsxConfig()).on("error", (error: unknown) => {
                         false && vscode.window.showErrorMessage(error.message);
                         vscode.window.setStatusBarMessage(errorMessage);
                     })
                 } else {
                     return ts({
                         jsx: "react",
-                    }).on("error", (error: any) => {
+                    }).on("error", (error: unknown) => {
                         false && vscode.window.showErrorMessage(error.message);
                         vscode.window.setStatusBarMessage(errorMessage);
                     })
@@ -47,14 +47,14 @@ export const typescriptxLoader = ({ fileName, outputPath, notificationStatus, co
                     const tsxConfig = ts.createProject(tsxConfigPath);
                     return ts({
                         jsx: "react",
-                    }).pipe(tsxConfig()).on("error", (error: any) => {
+                    }).pipe(tsxConfig()).on("error", (error: unknown) => {
                         false && vscode.window.showErrorMessage(error.message);
                         vscode.window.setStatusBarMessage(errorMessage);
                     })
                 } else {
                     return ts({
                         jsx: "react",
-                    }).on("error", (error: any) => {
+                    }).on("error", (error: unknown) => {
                         false && vscode.window.showErrorMessage(error.message);
                         vscode.window.setStatusBarMessage(errorMessage);
                     })

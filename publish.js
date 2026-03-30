@@ -1,3 +1,5 @@
+'use strict';
+
 const fs = require('fs');
 const packageJson = {
     "name": "eno",
@@ -468,7 +470,7 @@ const packageJson = {
         "menus": {
             "explorer/context": [
                 {
-                    "when": "resourceLangId == html",
+                    "when": "resourceLangId === html",
                     "command": "compile-hero.openInBrowser",
                     "group": "open-in-browser"
                 },
@@ -484,7 +486,7 @@ const packageJson = {
             ],
             "editor/context": [
                 {
-                    "when": "resourceLangId == html",
+                    "when": "resourceLangId === html",
                     "command": "compile-hero.openInBrowser",
                     "group": "open-in-browser"
                 },
@@ -500,7 +502,7 @@ const packageJson = {
             ],
             "editor/title/context": [
                 {
-                    "when": "resourceLangId == html",
+                    "when": "resourceLangId === html",
                     "command": "compile-hero.openInBrowser",
                     "group": "open-in-browser"
                 },

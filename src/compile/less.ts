@@ -19,7 +19,7 @@ export const lessLoader = ({ fileName, outputPath, notificationStatus, compileOp
         less.render(selectedText || readFileContext(fileName), {
             // 作用域，支持 @import
             paths: [path.join(fileName, '../')]
-        }).then((output: any) => {
+        }).then((output: unknown) => {
             css = output.css;
 
             if (!compileOptions.generateMinifiedCssOnly) {
@@ -42,7 +42,7 @@ export const lessLoader = ({ fileName, outputPath, notificationStatus, compileOp
                         vscode.window.setStatusBarMessage(successMessage);
                     });
             }
-        }).catch((error: any) => {
+        }).catch((error: unknown) => {
             const message = error.message + ' in file ' + error.filename + ' line no. ' + error.line;
             notificationStatus && vscode.window.showErrorMessage(message);
             vscode.window.setStatusBarMessage(errorMessage);
